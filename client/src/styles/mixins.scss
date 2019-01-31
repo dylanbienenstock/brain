@@ -1,0 +1,68 @@
+@import "variables";
+
+@mixin page {
+    position: absolute;
+    left: 0;
+    top: $navbar-height;
+    width: 100%;
+    height: calc(100% - #{ $navbar-height });
+    font-size: 0;
+}
+
+@mixin tile($is-button) {
+    $start: 14%;
+    $end:   10%;
+    $hover: 2%;
+
+    box-sizing: border-box;
+
+    background: linear-gradient(135deg,
+        lighten(black, $start) 0%,
+        lighten(black, $end) 100%);
+
+    @if $is-button == true {
+        @include not-mobile {
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(135deg,
+                    hsl($accent-hue, 80%, 14%) 0%,
+                    hsl($accent-hue, 80%, 9%) 100%);
+            }
+        }
+    }
+}
+
+@mixin tile-text {
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    font-size: 18px;
+}
+
+@mixin tile-hover {
+    cursor: pointer;
+
+    @include not-mobile {
+        &:hover {
+            background: linear-gradient(135deg,
+                hsl($accent-hue, 100%, 14%) 0%,
+                hsl($accent-hue, 100%, 9%) 100%);
+        }
+    }
+}
+
+@mixin mobile {
+    @media (max-width: 786px) {
+        @content;
+    }
+}
+
+@mixin not-mobile {
+    @media (min-width: 786px) {
+        @content;
+    }
+}

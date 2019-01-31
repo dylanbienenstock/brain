@@ -1,0 +1,8 @@
+@import "variables";
+
+:host {
+    .content {
+        display: grid;
+        grid-template-rows: $navbar-height auto;
+    }
+}

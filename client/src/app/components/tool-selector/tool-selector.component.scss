@@ -1,0 +1,22 @@
+@import "mixins";
+
+:host {
+    @include page;
+
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+
+    @include mobile {
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr;
+    }
+
+    .tool {
+        @include tile(true);
+
+        .text {
+            @include tile-text;
+        }
+    }
+}

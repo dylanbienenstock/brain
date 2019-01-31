@@ -1,0 +1,62 @@
+@import "variables";
+@import "mixins";
+
+:host {
+    @include tile(false);
+
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 8px black;
+
+    display: flex;
+    flex-flow: row nowrap;
+
+    box-sizing: border-box;
+    padding-left: 16px;
+
+    font-size: 20px;
+
+    > * {
+        display: inline-block;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .path {
+        flex: 1;
+        height: min-content;
+
+        .dir {            
+            &:not(:last-child) { cursor: pointer };
+            &:last-child       { cursor: default; }
+            
+            text-transform: capitalize;
+
+            @include not-mobile {
+                &:hover:not(:last-child) {
+                    text-decoration: underline;
+                    color: hsl($accent-hue, 100%, 30%);
+                }
+            }
+        }
+
+        .hint {
+            opacity: 0.5;
+        }
+    }
+
+    .fullscreen {
+        @include tile-hover;
+
+        width: $navbar-height;
+
+        .fullscreen-inner {
+            display: inline-block;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}

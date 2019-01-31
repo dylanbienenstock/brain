@@ -1,0 +1,20 @@
+<div class="path">
+    <span class="dir" (click)="navigateTo(-1)">Tools</span>
+    <span class="delim">&nbsp;>&nbsp;</span>
+
+    <ng-container *ngIf="path.length == 0">
+        <span class="hint">Select a tool...</span>
+    </ng-container>
+
+    <ng-container *ngIf="path.length > 0">
+        <ng-container *ngFor="let dir of path; index as index; last as last;">
+            <span class="dir" (click)="navigateTo(index)">{{ dir }}</span>
+            <span class="delim" *ngIf="!last">&nbsp;>&nbsp;</span>
+        </ng-container>
+    </ng-container>
+</div>
+
+<div class="fullscreen"
+(click)="toggleFullscreen()">
+    <div class="fullscreen-inner">[F]</div>
+</div>

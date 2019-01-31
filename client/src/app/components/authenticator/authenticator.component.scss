@@ -1,0 +1,48 @@
+@import "mixins";
+
+:host {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+
+    background-color: lighten(black, 10%);
+    box-shadow: inset 0 0 8px black;
+    
+    .keypad {
+        $button-size: 80px;
+
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: $button-size * 3;
+        height: $button-size * 5;
+        
+        box-shadow: 0 0 8px black;
+        
+        @include mobile {
+            width: 100%;
+            height: 100%;
+        }
+
+        .code {
+            grid-column: span 3;
+        }
+    
+        .key, .code {
+            @include tile(true);
+
+            .text {
+                @include tile-text;
+            }
+        }
+    }
+}

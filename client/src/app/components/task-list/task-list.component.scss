@@ -1,0 +1,21 @@
+@import "mixins";
+
+:host {
+    @include page;
+
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 300px auto 330px;
+
+    .lists {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    .tasks {
+        
+    }
+
+    .task-details {
+    }
+}
