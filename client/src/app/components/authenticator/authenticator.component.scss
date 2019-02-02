@@ -1,6 +1,6 @@
 @import "mixins";
 
-:host {
+.container {
     display: block;
     position: fixed;
     left: 0;
@@ -11,6 +11,12 @@
 
     background-color: lighten(black, 10%);
     box-shadow: inset 0 0 8px black;
+
+    transition: opacity 500ms ease;
+
+    &.hidden {
+        opacity: 0;
+    }
     
     .keypad {
         $button-size: 80px;
@@ -32,17 +38,64 @@
             width: 100%;
             height: 100%;
         }
-
-        .code {
-            grid-column: span 3;
-        }
-    
-        .key, .code {
-            @include tile(true);
-
+        
+        .key, .code {            
             .text {
                 @include tile-text;
             }
+        }
+
+        .code {
+            @include tile(false);
+
+            grid-column: span 3;
+
+            .dot {
+                $size: 24px;
+
+                display: inline-block;
+                width: $size;
+                height: $size;
+                border-radius: 50%;
+
+                background-color: darken(white, 20%);
+                opacity: 0.2;
+
+                + .dot {
+                    margin-left: 16px;
+                }
+
+                &.opaque {
+                    opacity: 1;
+                }
+
+                &.waiting {
+                    @keyframes waiting {
+                        0%   { opacity: 1; }
+                        50%  { opacity: 0.2; }
+                        100% { opacity: 1; }
+                    }
+
+                    animation: "waiting" 500ms ease infinite;
+                }
+
+                &.correct {
+                    opacity: 1;
+                    background-color: hsl(120, 100%, 30%);
+                }
+
+                &.incorrect {
+                    opacity: 1;
+                    background-color: hsl(0, 100%, 30%);
+                }
+            }
+        }
+
+        .key {
+            @include tile(true);
+
+            &:nth-child(11) { @include tile-reject; }
+            &:nth-child(13) { @include tile-accept; }
         }
     }
 }

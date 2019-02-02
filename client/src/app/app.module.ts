@@ -8,6 +8,10 @@ import { AppRoutes } from './app.routes';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { AuthenticatorComponent } from './components/authenticator/authenticator.component';
+import { HttpService } from './services/http.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PasscodeInterceptor } from './services/http.interceptor';
+import { Globals } from './app.globals';
 
 @NgModule({
     declarations: [
@@ -19,9 +23,14 @@ import { AuthenticatorComponent } from './components/authenticator/authenticator
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         RouterModule.forRoot(AppRoutes),
     ],
-    providers: [],
+    providers: [
+        HttpService,
+        { provide: HTTP_INTERCEPTORS, useClass: PasscodeInterceptor, multi: true },
+        Globals
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

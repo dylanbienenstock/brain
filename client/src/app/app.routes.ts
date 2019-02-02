@@ -8,6 +8,10 @@ export const AppRoutes = [
         component: TaskListComponent,
     },
     {
+        path: "authenticate",
+        redirectTo: ""
+    },
+    {
         path: "",
         component: ToolSelectorComponent,
     }

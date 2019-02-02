@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { Globals } from './app.globals';
 
 @Component({
     selector: 'app-root',
@@ -6,5 +8,20 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'app';
+
+    constructor(private globals: Globals, private router: Router) {
+        router.events.subscribe((e) => {
+            if (e instanceof NavigationEnd) {
+                if (globals.passcode == "") {
+                    this.showAuthenticator = true;
+                }
+            }
+        });
+    }
+
+    public showAuthenticator: boolean = false;
+
+    onHideAuthenticator() {
+        this.showAuthenticator = false;
+    }
 }

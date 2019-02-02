@@ -8,14 +8,17 @@
     grid-template-columns: 300px auto 330px;
 
     .lists {
+        @include tile(false);
+
         display: flex;
         flex-flow: column nowrap;
     }
 
     .tasks {
-        
+        @include tile(false);        
     }
 
     .task-details {
+        @include tile(false);
     }
 }

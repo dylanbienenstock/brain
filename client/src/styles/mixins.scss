@@ -29,6 +29,52 @@
                     hsl($accent-hue, 80%, 14%) 0%,
                     hsl($accent-hue, 80%, 9%) 100%);
             }
+
+            &:active {
+                background: linear-gradient(135deg,
+                    hsl($accent-hue, 80%, 12%) 0%,
+                    hsl($accent-hue, 80%, 7%) 100%);   
+            }
+        }
+    }
+}
+
+@mixin tile-accept {
+    color: hsl(120, 100%, 30%);
+
+    @include not-mobile {
+        cursor: pointer;
+
+        &:hover {
+            background: linear-gradient(135deg,
+                hsl(120, 100%, 10%) 0%,
+                hsl(120, 100%, 7%) 100%);
+        }
+
+        &:active {
+            background: linear-gradient(135deg,
+                hsl(120, 100%, 8%) 0%,
+                hsl(120, 100%, 5%) 100%);
+        }
+    }
+}
+
+@mixin tile-reject {
+    color: hsl(0, 100%, 30%);
+
+    @include not-mobile {
+        cursor: pointer;
+
+        &:hover {
+            background: linear-gradient(135deg,
+                hsl(0, 100%, 10%) 0%,
+                hsl(0, 100%, 7%) 100%);
+        }
+
+        &:active {
+            background: linear-gradient(135deg,
+                hsl(0, 100%, 8%) 0%,
+                hsl(0, 100%, 5%) 100%);
         }
     }
 }
@@ -40,6 +86,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
 
+    user-select: none;
     font-size: 18px;
 }
 

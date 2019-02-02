@@ -1,9 +1,20 @@
-<div class="keypad">
-    <div class="code">
-        <div class="text">####</div>
-    </div>
+<div class="container" [class.hidden]="hidden">
+    <div class="keypad">
+        <div class="code">
+            <div class="text">
+                <div class="dot" 
+                *ngFor="let _ of codeDots; index as index"
+                [class.opaque]="index <= curCode.length - 1"
+                [class.waiting]="waiting"
+                [class.correct]="passwordCorrect"
+                [class.incorrect]="passwordIncorrect">
+                </div>
+            </div>
+        </div>
 
-    <div class="key" *ngFor="let key of keys">
-        <div class="text">{{ key }}</div>
+        <div class="key" *ngFor="let key of keys"
+        (click)="onKeyClicked(key)">
+            <div class="text">{{ key }}</div>
+        </div>
     </div>
 </div>

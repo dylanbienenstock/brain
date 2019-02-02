@@ -1,4 +1,7 @@
-<app-authenticator></app-authenticator>
+<app-authenticator
+*ngIf="showAuthenticator"
+(hide)="onHideAuthenticator()">
+</app-authenticator>
 
 <div class="content">
     <app-navbar></app-navbar>
