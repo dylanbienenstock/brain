@@ -1,24 +1,201 @@
 @import "mixins";
+@import "variables";
 
-:host {
+.placeholder {
+    pointer-events: none;
+    color: rgba(darken(white, 20%), 0.25) !important;
+}
+
+.container {
     @include page;
 
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 300px auto 330px;
 
-    .lists {
-        @include tile(false);
-
-        display: flex;
-        flex-flow: column nowrap;
+    @include mobile {
+        grid-template-columns: 100vw 100vw 100vw;
+        transition: transform 300ms ease;
     }
 
-    .tasks {
-        @include tile(false);        
+    &.view-one { transform: translateX(0); }
+    &.view-two { transform: translateX(-100vw); }
+    &.view-three { transform: translateX(-200vw); }
+
+    .list-section {
+        display: grid;
+        grid-template-rows: $navbar-height auto;
+        overflow: hidden;
+
+        @include not-mobile {
+            box-shadow: 0 0 12px black;
+            z-index: 2;
+        }
+
+        .list-header {
+            @include tile(false);
+
+            display: grid;
+            grid-template-columns: auto $navbar-height $navbar-height;
+
+            .label {
+                .text {
+                    @include tile-text-left;
+                }
+            }
+
+            .list-create,
+            .list-delete {
+                .text {
+                    @include tile-text;
+                }
+            }
+
+            .list-create { @include tile-accept; }
+            .list-delete { @include tile-reject; }
+        }
+
+        .list-container {
+            @include tile(false);
+
+            overflow-y: auto;
+
+            .list {
+                @include tile-hover;
+
+                height: $navbar-height;
+
+                &.selected {
+                    @include tile-active;
+                    
+                    pointer-events: none;
+                }
+
+                .text {
+                    @include tile-text-left;
+                    @include ellipsis;
+                    max-width: calc(100% - 32px);
+                }
+            }
+        }
     }
 
-    .task-details {
+    .task-section {
+        display: grid;
+        grid-template-rows: ($navbar-height * 3) auto;
+        overflow: hidden;
+
+        @include not-mobile {
+            box-shadow: 0 0 12px black;
+            z-index: 1;
+        }
+
+        .task-header {
+            @include tile(false);
+
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-columns: 1fr $navbar-height $navbar-height;
+            grid-template-areas:
+                "name delete create"
+                "desc desc desc"
+                "info info info"
+            ;
+            
+            .list-name   { grid-area: name; }
+            .list-desc   { grid-area: desc; }
+            .list-info   { grid-area: info; }
+            .task-delete { grid-area: delete; }
+            .task-create { grid-area: create; }
+
+            > :not(.list-delete) {
+                .text {
+                    @include tile-text-left;
+                }
+            }
+
+            .list-name,
+            .list-desc,
+            .list-info {
+                span.text {
+                    @include ellipsis;
+                    max-width: calc(100% - 32px);
+                }
+            }
+            
+            .list-name {
+                .text {
+                    display: flex;
+                    flex-flow: row nowrap;
+
+                    .icon {
+                        display: inline-block;
+                        position: relative;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+
+                    .input-container {
+                        flex: 1;
+                    }
+                }
+            }
+
+            .list-desc,
+            .list-info {
+                .text {
+                    color: rgba(darken(white, 20%), 0.5);
+                }
+
+                input[type=text] {
+                    color: rgba(darken(white, 20%), 0.5) !important;
+
+                    &::placeholder {
+                        color: rgba(darken(white, 20%), 0.25) !important;
+                        opacity: 1;
+                    }
+                }
+            }
+
+            .task-delete,
+            .task-create {
+                .text {
+                    @include tile-text;
+                }
+            }
+
+            .task-delete { @include tile-reject; }
+            .task-create { @include tile-accept; }
+
+            .hoverable { @include tile-hover; }
+            .active { @include tile-active; }
+
+            input[type=text] {
+                width: calc(100% - 32px);
+                padding: 0;
+                background: transparent;
+                height: $navbar-height - 16px;
+            }
+        }
+
+        .task-container {
+            overflow: hidden;
+
+            .task-container-inner {
+                @include tile(false);
+
+                height: 100%;
+                overflow-y: auto;
+    
+                .task {
+                    @include tile-hover;
+                    height: $navbar-height;
+                }
+            }
+        }
+    }
+
+    .details-section {
         @include tile(false);
     }
 }

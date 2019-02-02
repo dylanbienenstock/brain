@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@import url(\"https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700\");\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: \"Source Code Pro\", monospace;\n  color: #cccccc;\n  background: #1a1919; }\nbody input[type=text], body textarea {\n    font-family: \"Source Code Pro\", monospace !important;\n    font-size: 18px;\n    color: #cccccc !important;\n    outline: 0;\n    border: 0;\n    margin: 0;\n    box-sizing: border-box;\n    resize: none; }\n"
+module.exports = "@import url(\"https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700\");\nbody {\n  margin: 0;\n  padding: 0;\n  overflow: hidden;\n  font-family: \"Source Code Pro\", monospace;\n  color: #cccccc;\n  background: #1a1919; }\nbody input[type=text], body textarea {\n    font-family: \"Source Code Pro\", monospace !important;\n    font-size: 18px;\n    color: #cccccc !important;\n    outline: 0;\n    border: 0;\n    margin: 0;\n    box-sizing: border-box;\n    resize: none; }\n* {\n  -webkit-font-variant-ligatures: none;\n          font-variant-ligatures: none; }\n::-webkit-scrollbar {\n  background-color: #141414;\n  width: 16px; }\n::-webkit-scrollbar-thumb {\n  box-sizing: border-box;\n  background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n  background: linear-gradient(135deg, #292929 0%, #1f1f1f 100%); }\n@media (min-width: 786px) {\n    ::-webkit-scrollbar-thumb {\n      cursor: pointer; }\n      ::-webkit-scrollbar-thumb:hover {\n        background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n      ::-webkit-scrollbar-thumb:active {\n        background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n"
 
 /***/ }),
 

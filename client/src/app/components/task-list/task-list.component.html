@@ -1,3 +1,130 @@
-<div class="lists"></div>
-<div class="tasks"></div>
-<div class="task-details"></div>
+<div class="container"
+[class.view-one]="screenService.mobile && !listSelected && !taskSelected"
+[class.view-two]="screenService.mobile && listSelected && !taskSelected"
+[class.view-three]="screenService.mobile && listSelected && taskSelected">
+    <div class="list-section">
+        <div class="list-header">
+            <div class="label">
+                <div class="text">Task Lists</div>
+            </div>
+            
+            <div class="list-delete"
+            (click)="onDeleteTaskList()"
+            [class.placeholder]="!listSelected">
+                <span class="text">[-]</span>        
+            </div>
+
+            <div class="list-create"
+            (click)="onCreateTaskList()">
+                <div class="text">[+]</div>
+            </div>
+        </div>
+
+        <div class="list-container">
+            <div class="list"
+            *ngFor="let taskList of taskLists; index as index;"
+            (click)="onSelectTaskList(index)"
+            [class.selected]="!screenService.mobile && index == curListIndex">
+                <div class="text" *ngIf="taskList.name.trim()">
+                    {{ listSymbol }}&nbsp;{{ taskList.name }}
+                </div>
+
+                <div class="text" *ngIf="!taskList.name.trim()">
+                    {{ listSymbol }}&nbsp;&lt;Untitled&gt;
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-section">
+        <div class="task-header">
+            <ng-container *ngIf="!listSelected">
+                <div class="list-name">
+                    <div class="text">
+                        <span class="placeholder">{{ listSymbol }}&nbsp;&lt;Task List: Name&gt;</span>
+                    </div>
+                </div>
+                        
+                <div class="list-desc">
+                    <span class="text placeholder">&lt;Task List: Description&gt;</span>
+                </div>
+
+                <div class="list-info">
+                    <span class="text placeholder">
+                        &lt;Task List: Length&gt; | &lt;Task List: ID&gt;
+                    </span>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="listSelected">
+                <div class="list-name" 
+                [class.hoverable]="selectedListDetail != 'name'"
+                (click)="onTaskListDetailsFocused('name')">
+                    <div class="text">
+                        <div class="icon-container">
+                            <span class="icon">{{ listSymbol }}&nbsp;</span>
+                        </div>
+                        
+                        <div class="input-container" *ngIf="taskLists[curListIndex]">
+                            <input type="text" placeholder="<Task List: Name>"
+                            [(ngModel)]="taskLists[curListIndex].name"
+                            (ngModelChange)="onTaskListDetailsModified()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-desc"
+                [class.hoverable]="selectedListDetail != 'description'"
+                [class.active]="selectedListDetail == 'description'"
+                (click)="onTaskListDetailsFocused('description', listDescInput)">
+                    <span class="text"
+                    *ngIf="selectedListDetail != 'description'"
+                    [class.placeholder]="!taskLists[curListIndex]?.description?.trim()">
+                        {{ taskLists[curListIndex]?.description?.trim() || "<Task List: Description>" }}
+                    </span>
+
+                    <input type="text" class="text" placeholder="<Task List: Description>"
+                    [(ngModel)]="taskLists[curListIndex].description"
+                    (ngModelChange)="onTaskListDetailsModified()"
+                    (blur)="onTaskListDetailsBlur()"
+                    [style.display]="selectedListDetail != 'description' ? 'none' : ''"
+                    #listDescInput>
+                </div>
+
+                <div class="list-info">
+                    <span class="text">
+                        {{ taskLists[curListIndex]?.tasks?.length }} tasks |
+                        ID: {{ taskLists[curListIndex]?._id }}
+                    </span>
+                </div>
+            </ng-container>
+
+            <div class="task-delete"
+            [class.placeholder]="!(listSelected && taskSelected)">
+                <span class="text">[-]</span>        
+            </div>
+
+            <div class="task-create"
+            [class.placeholder]="!listSelected">
+                <span class="text">[+]</span>        
+            </div>
+        </div>
+
+        <div class="task-container">
+            <div class="task-container-inner">
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-section"></div>
+</div>

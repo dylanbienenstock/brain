@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Globals } from './app.globals';
+import { TaskList } from '../../../server/src/task-list/task-list.types';
+import { HttpService } from './services/http.service';
+import { Responses } from '../../../shared/responses';
+import { ScreenService } from './services/screen.service';
 
 @Component({
     selector: 'app-root',
@@ -9,19 +13,30 @@ import { Globals } from './app.globals';
 })
 export class AppComponent {
 
-    constructor(private globals: Globals, private router: Router) {
-        router.events.subscribe((e) => {
-            if (e instanceof NavigationEnd) {
-                if (globals.passcode == "") {
-                    this.showAuthenticator = true;
+    constructor(private globals: Globals, 
+        private router: Router,
+        private httpService: HttpService,
+        private screenService: ScreenService) {
+
+            this.onWindowResized();
+
+            router.events.subscribe((e) => {
+                if (e instanceof NavigationEnd) {
+                    if (globals.passcode == "") {
+                        this.showAuthenticator = true;
+                    }
                 }
-            }
-        });
+            });
     }
 
     public showAuthenticator: boolean = false;
 
-    onHideAuthenticator() {
+    onAuthenticated() {
         this.showAuthenticator = false;
+    }
+
+    @HostListener("window:resize")
+    onWindowResized() {
+        this.screenService.setScreenSize(window.innerWidth, window.innerHeight);
     }
 }

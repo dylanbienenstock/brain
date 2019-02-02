@@ -13,6 +13,10 @@ __webpack_require__.r(__webpack_exports__);
 var Routes;
 (function (Routes) {
     Routes["submitPasscode"] = "/api/submitPasscode";
+    Routes["createTaskList"] = "/api/tasklist/create";
+    Routes["getTaskLists"] = "/api/tasklist/getAll";
+    Routes["updateTaskList"] = "/api/tasklist/update";
+    Routes["deleteTaskList"] = "/api/tasklist/delete";
 })(Routes || (Routes = {}));
 
 
@@ -48,7 +52,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-authenticator\r\n*ngIf=\"showAuthenticator\"\r\n(hide)=\"onHideAuthenticator()\">\r\n</app-authenticator>\r\n\r\n<div class=\"content\">\r\n    <app-navbar></app-navbar>\r\n    <router-outlet></router-outlet>\r\n</div>"
+module.exports = "<app-authenticator\r\n*ngIf=\"showAuthenticator\"\r\n(authenticated)=\"onAuthenticated()\">\r\n</app-authenticator>\r\n\r\n<div class=\"content\">\r\n    <app-navbar></app-navbar>\r\n    <router-outlet></router-outlet>\r\n</div>"
 
 /***/ }),
 
@@ -76,6 +80,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _app_globals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.globals */ "./src/app/app.globals.ts");
+/* harmony import */ var _services_http_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/http.service */ "./src/app/services/http.service.ts");
+/* harmony import */ var _services_screen_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/screen.service */ "./src/app/services/screen.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -88,12 +94,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(globals, router) {
+    function AppComponent(globals, router, httpService, screenService) {
         var _this = this;
         this.globals = globals;
         this.router = router;
+        this.httpService = httpService;
+        this.screenService = screenService;
         this.showAuthenticator = false;
+        this.onWindowResized();
         router.events.subscribe(function (e) {
             if (e instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]) {
                 if (globals.passcode == "") {
@@ -102,16 +113,28 @@ var AppComponent = /** @class */ (function () {
             }
         });
     }
-    AppComponent.prototype.onHideAuthenticator = function () {
+    AppComponent.prototype.onAuthenticated = function () {
         this.showAuthenticator = false;
     };
+    AppComponent.prototype.onWindowResized = function () {
+        this.screenService.setScreenSize(window.innerWidth, window.innerHeight);
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])("window:resize"),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], AppComponent.prototype, "onWindowResized", null);
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
         }),
-        __metadata("design:paramtypes", [_app_globals__WEBPACK_IMPORTED_MODULE_2__["Globals"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_app_globals__WEBPACK_IMPORTED_MODULE_2__["Globals"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _services_http_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"],
+            _services_screen_service__WEBPACK_IMPORTED_MODULE_4__["ScreenService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -154,16 +177,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/tool-selector/tool-selector.component */ "./src/app/components/tool-selector/tool-selector.component.ts");
-/* harmony import */ var _app_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.routes */ "./src/app/app.routes.ts");
-/* harmony import */ var _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/navbar/navbar.component */ "./src/app/components/navbar/navbar.component.ts");
-/* harmony import */ var _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/task-list/task-list.component */ "./src/app/components/task-list/task-list.component.ts");
-/* harmony import */ var _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/authenticator/authenticator.component */ "./src/app/components/authenticator/authenticator.component.ts");
-/* harmony import */ var _services_http_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/http.service */ "./src/app/services/http.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _services_http_interceptor__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/http.interceptor */ "./src/app/services/http.interceptor.ts");
-/* harmony import */ var _app_globals__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./app.globals */ "./src/app/app.globals.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/tool-selector/tool-selector.component */ "./src/app/components/tool-selector/tool-selector.component.ts");
+/* harmony import */ var _app_routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.routes */ "./src/app/app.routes.ts");
+/* harmony import */ var _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/navbar/navbar.component */ "./src/app/components/navbar/navbar.component.ts");
+/* harmony import */ var _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/task-list/task-list.component */ "./src/app/components/task-list/task-list.component.ts");
+/* harmony import */ var _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/authenticator/authenticator.component */ "./src/app/components/authenticator/authenticator.component.ts");
+/* harmony import */ var _services_http_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/http.service */ "./src/app/services/http.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _services_http_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/http.interceptor */ "./src/app/services/http.interceptor.ts");
+/* harmony import */ var _app_globals__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app.globals */ "./src/app/app.globals.ts");
+/* harmony import */ var _services_screen_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/screen.service */ "./src/app/services/screen.service.ts");
+/* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/navbar.service */ "./src/app/services/navbar.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -183,29 +209,35 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"],
-                _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_4__["ToolSelectorComponent"],
-                _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_6__["NavbarComponent"],
-                _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_7__["TaskListComponent"],
-                _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_8__["AuthenticatorComponent"],
+                _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
+                _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_5__["ToolSelectorComponent"],
+                _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_7__["NavbarComponent"],
+                _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_8__["TaskListComponent"],
+                _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_9__["AuthenticatorComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HttpClientModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(_app_routes__WEBPACK_IMPORTED_MODULE_5__["AppRoutes"]),
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(_app_routes__WEBPACK_IMPORTED_MODULE_6__["AppRoutes"]),
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"]
             ],
             providers: [
-                _services_http_service__WEBPACK_IMPORTED_MODULE_9__["HttpService"],
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HTTP_INTERCEPTORS"], useClass: _services_http_interceptor__WEBPACK_IMPORTED_MODULE_11__["PasscodeInterceptor"], multi: true },
-                _app_globals__WEBPACK_IMPORTED_MODULE_12__["Globals"]
+                _services_http_service__WEBPACK_IMPORTED_MODULE_10__["HttpService"],
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _services_http_interceptor__WEBPACK_IMPORTED_MODULE_12__["PasscodeInterceptor"], multi: true },
+                _app_globals__WEBPACK_IMPORTED_MODULE_13__["Globals"],
+                _services_screen_service__WEBPACK_IMPORTED_MODULE_14__["ScreenService"],
+                _services_navbar_service__WEBPACK_IMPORTED_MODULE_15__["NavbarService"]
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -265,7 +297,7 @@ module.exports = "<div class=\"container\" [class.hidden]=\"hidden\">\r\n    <di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".container {\n  display: block;\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 999;\n  background-color: #1a1919;\n  box-shadow: inset 0 0 8px black;\n  transition: opacity 500ms ease; }\n  .container.hidden {\n    opacity: 0; }\n  .container .keypad {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr;\n        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;\n    -ms-grid-columns: 1fr 1fr 1fr;\n        grid-template-columns: 1fr 1fr 1fr;\n    position: relative;\n    left: 50%;\n    top: 50%;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    width: 240px;\n    height: 400px;\n    box-shadow: 0 0 8px black; }\n  @media (max-width: 786px) {\n      .container .keypad {\n        width: 100%;\n        height: 100%; } }\n  .container .keypad .key .text, .container .keypad .code .text {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%);\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      font-size: 18px; }\n  .container .keypad .code {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      grid-column: span 3; }\n  .container .keypad .code .dot {\n        display: inline-block;\n        width: 24px;\n        height: 24px;\n        border-radius: 50%;\n        background-color: #cccccc;\n        opacity: 0.2; }\n  .container .keypad .code .dot + .dot {\n          margin-left: 16px; }\n  .container .keypad .code .dot.opaque {\n          opacity: 1; }\n  .container .keypad .code .dot.waiting {\n          -webkit-animation: \"waiting\" 500ms ease infinite;\n                  animation: \"waiting\" 500ms ease infinite; }\n  @-webkit-keyframes waiting {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n  @keyframes waiting {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n  .container .keypad .code .dot.correct {\n          opacity: 1;\n          background-color: #009900; }\n  .container .keypad .code .dot.incorrect {\n          opacity: 1;\n          background-color: #990000; }\n  .container .keypad .key {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n  @media (min-width: 786px) {\n        .container .keypad .key {\n          cursor: pointer; }\n          .container .keypad .key:hover {\n            background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n          .container .keypad .key:active {\n            background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  .container .keypad .key:nth-child(11) {\n        color: #990000; }\n  @media (min-width: 786px) {\n          .container .keypad .key:nth-child(11) {\n            cursor: pointer; }\n            .container .keypad .key:nth-child(11):hover {\n              background: linear-gradient(135deg, #330000 0%, #240000 100%); }\n            .container .keypad .key:nth-child(11):active {\n              background: linear-gradient(135deg, #290000 0%, #1a0000 100%); } }\n  .container .keypad .key:nth-child(13) {\n        color: #009900; }\n  @media (min-width: 786px) {\n          .container .keypad .key:nth-child(13) {\n            cursor: pointer; }\n            .container .keypad .key:nth-child(13):hover {\n              background: linear-gradient(135deg, #003300 0%, #002400 100%); }\n            .container .keypad .key:nth-child(13):active {\n              background: linear-gradient(135deg, #002900 0%, #001a00 100%); } }\n"
+module.exports = ".container {\n  display: block;\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 9999;\n  background-color: #1a1919;\n  box-shadow: inset 0 0 8px black;\n  transition: opacity 500ms ease; }\n  .container.hidden {\n    opacity: 0; }\n  .container .keypad {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr;\n        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;\n    -ms-grid-columns: 1fr 1fr 1fr;\n        grid-template-columns: 1fr 1fr 1fr;\n    position: relative;\n    left: 50%;\n    top: 50%;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    width: 240px;\n    height: 400px;\n    box-shadow: 0 0 8px black; }\n  @media (max-width: 786px) {\n      .container .keypad {\n        width: 100%;\n        height: 100%; } }\n  .container .keypad .key .text, .container .keypad .code .text {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%);\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      font-size: 18px; }\n  .container .keypad .code {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      grid-column: span 3; }\n  .container .keypad .code .dot {\n        display: inline-block;\n        width: 24px;\n        height: 24px;\n        border-radius: 50%;\n        background-color: #cccccc;\n        opacity: 0.2; }\n  .container .keypad .code .dot + .dot {\n          margin-left: 16px; }\n  .container .keypad .code .dot.opaque {\n          opacity: 1; }\n  .container .keypad .code .dot.waiting {\n          -webkit-animation: \"waiting\" 500ms ease infinite;\n                  animation: \"waiting\" 500ms ease infinite; }\n  @-webkit-keyframes waiting {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n  @keyframes waiting {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n  .container .keypad .code .dot.correct {\n          opacity: 1;\n          background-color: #009900; }\n  .container .keypad .code .dot.incorrect {\n          opacity: 1;\n          background-color: #990000; }\n  .container .keypad .key {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n  @media (min-width: 786px) {\n        .container .keypad .key {\n          cursor: pointer; }\n          .container .keypad .key:hover {\n            background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n          .container .keypad .key:active {\n            background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  .container .keypad .key:nth-child(11) {\n        color: #e60000; }\n  @media (min-width: 786px) {\n          .container .keypad .key:nth-child(11) {\n            cursor: pointer; }\n            .container .keypad .key:nth-child(11):hover {\n              background: linear-gradient(135deg, #420000 0%, #330000 100%); }\n            .container .keypad .key:nth-child(11):active {\n              background: linear-gradient(135deg, #380000 0%, #290000 100%); } }\n  .container .keypad .key:nth-child(13) {\n        color: #009900; }\n  @media (min-width: 786px) {\n          .container .keypad .key:nth-child(13) {\n            cursor: pointer; }\n            .container .keypad .key:nth-child(13):hover {\n              background: linear-gradient(135deg, #003300 0%, #002400 100%); }\n            .container .keypad .key:nth-child(13):active {\n              background: linear-gradient(135deg, #002900 0%, #001a00 100%); } }\n"
 
 /***/ }),
 
@@ -298,7 +330,7 @@ var AuthenticatorComponent = /** @class */ (function () {
     function AuthenticatorComponent(httpService, globals) {
         this.httpService = httpService;
         this.globals = globals;
-        this.hide = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.authenticated = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.clearKey = "C";
         this.enterKey = "✓";
         this.codeDots = new Array(4).fill(null);
@@ -340,7 +372,7 @@ var AuthenticatorComponent = /** @class */ (function () {
                 .subscribe(function (res) {
                 _this.waiting = false;
                 _this.curCode = "";
-                if (res.correct) {
+                if (res.success) {
                     _this.onCorrectPasscode();
                 }
                 else {
@@ -356,7 +388,7 @@ var AuthenticatorComponent = /** @class */ (function () {
         setTimeout(function () {
             _this.hidden = true;
             setTimeout(function () {
-                _this.hide.emit();
+                _this.authenticated.emit();
             }, 500);
         }, 500);
     };
@@ -372,7 +404,7 @@ var AuthenticatorComponent = /** @class */ (function () {
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
         __metadata("design:type", Object)
-    ], AuthenticatorComponent.prototype, "hide", void 0);
+    ], AuthenticatorComponent.prototype, "authenticated", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])("window:keypress", ["$event.key"]),
         __metadata("design:type", Function),
@@ -402,7 +434,7 @@ var AuthenticatorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"path\">\n    <span class=\"dir\" (click)=\"navigateTo(-1)\">Tools</span>\n    <span class=\"delim\">&nbsp;>&nbsp;</span>\n\n    <ng-container *ngIf=\"path.length == 0\">\n        <span class=\"hint\">Select a tool...</span>\n    </ng-container>\n\n    <ng-container *ngIf=\"path.length > 0\">\n        <ng-container *ngFor=\"let dir of path; index as index; last as last;\">\n            <span class=\"dir\" (click)=\"navigateTo(index)\">{{ dir }}</span>\n            <span class=\"delim\" *ngIf=\"!last\">&nbsp;>&nbsp;</span>\n        </ng-container>\n    </ng-container>\n</div>\n\n<div class=\"fullscreen\"\n(click)=\"toggleFullscreen()\">\n    <div class=\"fullscreen-inner\">[F]</div>\n</div>"
+module.exports = "<div class=\"path\">\n    <ng-container *ngIf=\"!screenService.mobile\">\n        <span class=\"dir\" (click)=\"onDirClicked(-1)\">Tools</span>\n        <span class=\"delim\">&nbsp;>&nbsp;</span>\n\n        <ng-container *ngIf=\"path.length == 0\">\n            <span class=\"hint\">Select a tool...</span>\n        </ng-container>\n\n        <ng-container *ngIf=\"path.length > 0\">\n            <ng-container *ngIf=\"!screenService.mobile\">\n                <ng-container *ngFor=\"let dir of path; index as index; last as last;\">\n                    <span class=\"dir\" (click)=\"onDirClicked(index)\">{{ dir }}</span>\n                    <span class=\"delim\" *ngIf=\"!last && !navbarService.extensions\">&nbsp;&gt;&nbsp;</span>\n                </ng-container>\n        \n                <span *ngIf=\"navbarService.extensions.length > 0\">&nbsp;&gt;&nbsp;</span>\n        \n                <ng-container *ngFor=\"let ext of navbarService.extensions; index as index; last as last;\">\n                    <span class=\"dir\">{{ ext }}</span>\n                    <span class=\"delim\" *ngIf=\"!last\">&nbsp;&gt;&nbsp;</span>\n                </ng-container>\n            </ng-container>\n        </ng-container>\n    </ng-container>\n\n    <ng-container *ngIf=\"screenService.mobile\">\n        <ng-container *ngIf=\"navbarService.extensions.length == 0\">\n            <ng-container *ngIf=\"path.length == 0\">\n                <span class=\"dir\">Tools</span>\n            </ng-container>\n\n            <ng-container *ngIf=\"path.length > 0\">\n                <span class=\"dir\" (click)=\"onDirClicked(path.length - 2)\">...</span>\n                <span class=\"delim\">&nbsp;>&nbsp;</span>\n                <span class=\"dir\">{{ path[path.length - 1] }}</span>\n            </ng-container>\n        </ng-container>\n\n        <ng-container *ngIf=\"navbarService.extensions.length > 0\">\n            <ng-container *ngIf=\"navbarService.extensions.length == 1\">\n                <span class=\"dir\" (click)=\"onDirClicked(path.length - 1)\">...</span>\n            </ng-container>\n\n            <span class=\"delim\">&nbsp;>&nbsp;</span>\n            <span class=\"dir\">{{ navbarService.extensions[navbarService.extensions.length - 1] }}</span>\n        </ng-container>\n    </ng-container>\n</div>\n\n<div class=\"fullscreen\"\n(click)=\"toggleFullscreen()\">\n    <div class=\"fullscreen-inner\">[F]</div>\n</div>"
 
 /***/ }),
 
@@ -413,7 +445,7 @@ module.exports = "<div class=\"path\">\n    <span class=\"dir\" (click)=\"naviga
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\n  box-sizing: border-box;\n  background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n  position: relative;\n  z-index: 1;\n  box-shadow: 0 0 8px black;\n  display: flex;\n  flex-flow: row nowrap;\n  box-sizing: border-box;\n  padding-left: 16px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  font-size: 20px; }\n  :host > * {\n    display: inline-block;\n    position: relative;\n    top: 50%;\n    -webkit-transform: translateY(-50%);\n            transform: translateY(-50%); }\n  :host .path {\n    flex: 1;\n    height: -webkit-min-content;\n    height: -moz-min-content;\n    height: min-content; }\n  :host .path .dir {\n      text-transform: capitalize; }\n  :host .path .dir:not(:last-child) {\n        cursor: pointer; }\n  :host .path .dir:last-child {\n        cursor: default; }\n  @media (min-width: 786px) {\n        :host .path .dir:hover:not(:last-child) {\n          text-decoration: underline;\n          color: #008099; } }\n  :host .path .hint {\n      opacity: 0.5; }\n  :host .fullscreen {\n    cursor: pointer;\n    width: 72px; }\n  @media (min-width: 786px) {\n      :host .fullscreen:hover {\n        background: linear-gradient(135deg, #003c47 0%, #00262e 100%); } }\n  :host .fullscreen .fullscreen-inner {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%); }\n"
+module.exports = ":host {\n  box-sizing: border-box;\n  background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n  position: relative;\n  z-index: 999;\n  box-shadow: 0 0 8px black;\n  display: flex;\n  flex-flow: row nowrap;\n  box-sizing: border-box;\n  padding-left: 16px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  font-size: 20px; }\n  :host > * {\n    display: inline-block;\n    position: relative;\n    top: 50%;\n    -webkit-transform: translateY(-50%);\n            transform: translateY(-50%); }\n  :host .path {\n    flex: 1;\n    height: -webkit-min-content;\n    height: -moz-min-content;\n    height: min-content; }\n  :host .path .dir {\n      text-transform: capitalize; }\n  :host .path .dir:not(:last-child) {\n        cursor: pointer; }\n  :host .path .dir:last-child {\n        cursor: default; }\n  @media (min-width: 786px) {\n        :host .path .dir:hover:not(:last-child) {\n          text-decoration: underline;\n          color: #008099; } }\n  :host .path .hint {\n      opacity: 0.5; }\n  :host .fullscreen {\n    position: absolute;\n    right: 0;\n    width: 72px;\n    height: 72px; }\n  @media (min-width: 786px) {\n      :host .fullscreen {\n        cursor: pointer; }\n        :host .fullscreen:hover {\n          background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n        :host .fullscreen:active {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  :host .fullscreen .fullscreen-inner {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%); }\n"
 
 /***/ }),
 
@@ -429,6 +461,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavbarComponent", function() { return NavbarComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/navbar.service */ "./src/app/services/navbar.service.ts");
+/* harmony import */ var _services_screen_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/screen.service */ "./src/app/services/screen.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -440,11 +474,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var NavbarComponent = /** @class */ (function () {
-    function NavbarComponent(router) {
+    function NavbarComponent(router, navbarService, screenService) {
         var _this = this;
         this.router = router;
+        this.navbarService = navbarService;
+        this.screenService = screenService;
         this.path = [];
+        this.backSymbol = "../";
         this.fullscreen = false;
         router.events.subscribe(function (e) {
             _this.onRouteChange(e);
@@ -454,16 +493,20 @@ var NavbarComponent = /** @class */ (function () {
         if (!(e instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]))
             return;
         this.path = e.url.substr(1).split("/");
-        if (this.path.length == 1 && this.path[0] == "") {
+        if ((this.path.length == 1 && this.path[0] == "") ||
+            this.path[0] == "authenticate") {
             this.path = [];
         }
     };
-    NavbarComponent.prototype.navigateTo = function (index) {
+    NavbarComponent.prototype.onDirClicked = function (index, last) {
         if (index == -1) {
             this.router.navigate([""]);
             return;
         }
         this.router.navigate(this.path.slice(0, index + 1));
+        if (index == this.path.length - 1) {
+            this.navbarService.triggerClickEvent(-1);
+        }
     };
     NavbarComponent.prototype.toggleFullscreen = function () {
         if (this.fullscreen) {
@@ -480,7 +523,9 @@ var NavbarComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./navbar.component.html */ "./src/app/components/navbar/navbar.component.html"),
             styles: [__webpack_require__(/*! ./navbar.component.scss */ "./src/app/components/navbar/navbar.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _services_navbar_service__WEBPACK_IMPORTED_MODULE_2__["NavbarService"],
+            _services_screen_service__WEBPACK_IMPORTED_MODULE_3__["ScreenService"]])
     ], NavbarComponent);
     return NavbarComponent;
 }());
@@ -496,7 +541,7 @@ var NavbarComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"lists\"></div>\n<div class=\"tasks\"></div>\n<div class=\"task-details\"></div>"
+module.exports = "<div class=\"container\"\n[class.view-one]=\"screenService.mobile && !listSelected && !taskSelected\"\n[class.view-two]=\"screenService.mobile && listSelected && !taskSelected\"\n[class.view-three]=\"screenService.mobile && listSelected && taskSelected\">\n    <div class=\"list-section\">\n        <div class=\"list-header\">\n            <div class=\"label\">\n                <div class=\"text\">Task Lists</div>\n            </div>\n            \n            <div class=\"list-delete\"\n            (click)=\"onDeleteTaskList()\"\n            [class.placeholder]=\"!listSelected\">\n                <span class=\"text\">[-]</span>        \n            </div>\n\n            <div class=\"list-create\"\n            (click)=\"onCreateTaskList()\">\n                <div class=\"text\">[+]</div>\n            </div>\n        </div>\n\n        <div class=\"list-container\">\n            <div class=\"list\"\n            *ngFor=\"let taskList of taskLists; index as index;\"\n            (click)=\"onSelectTaskList(index)\"\n            [class.selected]=\"!screenService.mobile && index == curListIndex\">\n                <div class=\"text\" *ngIf=\"taskList.name.trim()\">\n                    {{ listSymbol }}&nbsp;{{ taskList.name }}\n                </div>\n\n                <div class=\"text\" *ngIf=\"!taskList.name.trim()\">\n                    {{ listSymbol }}&nbsp;&lt;Untitled&gt;\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"task-section\">\n        <div class=\"task-header\">\n            <ng-container *ngIf=\"!listSelected\">\n                <div class=\"list-name\">\n                    <div class=\"text\">\n                        <span class=\"placeholder\">{{ listSymbol }}&nbsp;&lt;Task List: Name&gt;</span>\n                    </div>\n                </div>\n                        \n                <div class=\"list-desc\">\n                    <span class=\"text placeholder\">&lt;Task List: Description&gt;</span>\n                </div>\n\n                <div class=\"list-info\">\n                    <span class=\"text placeholder\">\n                        &lt;Task List: Length&gt; | &lt;Task List: ID&gt;\n                    </span>\n                </div>\n            </ng-container>\n\n            <ng-container *ngIf=\"listSelected\">\n                <div class=\"list-name\" \n                [class.hoverable]=\"selectedListDetail != 'name'\"\n                (click)=\"onTaskListDetailsFocused('name')\">\n                    <div class=\"text\">\n                        <div class=\"icon-container\">\n                            <span class=\"icon\">{{ listSymbol }}&nbsp;</span>\n                        </div>\n                        \n                        <div class=\"input-container\" *ngIf=\"taskLists[curListIndex]\">\n                            <input type=\"text\" placeholder=\"<Task List: Name>\"\n                            [(ngModel)]=\"taskLists[curListIndex].name\"\n                            (ngModelChange)=\"onTaskListDetailsModified()\">\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"list-desc\"\n                [class.hoverable]=\"selectedListDetail != 'description'\"\n                [class.active]=\"selectedListDetail == 'description'\"\n                (click)=\"onTaskListDetailsFocused('description', listDescInput)\">\n                    <span class=\"text\"\n                    *ngIf=\"selectedListDetail != 'description'\"\n                    [class.placeholder]=\"!taskLists[curListIndex]?.description?.trim()\">\n                        {{ taskLists[curListIndex]?.description?.trim() || \"<Task List: Description>\" }}\n                    </span>\n\n                    <input type=\"text\" class=\"text\" placeholder=\"<Task List: Description>\"\n                    [(ngModel)]=\"taskLists[curListIndex].description\"\n                    (ngModelChange)=\"onTaskListDetailsModified()\"\n                    (blur)=\"onTaskListDetailsBlur()\"\n                    [style.display]=\"selectedListDetail != 'description' ? 'none' : ''\"\n                    #listDescInput>\n                </div>\n\n                <div class=\"list-info\">\n                    <span class=\"text\">\n                        {{ taskLists[curListIndex]?.tasks?.length }} tasks |\n                        ID: {{ taskLists[curListIndex]?._id }}\n                    </span>\n                </div>\n            </ng-container>\n\n            <div class=\"task-delete\"\n            [class.placeholder]=\"!(listSelected && taskSelected)\">\n                <span class=\"text\">[-]</span>        \n            </div>\n\n            <div class=\"task-create\"\n            [class.placeholder]=\"!listSelected\">\n                <span class=\"text\">[+]</span>        \n            </div>\n        </div>\n\n        <div class=\"task-container\">\n            <div class=\"task-container-inner\">\n                <div class=\"task\"></div>\n                <div class=\"task\"></div>\n                <div class=\"task\"></div>\n                <div class=\"task\"></div>\n                <div class=\"task\"></div>\n                <div class=\"task\"></div>\n                <div class=\"task\"></div>\n                <div class=\"task\"></div>\n                <div class=\"task\"></div>\n                <div class=\"task\"></div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"details-section\"></div>\n</div>"
 
 /***/ }),
 
@@ -507,7 +552,7 @@ module.exports = "<div class=\"lists\"></div>\n<div class=\"tasks\"></div>\n<div
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\n  position: absolute;\n  left: 0;\n  top: 72px;\n  width: 100%;\n  height: calc(100% - 72px);\n  font-size: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  -ms-grid-columns: 300px auto 330px;\n      grid-template-columns: 300px auto 330px; }\n  :host .lists {\n    box-sizing: border-box;\n    background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n    display: flex;\n    flex-flow: column nowrap; }\n  :host .tasks {\n    box-sizing: border-box;\n    background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n  :host .task-details {\n    box-sizing: border-box;\n    background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n"
+module.exports = ".placeholder {\n  pointer-events: none;\n  color: rgba(204, 204, 204, 0.25) !important; }\n\n.container {\n  position: absolute;\n  left: 0;\n  top: 72px;\n  width: 100%;\n  height: calc(100% - 72px);\n  font-size: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  -ms-grid-columns: 300px auto 330px;\n      grid-template-columns: 300px auto 330px; }\n\n@media (max-width: 786px) {\n    .container {\n      -ms-grid-columns: 100vw 100vw 100vw;\n          grid-template-columns: 100vw 100vw 100vw;\n      transition: -webkit-transform 300ms ease;\n      transition: transform 300ms ease;\n      transition: transform 300ms ease, -webkit-transform 300ms ease; } }\n\n.container.view-one {\n    -webkit-transform: translateX(0);\n            transform: translateX(0); }\n\n.container.view-two {\n    -webkit-transform: translateX(-100vw);\n            transform: translateX(-100vw); }\n\n.container.view-three {\n    -webkit-transform: translateX(-200vw);\n            transform: translateX(-200vw); }\n\n.container .list-section {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 72px auto;\n        grid-template-rows: 72px auto;\n    overflow: hidden; }\n\n@media (min-width: 786px) {\n      .container .list-section {\n        box-shadow: 0 0 12px black;\n        z-index: 2; } }\n\n.container .list-section .list-header {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      display: -ms-grid;\n      display: grid;\n      -ms-grid-columns: auto 72px 72px;\n          grid-template-columns: auto 72px 72px; }\n\n.container .list-section .list-header .label .text {\n        display: inline-block;\n        position: relative;\n        left: 16px;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n                transform: translateY(-50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n\n.container .list-section .list-header .list-create .text,\n      .container .list-section .list-header .list-delete .text {\n        display: inline-block;\n        position: relative;\n        left: 50%;\n        top: 50%;\n        -webkit-transform: translate(-50%, -50%);\n                transform: translate(-50%, -50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n\n.container .list-section .list-header .list-create {\n        color: #009900; }\n\n@media (min-width: 786px) {\n          .container .list-section .list-header .list-create {\n            cursor: pointer; }\n            .container .list-section .list-header .list-create:hover {\n              background: linear-gradient(135deg, #003300 0%, #002400 100%); }\n            .container .list-section .list-header .list-create:active {\n              background: linear-gradient(135deg, #002900 0%, #001a00 100%); } }\n\n.container .list-section .list-header .list-delete {\n        color: #e60000; }\n\n@media (min-width: 786px) {\n          .container .list-section .list-header .list-delete {\n            cursor: pointer; }\n            .container .list-section .list-header .list-delete:hover {\n              background: linear-gradient(135deg, #420000 0%, #330000 100%); }\n            .container .list-section .list-header .list-delete:active {\n              background: linear-gradient(135deg, #380000 0%, #290000 100%); } }\n\n.container .list-section .list-container {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      overflow-y: auto; }\n\n.container .list-section .list-container .list {\n        height: 72px; }\n\n@media (min-width: 786px) {\n          .container .list-section .list-container .list {\n            cursor: pointer; }\n            .container .list-section .list-container .list:hover {\n              background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n            .container .list-section .list-container .list:active {\n              background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n\n.container .list-section .list-container .list.selected {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%);\n          pointer-events: none; }\n\n.container .list-section .list-container .list .text {\n          display: inline-block;\n          position: relative;\n          left: 16px;\n          top: 50%;\n          -webkit-transform: translateY(-50%);\n                  transform: translateY(-50%);\n          -webkit-user-select: none;\n             -moz-user-select: none;\n              -ms-user-select: none;\n                  user-select: none;\n          font-size: 18px;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis;\n          max-width: calc(100% - 32px); }\n\n.container .task-section {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 216px auto;\n        grid-template-rows: 216px auto;\n    overflow: hidden; }\n\n@media (min-width: 786px) {\n      .container .task-section {\n        box-shadow: 0 0 12px black;\n        z-index: 1; } }\n\n.container .task-section .task-header {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      display: -ms-grid;\n      display: grid;\n          -ms-grid-rows: 1fr 1fr 1fr;\n          grid-template-rows: 1fr 1fr 1fr;\n          -ms-grid-columns: 1fr 72px 72px;\n          grid-template-columns: 1fr 72px 72px;\n          grid-template-areas: \"name delete create\"\r \"desc desc desc\"\r \"info info info\"; }\n\n.container .task-section .task-header .list-name {\n        -ms-grid-row: 1;\n        -ms-grid-column: 1;\n        grid-area: name; }\n\n.container .task-section .task-header .list-desc {\n        -ms-grid-row: 2;\n        -ms-grid-column: 1;\n        -ms-grid-column-span: 3;\n        grid-area: desc; }\n\n.container .task-section .task-header .list-info {\n        -ms-grid-row: 3;\n        -ms-grid-column: 1;\n        -ms-grid-column-span: 3;\n        grid-area: info; }\n\n.container .task-section .task-header .task-delete {\n        -ms-grid-row: 1;\n        -ms-grid-column: 2;\n        grid-area: delete; }\n\n.container .task-section .task-header .task-create {\n        -ms-grid-row: 1;\n        -ms-grid-column: 3;\n        grid-area: create; }\n\n.container .task-section .task-header > :not(.list-delete) .text {\n        display: inline-block;\n        position: relative;\n        left: 16px;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n                transform: translateY(-50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n\n.container .task-section .task-header .list-name span.text,\n      .container .task-section .task-header .list-desc span.text,\n      .container .task-section .task-header .list-info span.text {\n        white-space: nowrap;\n        overflow: hidden;\n        text-overflow: ellipsis;\n        max-width: calc(100% - 32px); }\n\n.container .task-section .task-header .list-name .text {\n        display: flex;\n        flex-flow: row nowrap; }\n\n.container .task-section .task-header .list-name .text .icon {\n          display: inline-block;\n          position: relative;\n          top: 50%;\n          -webkit-transform: translateY(-50%);\n                  transform: translateY(-50%); }\n\n.container .task-section .task-header .list-name .text .input-container {\n          flex: 1; }\n\n.container .task-section .task-header .list-desc .text,\n      .container .task-section .task-header .list-info .text {\n        color: rgba(204, 204, 204, 0.5); }\n\n.container .task-section .task-header .list-desc input[type=text],\n      .container .task-section .task-header .list-info input[type=text] {\n        color: rgba(204, 204, 204, 0.5) !important; }\n\n.container .task-section .task-header .list-desc input[type=text]::-webkit-input-placeholder,\n        .container .task-section .task-header .list-info input[type=text]::-webkit-input-placeholder {\n          color: rgba(204, 204, 204, 0.25) !important;\n          opacity: 1; }\n\n.container .task-section .task-header .list-desc input[type=text]::-ms-input-placeholder,\n        .container .task-section .task-header .list-info input[type=text]::-ms-input-placeholder {\n          color: rgba(204, 204, 204, 0.25) !important;\n          opacity: 1; }\n\n.container .task-section .task-header .list-desc input[type=text]::placeholder,\n        .container .task-section .task-header .list-info input[type=text]::placeholder {\n          color: rgba(204, 204, 204, 0.25) !important;\n          opacity: 1; }\n\n.container .task-section .task-header .task-delete .text,\n      .container .task-section .task-header .task-create .text {\n        display: inline-block;\n        position: relative;\n        left: 50%;\n        top: 50%;\n        -webkit-transform: translate(-50%, -50%);\n                transform: translate(-50%, -50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n\n.container .task-section .task-header .task-delete {\n        color: #e60000; }\n\n@media (min-width: 786px) {\n          .container .task-section .task-header .task-delete {\n            cursor: pointer; }\n            .container .task-section .task-header .task-delete:hover {\n              background: linear-gradient(135deg, #420000 0%, #330000 100%); }\n            .container .task-section .task-header .task-delete:active {\n              background: linear-gradient(135deg, #380000 0%, #290000 100%); } }\n\n.container .task-section .task-header .task-create {\n        color: #009900; }\n\n@media (min-width: 786px) {\n          .container .task-section .task-header .task-create {\n            cursor: pointer; }\n            .container .task-section .task-header .task-create:hover {\n              background: linear-gradient(135deg, #003300 0%, #002400 100%); }\n            .container .task-section .task-header .task-create:active {\n              background: linear-gradient(135deg, #002900 0%, #001a00 100%); } }\n\n@media (min-width: 786px) {\n        .container .task-section .task-header .hoverable {\n          cursor: pointer; }\n          .container .task-section .task-header .hoverable:hover {\n            background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n          .container .task-section .task-header .hoverable:active {\n            background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n\n.container .task-section .task-header .active {\n        background: linear-gradient(135deg, #062f37 0%, #041b20 100%); }\n\n.container .task-section .task-header input[type=text] {\n        width: calc(100% - 32px);\n        padding: 0;\n        background: transparent;\n        height: 56px; }\n\n.container .task-section .task-container {\n      overflow: hidden; }\n\n.container .task-section .task-container .task-container-inner {\n        box-sizing: border-box;\n        background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n        height: 100%;\n        overflow-y: auto; }\n\n.container .task-section .task-container .task-container-inner .task {\n          height: 72px; }\n\n@media (min-width: 786px) {\n            .container .task-section .task-container .task-container-inner .task {\n              cursor: pointer; }\n              .container .task-section .task-container .task-container-inner .task:hover {\n                background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n              .container .task-section .task-container .task-container-inner .task:active {\n                background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n\n.container .details-section {\n    box-sizing: border-box;\n    background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n"
 
 /***/ }),
 
@@ -522,6 +567,17 @@ module.exports = ":host {\n  position: absolute;\n  left: 0;\n  top: 72px;\n  wi
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TaskListComponent", function() { return TaskListComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_http_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/http.service */ "./src/app/services/http.service.ts");
+/* harmony import */ var _services_screen_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/screen.service */ "./src/app/services/screen.service.ts");
+/* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/navbar.service */ "./src/app/services/navbar.service.ts");
+var __assign = (undefined && undefined.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -532,10 +588,151 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
 var TaskListComponent = /** @class */ (function () {
-    function TaskListComponent() {
+    function TaskListComponent(httpService, screenService, navbarService) {
+        this.httpService = httpService;
+        this.screenService = screenService;
+        this.navbarService = navbarService;
+        this.taskLists = [];
+        this.listSelected = false;
+        this.taskSelected = false;
+        this.selectedListDetail = "";
+        this.defaultTaskListName = "<New Task List>";
+        this.listSymbol = "☰";
+        this.navbarExtensionOwner = "task-list";
     }
     TaskListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.getTaskLists();
+        this.navbarExtensionClickedSub =
+            this.navbarService.extensionClicked
+                .subscribe(function (e) {
+                _this.onExtensionClicked(e);
+            });
+    };
+    TaskListComponent.prototype.setNavbarExtensions = function () {
+        var curList = this.taskLists[this.curListIndex];
+        var listName = curList && curList.name;
+        this.navbarService
+            .setExtensions(this.navbarExtensionOwner, [
+            this.listSelected && (listName || "<Untitled>")
+        ]);
+    };
+    TaskListComponent.prototype.onExtensionClicked = function (e) {
+        if (e.owner != this.navbarExtensionOwner)
+            return;
+        switch (e.index) {
+            case -1:
+                this.curListIndex = null;
+                this.listSelected = false;
+                this.taskSelected = false;
+                break;
+        }
+        this.setNavbarExtensions();
+    };
+    TaskListComponent.prototype.getTaskLists = function () {
+        var _this = this;
+        this.httpService.getTaskLists()
+            .subscribe(function (res) {
+            if (!res.success) {
+                alert("Failed to fetch task lists.");
+                return;
+            }
+            _this.taskLists = res.taskLists;
+            console.log(res.taskLists);
+        });
+    };
+    TaskListComponent.prototype.updateTaskList = function (req) {
+        this.httpService.updateTaskList(req)
+            .subscribe(function (res) {
+            if (!res.success)
+                alert("Failed to update task list.");
+        });
+    };
+    TaskListComponent.prototype.deleteTaskList = function (index) {
+        var _this = this;
+        this.httpService.deleteTaskList({
+            _id: this.taskLists[this.curListIndex]._id
+        })
+            .subscribe(function (res) {
+            if (!res.success) {
+                alert("Failed to delete task list.");
+                return;
+            }
+            _this.curListIndex = null;
+            _this.listSelected = false;
+            _this.taskLists.splice(index, 1);
+            _this.setNavbarExtensions();
+        });
+    };
+    TaskListComponent.prototype.onCreateTaskList = function () {
+        var _this = this;
+        if (!this.taskLists)
+            return;
+        var name = "New task list";
+        var suffix = "";
+        for (var _i = 0, _a = this.taskLists; _i < _a.length; _i++) {
+            var taskList = _a[_i];
+            if (taskList.name.startsWith(name)) {
+                if (!suffix)
+                    suffix = " (2)";
+                if (taskList.name.endsWith(suffix)) {
+                    var num = suffix.substr(2, suffix.length - 1);
+                    suffix = " (" + (parseInt(num) + 1) + ")";
+                }
+            }
+        }
+        this.httpService.createTaskList({ name: name + suffix })
+            .subscribe(function (response) {
+            console.log("[createTaskList]", response);
+            if (!response.success) {
+                alert("Failed to create task list.");
+                return;
+            }
+            _this.taskLists.push(response.taskList);
+            _this.onSelectTaskList(_this.taskLists.length - 1);
+        });
+    };
+    TaskListComponent.prototype.onSelectTaskList = function (index) {
+        this.curListIndex = index;
+        this.listSelected = true;
+        this.setNavbarExtensions();
+    };
+    TaskListComponent.prototype.onDeleteTaskList = function () {
+        if (!this.listSelected)
+            return;
+        this.deleteTaskList(this.curListIndex);
+        this.setNavbarExtensions();
+    };
+    TaskListComponent.prototype.onTaskListDetailsFocused = function (detail, el) {
+        this.selectedListDetail = detail;
+        setTimeout(function () {
+            el.focus();
+        });
+    };
+    TaskListComponent.prototype.onTaskListDetailsBlur = function () {
+        this.selectedListDetail = "";
+    };
+    TaskListComponent.prototype.onTaskListDetailsModified = function () {
+        var _this = this;
+        this.setNavbarExtensions();
+        clearTimeout(this.taskListDetailsModifiedTimeout);
+        var taskList = __assign({}, this.taskLists[this.curListIndex]);
+        if (!taskList.name.trim()) {
+            taskList.name = "<Untitled>";
+        }
+        console.log(taskList.description);
+        this.taskListDetailsModifiedTimeout =
+            setTimeout(function () {
+                _this.updateTaskList({
+                    _id: taskList._id,
+                    name: taskList.name,
+                    description: taskList.description
+                });
+            }, 300);
     };
     TaskListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -543,7 +740,9 @@ var TaskListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./task-list.component.html */ "./src/app/components/task-list/task-list.component.html"),
             styles: [__webpack_require__(/*! ./task-list.component.scss */ "./src/app/components/task-list/task-list.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_services_http_service__WEBPACK_IMPORTED_MODULE_1__["HttpService"],
+            _services_screen_service__WEBPACK_IMPORTED_MODULE_2__["ScreenService"],
+            _services_navbar_service__WEBPACK_IMPORTED_MODULE_3__["NavbarService"]])
     ], TaskListComponent);
     return TaskListComponent;
 }());
@@ -559,7 +758,7 @@ var TaskListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"tool\" (click)=\"navigateTo('tasks')\">\r\n    <div class=\"text\">Task List</div>\r\n</div>\r\n\r\n<div class=\"tool\">\r\n    <div class=\"text\">Intake Log</div>\r\n</div>\r\n\r\n<div class=\"tool\">\r\n    <div class=\"text\">Prescriptions</div>\r\n</div>\r\n\r\n<div class=\"tool\">\r\n    <div class=\"text\">Inscriptions</div>\r\n</div>\r\n"
+module.exports = "<div class=\"tool\" (click)=\"navigateTo('tasks')\">\r\n    <div class=\"text\">Task List</div>\r\n</div>\r\n\r\n<div class=\"tool\">\r\n    <div class=\"text placeholder\">Intake Log</div>\r\n</div>\r\n\r\n<div class=\"tool\">\r\n    <div class=\"text placeholder\">Prescriptions</div>\r\n</div>\r\n\r\n<div class=\"tool\">\r\n    <div class=\"text placeholder\">Inscriptions</div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -570,7 +769,7 @@ module.exports = "<div class=\"tool\" (click)=\"navigateTo('tasks')\">\r\n    <d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\n  position: absolute;\n  left: 0;\n  top: 72px;\n  width: 100%;\n  height: calc(100% - 72px);\n  font-size: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr 1fr;\n      grid-template-rows: 1fr 1fr;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr; }\n  @media (max-width: 786px) {\n    :host {\n      -ms-grid-rows: 1fr 1fr 1fr 1fr;\n          grid-template-rows: 1fr 1fr 1fr 1fr;\n      -ms-grid-columns: 1fr;\n          grid-template-columns: 1fr; } }\n  :host .tool {\n    box-sizing: border-box;\n    background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n  @media (min-width: 786px) {\n      :host .tool {\n        cursor: pointer; }\n        :host .tool:hover {\n          background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n        :host .tool:active {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  :host .tool .text {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%);\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      font-size: 18px; }\n"
+module.exports = ":host {\n  position: absolute;\n  left: 0;\n  top: 72px;\n  width: 100%;\n  height: calc(100% - 72px);\n  font-size: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr 1fr;\n      grid-template-rows: 1fr 1fr;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr; }\n  @media (max-width: 786px) {\n    :host {\n      -ms-grid-rows: 1fr 1fr 1fr 1fr;\n          grid-template-rows: 1fr 1fr 1fr 1fr;\n      -ms-grid-columns: 1fr;\n          grid-template-columns: 1fr; } }\n  :host .tool {\n    box-sizing: border-box;\n    background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n  @media (min-width: 786px) {\n      :host .tool {\n        cursor: pointer; }\n        :host .tool:hover {\n          background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n        :host .tool:active {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  :host .tool .text {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%);\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      font-size: 18px; }\n  :host .tool .text.placeholder {\n        opacity: 0.4; }\n"
 
 /***/ }),
 
@@ -699,6 +898,26 @@ var HttpService = /** @class */ (function () {
             .post(_shared_routes__WEBPACK_IMPORTED_MODULE_3__["Routes"].submitPasscode, { code: code })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1));
     };
+    HttpService.prototype.getTaskLists = function () {
+        return this.httpClient
+            .post(_shared_routes__WEBPACK_IMPORTED_MODULE_3__["Routes"].getTaskLists, {})
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1));
+    };
+    HttpService.prototype.createTaskList = function (req) {
+        return this.httpClient
+            .post(_shared_routes__WEBPACK_IMPORTED_MODULE_3__["Routes"].createTaskList, req)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1));
+    };
+    HttpService.prototype.updateTaskList = function (req) {
+        return this.httpClient
+            .post(_shared_routes__WEBPACK_IMPORTED_MODULE_3__["Routes"].updateTaskList, req)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1));
+    };
+    HttpService.prototype.deleteTaskList = function (req) {
+        return this.httpClient
+            .post(_shared_routes__WEBPACK_IMPORTED_MODULE_3__["Routes"].deleteTaskList, req)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1));
+    };
     HttpService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
@@ -706,6 +925,115 @@ var HttpService = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], HttpService);
     return HttpService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/navbar.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/services/navbar.service.ts ***!
+  \********************************************/
+/*! exports provided: NavbarService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavbarService", function() { return NavbarService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var NavbarService = /** @class */ (function () {
+    function NavbarService() {
+        this.extensionClicked = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.extensions = [];
+    }
+    NavbarService.prototype.setExtensions = function (owner, exts) {
+        this.owner = owner;
+        if (!exts)
+            return;
+        var extensions = [];
+        for (var _i = 0, exts_1 = exts; _i < exts_1.length; _i++) {
+            var ext = exts_1[_i];
+            if (!ext)
+                break;
+            extensions.push(ext);
+        }
+        this.extensions = extensions;
+    };
+    NavbarService.prototype.triggerClickEvent = function (index) {
+        this.extensionClicked.emit({
+            index: index,
+            extensions: this.extensions,
+            owner: this.owner
+        });
+    };
+    NavbarService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], NavbarService);
+    return NavbarService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/screen.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/services/screen.service.ts ***!
+  \********************************************/
+/*! exports provided: ScreenService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ScreenService", function() { return ScreenService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ScreenService = /** @class */ (function () {
+    function ScreenService() {
+        this.width = 1920;
+        this.height = 1080;
+    }
+    Object.defineProperty(ScreenService.prototype, "mobile", {
+        get: function () {
+            return this.width <= 768;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ScreenService.prototype.setScreenSize = function (w, h) {
+        this.width = w;
+        this.height = h;
+    };
+    ScreenService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], ScreenService);
+    return ScreenService;
 }());
 
 

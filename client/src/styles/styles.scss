@@ -1,8 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700");
+@import "mixins";
+@import "variables";
 
 body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
 
     font-family: "Source Code Pro", monospace;
     color: darken(white, 20%);
@@ -20,4 +23,21 @@ body {
         box-sizing: border-box;
         resize: none;        
     }
+}
+
+* {
+    font-variant-ligatures: none;
+}
+
+::-webkit-scrollbar {
+    background-color: lighten(black, 8%);
+    width: 16px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    @include tile(true);
+
+    background: linear-gradient(135deg,
+        lighten(black, 16%) 0%,
+        lighten(black, 12%) 100%);
 }

@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
+import * as mongoose from "mongoose";
 
 import { join } from "path";
 
@@ -9,6 +10,8 @@ import { Actions } from "./server.actions";
 const app: express.Application = express();
 
 (function initialize() {
+    mongoose.connect("mongodb://localhost/dylans-brain", { useNewUrlParser: true });
+
     app.use(bodyParser.json({ limit: "50mb" }));
     app.use(express.static(join(__dirname, "../../client/dist/client")));
     app.use(Actions.authenticate);

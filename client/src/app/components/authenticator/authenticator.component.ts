@@ -13,7 +13,7 @@ export class AuthenticatorComponent {
     constructor(private httpService: HttpService,
                 private globals: Globals) { }
 
-    @Output() hide = new EventEmitter<void>();
+    @Output() authenticated = new EventEmitter<void>();
 
     private clearKey: string = "C";
     private enterKey: string = "✓";
@@ -61,7 +61,7 @@ export class AuthenticatorComponent {
                     this.waiting = false;
                     this.curCode = "";
     
-                    if (res.correct) {
+                    if (res.success) {
                         this.onCorrectPasscode();
                     } else {
                         this.onIncorrectPasscode();
@@ -78,7 +78,7 @@ export class AuthenticatorComponent {
             this.hidden = true;
 
             setTimeout(() => {
-                this.hide.emit();
+                this.authenticated.emit();
             }, 500);
         }, 500);
     }

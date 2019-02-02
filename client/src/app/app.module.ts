@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { ToolSelectorComponent } from './components/tool-selector/tool-selector.component';
@@ -12,6 +13,8 @@ import { HttpService } from './services/http.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PasscodeInterceptor } from './services/http.interceptor';
 import { Globals } from './app.globals';
+import { ScreenService } from './services/screen.service';
+import { NavbarService } from './services/navbar.service';
 
 @NgModule({
     declarations: [
@@ -25,11 +28,14 @@ import { Globals } from './app.globals';
         BrowserModule,
         HttpClientModule,
         RouterModule.forRoot(AppRoutes),
+        FormsModule
     ],
     providers: [
         HttpService,
         { provide: HTTP_INTERCEPTORS, useClass: PasscodeInterceptor, multi: true },
-        Globals
+        Globals,
+        ScreenService,
+        NavbarService
     ],
     bootstrap: [AppComponent]
 })

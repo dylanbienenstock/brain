@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { NavbarService } from '../../services/navbar.service';
+import { ScreenService } from '../../services/screen.service';
 
 @Component({
     selector: 'app-navbar',
@@ -8,13 +10,17 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class NavbarComponent {
 
-    constructor(private router: Router) {
+    constructor(private router: Router,
+                public navbarService: NavbarService,
+                public screenService: ScreenService) {
+
         router.events.subscribe((e) => {
             this.onRouteChange(e as any);
         });
     }
 
     public path: string[] = [];
+    public backSymbol: string = "../";
     private fullscreen: boolean = false;
 
     onRouteChange(e: NavigationEnd) {
@@ -22,18 +28,23 @@ export class NavbarComponent {
 
         this.path = e.url.substr(1).split("/");
 
-        if (this.path.length == 1 && this.path[0] == "") {
-            this.path = [];
+        if ((this.path.length == 1 && this.path[0] == "") ||
+            this.path[0] == "authenticate") {
+                this.path = [];
         }
     }
 
-    navigateTo(index: number) {
+    onDirClicked(index: number, last: boolean) {
         if (index == -1) {
             this.router.navigate([""]);
             return;
         }
 
         this.router.navigate(this.path.slice(0, index + 1));
+
+        if (index == this.path.length - 1) {
+            this.navbarService.triggerClickEvent(-1);
+        }
     }
 
     toggleFullscreen() {
