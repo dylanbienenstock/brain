@@ -1,8 +1,17 @@
 @import "variables";
+@import "mixins";
 
 :host {
+    overflow: hidden;
+
     .content {
         display: grid;
-        grid-template-rows: $navbar-height auto;
+        grid-template-rows: $cell-size auto;
+
+        @include mobile {
+            grid-template-rows: $cell-size-mobile auto;
+        }
+
+        overflow: hidden;
     }
 }

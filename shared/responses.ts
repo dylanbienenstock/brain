@@ -1,23 +1,43 @@
-import { TaskList } from "../server/src/task-list/task-list.types";
+import { TaskList, Task } from "../server/src/task-list/task-list.types";
 
 export module Responses {
-    interface Res {
+    interface GenericResponse {
         success: boolean;
     }
 
-    export interface SubmitPasscode extends Res { }
 
-    export interface CreateTaskList extends Res {
+    // Authentication
+    export interface SubmitPasscode extends GenericResponse { }
+
+
+    // Task Lists
+    export interface CreateTaskList extends GenericResponse {
         taskList?: TaskList;
     }
 
-    export interface GetTaskLists extends Res {
+    export interface GetTaskLists extends GenericResponse {
         taskLists?: TaskList[];
     }
     
-    export interface UpdateTaskList extends Res {
+    export interface UpdateTaskList extends GenericResponse {
         taskList?: TaskList;
     }
 
-    export interface DeleteTaskList extends Res { }
+    export interface DeleteTaskList extends GenericResponse { }
+
+
+    // Tasks
+    export interface CreateTask extends GenericResponse {
+        task?: Task;
+    }
+
+    export interface GetTasks extends GenericResponse {
+        tasks?: Task[];
+    }
+
+    export interface UpdateTask extends GenericResponse {
+        task?: Task;
+    }
+
+    export interface DeleteTask extends GenericResponse { }
 }

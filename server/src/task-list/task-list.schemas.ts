@@ -1,18 +1,16 @@
 import { model, Schema } from "mongoose";
 
 const taskSchema = new Schema({
-    name: {
-        type: String,
-        required: [true, "Task name is required"]
-    }
+    name: String,
+    description: String,
+    date: String,
+    completed: Boolean,
+    urgent: Boolean
 },
 { timestamps: true });
 
 const taskListSchema = new Schema({
-    name: {
-        type: String,
-        required: [true, "Task list name is required"]
-    },
+    name: String,
     description: String,
     tasks: [taskSchema]
 },

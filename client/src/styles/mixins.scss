@@ -3,10 +3,15 @@
 @mixin page {
     position: absolute;
     left: 0;
-    top: $navbar-height;
+    top: $cell-size;
     width: 100%;
-    height: calc(100% - #{ $navbar-height });
+    height: calc(100% - #{ $cell-size });
     font-size: 0;
+
+    @include mobile {
+        top: $cell-size-mobile;
+        height: calc(100% - #{ $cell-size-mobile });
+    }
 }
 
 @mixin tile($is-button) {
@@ -69,7 +74,11 @@
     transform: translate(-50%, -50%);
 
     user-select: none;
-    font-size: 18px;
+    font-size: $font-size;
+
+    @include mobile {
+        font-size: $font-size-mobile;
+    }
 }
 
 @mixin tile-text-left {
@@ -80,7 +89,11 @@
     transform: translateY(-50%);
 
     user-select: none;
-    font-size: 18px;
+    font-size: $font-size;
+
+    @include mobile {
+        font-size: $font-size-mobile;
+    }
 }
 
 @mixin tile-hover {

@@ -15,7 +15,11 @@
     padding-left: 16px;
 
     user-select: none;
-    font-size: 20px;
+    font-size: $font-size;
+
+    @include mobile {
+        font-size: $font-size-mobile;
+    }
 
     > * {
         display: inline-block;
@@ -42,6 +46,11 @@
             }
         }
 
+        .delim {
+            opacity: 0.5;
+            margin: 0 18px;
+        }
+
         .hint {
             opacity: 0.5;
         }
@@ -52,8 +61,8 @@
 
         position: absolute;
         right: 0;
-        width: $navbar-height;
-        height: $navbar-height;
+        width: $cell-size;
+        height: $cell-size;
 
         .fullscreen-inner {
             display: inline-block;

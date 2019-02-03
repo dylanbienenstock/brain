@@ -15,6 +15,7 @@ import { PasscodeInterceptor } from './services/http.interceptor';
 import { Globals } from './app.globals';
 import { ScreenService } from './services/screen.service';
 import { NavbarService } from './services/navbar.service';
+import { StringUtilService } from './services/string-util.service';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { NavbarService } from './services/navbar.service';
         { provide: HTTP_INTERCEPTORS, useClass: PasscodeInterceptor, multi: true },
         Globals,
         ScreenService,
-        NavbarService
+        NavbarService,
+        StringUtilService
     ],
     bootstrap: [AppComponent]
 })

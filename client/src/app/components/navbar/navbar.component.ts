@@ -20,7 +20,8 @@ export class NavbarComponent {
     }
 
     public path: string[] = [];
-    public backSymbol: string = "../";
+    public backSymbol: string = "...";
+    public delimSymbol: string = ">";
     private fullscreen: boolean = false;
 
     onRouteChange(e: NavigationEnd) {
@@ -34,7 +35,7 @@ export class NavbarComponent {
         }
     }
 
-    onDirClicked(index: number, last: boolean) {
+    onDirClicked(index: number) {
         if (index == -1) {
             this.router.navigate([""]);
             return;
@@ -45,6 +46,10 @@ export class NavbarComponent {
         if (index == this.path.length - 1) {
             this.navbarService.triggerClickEvent(-1);
         }
+    }
+
+    onExtClicked(index: number) {
+        this.navbarService.triggerClickEvent(index);
     }
 
     toggleFullscreen() {

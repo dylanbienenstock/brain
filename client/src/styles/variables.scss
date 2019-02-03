@@ -1,2 +1,6 @@
 $accent-hue: 190;
-$navbar-height: 72px;
+
+$font-size: 18px;
+$font-size-mobile: 14px;
+$cell-size: 72px;
+$cell-size-mobile: $cell-size * ($font-size-mobile / $font-size);

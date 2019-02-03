@@ -58,73 +58,221 @@
 
             <ng-container *ngIf="listSelected">
                 <div class="list-name" 
-                [class.hoverable]="selectedListDetail != 'name'"
-                (click)="onTaskListDetailsFocused('name')">
-                    <div class="text">
+                [class.hoverable]="focusedInput != 'list-name'"
+                [class.active]="focusedInput == 'list-name'"
+                (click)="onInputFocus('list-name', listNameInput, true)">
+                    <span class="text"
+                    *ngIf="focusedInput != 'list-name'"
+                    [class.placeholder]="!curTaskList?.name?.trim()">
+                        {{ listSymbol }}&nbsp;{{ curTaskList?.name?.trim() || "<Task List: Name>" }}
+                    </span>
+
+                    <div class="text"
+                    [style.display]="focusedInput != 'list-name' ? 'none' : 'flex'">
                         <div class="icon-container">
-                            <span class="icon">{{ listSymbol }}&nbsp;</span>
+                            <span class="icon"
+                            [class.placeholder]="!curTaskList?.name?.trim()">
+                                {{ listSymbol }}&nbsp;
+                            </span>
                         </div>
                         
-                        <div class="input-container" *ngIf="taskLists[curListIndex]">
+                        <div class="input-container">
                             <input type="text" placeholder="<Task List: Name>"
-                            [(ngModel)]="taskLists[curListIndex].name"
-                            (ngModelChange)="onTaskListDetailsModified()">
+                            [(ngModel)]="curTaskList.name"
+                            (ngModelChange)="onTaskListDetailsModified()"
+                            (blur)="onInputBlur()"
+                            #listNameInput>
                         </div>
                     </div>
                 </div>
 
                 <div class="list-desc"
-                [class.hoverable]="selectedListDetail != 'description'"
-                [class.active]="selectedListDetail == 'description'"
-                (click)="onTaskListDetailsFocused('description', listDescInput)">
+                [class.hoverable]="focusedInput != 'list-description'"
+                [class.active]="focusedInput == 'list-description'"
+                (click)="onInputFocus('list-description', listDescInput, true)">
                     <span class="text"
-                    *ngIf="selectedListDetail != 'description'"
-                    [class.placeholder]="!taskLists[curListIndex]?.description?.trim()">
-                        {{ taskLists[curListIndex]?.description?.trim() || "<Task List: Description>" }}
+                    *ngIf="focusedInput != 'list-description'"
+                    [class.placeholder]="!curTaskList?.description?.trim()">
+                        {{ curTaskList?.description?.trim() || "<Task List: Description>" }}
                     </span>
 
                     <input type="text" class="text" placeholder="<Task List: Description>"
-                    [(ngModel)]="taskLists[curListIndex].description"
+                    [(ngModel)]="curTaskList.description"
                     (ngModelChange)="onTaskListDetailsModified()"
-                    (blur)="onTaskListDetailsBlur()"
-                    [style.display]="selectedListDetail != 'description' ? 'none' : ''"
+                    (blur)="onInputBlur()"
+                    [style.display]="focusedInput != 'list-description' ? 'none' : ''"
                     #listDescInput>
                 </div>
 
                 <div class="list-info">
                     <span class="text">
-                        {{ taskLists[curListIndex]?.tasks?.length }} tasks |
-                        ID: {{ taskLists[curListIndex]?._id }}
+                        {{ curTaskList?.tasks?.length }} tasks |
+                        ID: {{ curTaskList?._id }}
                     </span>
                 </div>
             </ng-container>
 
             <div class="task-delete"
-            [class.placeholder]="!(listSelected && taskSelected)">
+            (click)="onDeleteTask()"
+            *ngIf="!screenService.mobile"
+            [class.placeholder]="!(listSelected && taskSelected) || focusedInput == 'list-name'">
                 <span class="text">[-]</span>        
             </div>
 
             <div class="task-create"
-            [class.placeholder]="!listSelected">
+            (click)="onCreateTask()"
+            [class.placeholder]="!listSelected || focusedInput == 'list-name'">
                 <span class="text">[+]</span>        
             </div>
         </div>
 
         <div class="task-container">
             <div class="task-container-inner">
-                <div class="task"></div>
-                <div class="task"></div>
-                <div class="task"></div>
-                <div class="task"></div>
-                <div class="task"></div>
-                <div class="task"></div>
-                <div class="task"></div>
-                <div class="task"></div>
-                <div class="task"></div>
-                <div class="task"></div>
+                <div class="task"
+                *ngFor="let task of curTaskList?.tasks; index as index;"
+                [class.active]="!screenService.mobile && index == this.curTaskIndex">
+                    <div class="task-checkbox"
+                    (click)="onCheckTask(index)">
+                        <span class="text">
+                            [{{ task.completed ? checkSymbol : ' ' }}]
+                        </span>
+                    </div>
+                    
+                    <div class="task-details"
+                    [class.completed]="task.completed"
+                    (click)="onSelectTask(index)">
+                        <span class="text">
+                            <div class="task-name">
+                                {{ task.name }}
+                            </div>
+
+                            <!-- <div class="other-stuff">
+                                Today @ 8:50
+                            </div> -->
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="details-section"></div>
+    <div class="task-details-section"
+    [class.hide-top-tile]="screenService.mobile && taskSelected && focusedInput == 'task-desc'">
+        <ng-container *ngIf="!taskSelected">
+            <div class="top-tile">
+                <div class="task-name placeholder">
+                    <span class="text">&lt;Task: Name&gt;</span>    
+                </div>
+
+                <div class="task-date placeholder">
+                    <span class="text">&lt;Task: Date&gt;</span>
+                </div>
+
+                <div class="task-completed placeholder">
+                    <span class="text left">&lt;Task: Done&gt;</span>
+                </div>
+
+                <div class="task-urgent placeholder">
+                    <span class="text left">&lt;Task: Urgent&gt;</span>
+                </div>
+            </div>
+
+            <div class="task-desc placeholder">
+                <span class="text placeholder">&lt;Task: Description&gt;</span>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="taskSelected">
+            <div class="top-tile" 
+            *ngIf="!(screenService.mobile && focusedInput == 'task-desc')">
+                <div class="task-name"
+                [class.hoverable]="focusedInput != 'task-name'"
+                [class.active]="focusedInput == 'task-name'"
+                (click)="onInputFocus('task-name', taskNameInput)">
+                    <span class="text"
+                    [class.placeholder]="!curTask?.name?.trim()"
+                    *ngIf="focusedInput != 'task-name'">
+                        {{ curTask?.name?.trim() || "<Task: Name>" }}
+                    </span>
+                    
+                    <input type="text" class="text" placeholder="<Task: Name>"
+                    [(ngModel)]="curTask.name"
+                    (ngModelChange)="onTaskDetailsModified()"
+                    (blur)="onInputBlur()"
+                    [style.display]="focusedInput != 'task-name' ? 'none' : ''"
+                    #taskNameInput>
+                </div>
+
+                <div class="task-date"
+                [class.hoverable]="focusedInput != 'task-date'"
+                [class.active]="focusedInput == 'task-date'"
+                [class.invalid]="!dateValid(curTask?.date)"
+                (click)="onInputFocus('task-date', taskDateInput)">
+                    <span class="text"
+                    [class.placeholder]="!curTask?.date?.trim()"
+                    *ngIf="focusedInput != 'task-date'">
+                        {{ curTask?.date?.trim() || "<Task: Date>" }}
+                    </span>
+                    
+                    <input type="text" class="text" placeholder="<Task: Date>"
+                    [(ngModel)]="curTask.date"
+                    (ngModelChange)="onTaskDetailsModified()"
+                    (blur)="onInputBlur()"
+                    [style.display]="focusedInput != 'task-date' ? 'none' : ''"
+                    #taskDateInput>
+                </div>
+
+                <div class="task-completed"
+                (click)="onToggleTaskProp('completed')">
+                    <span class="text placeholder left"
+                    *ngIf="!taskSelected">
+                        &lt;Task: Done&gt;
+                    </span>
+
+                    <span class="text"
+                    [class.good]="curTask.completed"
+                    [class.bad]="!curTask.completed"
+                    *ngIf="taskSelected">
+                        {{ curTask?.completed ? 'DONE' : 'NOT DONE' }}
+                    </span>
+                </div>
+
+                <div class="task-urgent"
+                (click)="onToggleTaskProp('urgent')"
+                [class.placeholder]="curTask?.completed">
+                    <span class="text placeholder left"
+                    *ngIf="!taskSelected">
+                        &lt;Task: Urgent&gt;
+                    </span>
+
+                    <span class="text"
+                    [class.good]="!curTask?.completed && !curTask?.urgent"
+                    [class.bad]="!curTask?.completed && curTask?.urgent"
+                    *ngIf="taskSelected">
+                        {{ curTask?.urgent ? 'URGENT' : 'NOT URGENT' }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="task-desc"
+            [class.placeholder]="!taskSelected"
+            [class.hoverable]="focusedInput != 'task-desc'"
+            [class.active]="focusedInput == 'task-desc'"
+            (click)="onInputFocus('task-desc', taskDescInput)">
+                <span class="text"
+                [class.placeholder]="!curTask?.description?.trim()"
+                *ngIf="focusedInput != 'task-desc'">
+                    {{ curTask?.description?.trim() ? curTask.description : '&lt;Task: Description&gt;' }}  
+                </span>
+
+                <textarea class="text"
+                [(ngModel)]="curTask.description"
+                (ngModelChange)="onTaskDetailsModified()"
+                (blur)="onInputBlur()"
+                [style.display]="focusedInput != 'task-desc' ? 'none' : ''"
+                #taskDescInput>
+                </textarea>
+            </div>
+        </ng-container>
+    </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="path">
     <ng-container *ngIf="!screenService.mobile">
         <span class="dir" (click)="onDirClicked(-1)">Tools</span>
-        <span class="delim">&nbsp;>&nbsp;</span>
+        <span class="delim">{{ delimSymbol }}</span>
 
         <ng-container *ngIf="path.length == 0">
             <span class="hint">Select a tool...</span>
@@ -11,14 +11,14 @@
             <ng-container *ngIf="!screenService.mobile">
                 <ng-container *ngFor="let dir of path; index as index; last as last;">
                     <span class="dir" (click)="onDirClicked(index)">{{ dir }}</span>
-                    <span class="delim" *ngIf="!last && !navbarService.extensions">&nbsp;&gt;&nbsp;</span>
+                    <span class="delim" *ngIf="!last && !navbarService.extensions">{{ delimSymbol }}</span>
                 </ng-container>
         
-                <span *ngIf="navbarService.extensions.length > 0">&nbsp;&gt;&nbsp;</span>
+                <span class="delim" *ngIf="navbarService.extensions.length > 0">{{ delimSymbol }}</span>
         
                 <ng-container *ngFor="let ext of navbarService.extensions; index as index; last as last;">
-                    <span class="dir">{{ ext }}</span>
-                    <span class="delim" *ngIf="!last">&nbsp;&gt;&nbsp;</span>
+                    <span class="dir" (click)="onExtClicked(index)">{{ ext }}</span>
+                    <span class="delim" *ngIf="!last">{{ delimSymbol }}</span>
                 </ng-container>
             </ng-container>
         </ng-container>
@@ -32,7 +32,7 @@
 
             <ng-container *ngIf="path.length > 0">
                 <span class="dir" (click)="onDirClicked(path.length - 2)">...</span>
-                <span class="delim">&nbsp;>&nbsp;</span>
+                <span class="delim">{{ delimSymbol }}</span>
                 <span class="dir">{{ path[path.length - 1] }}</span>
             </ng-container>
         </ng-container>
@@ -42,7 +42,11 @@
                 <span class="dir" (click)="onDirClicked(path.length - 1)">...</span>
             </ng-container>
 
-            <span class="delim">&nbsp;>&nbsp;</span>
+            <ng-container *ngIf="navbarService.extensions.length > 1">
+                <span class="dir" (click)="onExtClicked(navbarService.extensions.length - 2)">...</span>
+            </ng-container>
+
+            <span class="delim">{{ delimSymbol }}</span>
             <span class="dir">{{ navbarService.extensions[navbarService.extensions.length - 1] }}</span>
         </ng-container>
     </ng-container>
