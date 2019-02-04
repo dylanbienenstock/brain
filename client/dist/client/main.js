@@ -106,9 +106,6 @@ _window.genKey = function (name) {
     window.crypto.getRandomValues(keyArr);
     for (var i = 0; i < keyByteCount; i++) {
         key += keyArr[i].toString(16);
-        if (i != keyByteCount - 1) {
-            key += " ";
-        }
     }
     localStorage.setItem(prefix(name), key);
     copyToClipboard(key);

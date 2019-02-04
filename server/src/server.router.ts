@@ -8,7 +8,7 @@ export module Router {
     export function initialize(app: Application) {
 
         // Authentication
-        app.post(Routes.submitPasscode, (req: Request, res: Response) => {
+        app.post(Routes.authenticate, (req: Request, res: Response) => {
             Actions.authenticate(req)
                 .then((response: Responses.Authenticate) => {
                     res.send(response);

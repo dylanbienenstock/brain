@@ -57,10 +57,6 @@ _window.genKey = (name: string) => {
 
     for (let i = 0; i < keyByteCount; i++) {
         key += keyArr[i].toString(16);
-
-        if (i != keyByteCount - 1) {
-            key += " ";
-        }
     }
 
     localStorage.setItem(prefix(name), key);
