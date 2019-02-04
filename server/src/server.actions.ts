@@ -10,8 +10,9 @@ export module Actions {
     export async function authenticate(req: Request):
         Promise<Responses.Authenticate> {
             let passcode = req.header("B-PASSCODE");
+            let keyName = req.header("B-KEY-NAME");
             let key = req.header("B-KEY");
-            let success = Auth.valid(passcode, key);
+            let success = Auth.valid(passcode, key, keyName);
 
             return <Responses.Authenticate> { success };
         }
