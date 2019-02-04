@@ -1,6 +1,6 @@
 export enum Routes {
     // Authentication
-    submitPasscode = "/api/submitPasscode",
+    authenticate = "/api/authenticate",
 
     // Task Lists
     createTaskList = "/api/tasklist/create",

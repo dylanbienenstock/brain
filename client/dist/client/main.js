@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 var Routes;
 (function (Routes) {
     // Authentication
-    Routes["submitPasscode"] = "/api/submitPasscode";
+    Routes["authenticate"] = "/api/authenticate";
     // Task Lists
     Routes["createTaskList"] = "/api/tasklist/create";
     Routes["getTaskLists"] = "/api/tasklist/getAll";
@@ -49,6 +49,72 @@ webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
 webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+
+/***/ }),
+
+/***/ "./src/app/app.auth.ts":
+/*!*****************************!*\
+  !*** ./src/app/app.auth.ts ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var _window = window;
+var copyToClipboard = function (str) {
+    var el = document.createElement("textarea");
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+};
+var prefix = function (name) {
+    return "key-" + name;
+};
+_window.deleteKey = function (name) {
+    if (!localStorage.getItem(prefix(name))) {
+        console.log("Key does not exist.");
+        return;
+    }
+    localStorage.removeItem(prefix(name));
+    console.log("Key \"" + name + "\" deleted from localStorage");
+};
+_window.clearAllKeys = function () {
+    localStorage.clear();
+    console.log("Cleared all keys.");
+};
+_window.useKey = function (name) {
+    if (!localStorage.getItem(prefix(name))) {
+        console.log("Key does not exist.");
+        return;
+    }
+    localStorage.setItem("use-key", prefix(name));
+    console.log("Using key " + name + ". Refresh the page.");
+};
+_window.genKey = function (name) {
+    if (localStorage.getItem(prefix(name))) {
+        console.log("That key already exists.");
+        return;
+    }
+    if (!name || name.length <= 8) {
+        console.log("You must specify a key name >= 8 characters.");
+        return;
+    }
+    var keyByteCount = 2048 / 8;
+    var keyArr = new Uint8Array(keyByteCount);
+    var key = "";
+    window.crypto.getRandomValues(keyArr);
+    for (var i = 0; i < keyByteCount; i++) {
+        key += keyArr[i].toString(16);
+        if (i != keyByteCount - 1) {
+            key += " ";
+        }
+    }
+    localStorage.setItem(prefix(name), key);
+    copyToClipboard(key);
+    console.log("Key \"" + name + "\" saved to localStorage and clipboard.");
+};
+
 
 /***/ }),
 
@@ -165,68 +231,6 @@ var AppComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/app.debug.ts":
-/*!******************************!*\
-  !*** ./src/app/app.debug.ts ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var _window = window;
-var copyToClipboard = function (str) {
-    var el = document.createElement("textarea");
-    el.value = str;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-};
-var prefix = function (name) {
-    return "key-" + name;
-};
-_window.deleteKey = function (name) {
-    if (!localStorage.getItem(prefix(name))) {
-        console.log("Key does not exist.");
-        return;
-    }
-    localStorage.removeItem(prefix(name));
-    console.log("Key \"" + name + "\" deleted from localStorage");
-};
-_window.clearAllKeys = function () {
-    localStorage.clear();
-    console.log("Cleared all keys.");
-};
-_window.useKey = function (name) {
-    if (!localStorage.getItem(prefix(name))) {
-        console.log("Key does not exist.");
-        return;
-    }
-    localStorage.setItem("use-key", prefix(name));
-    console.log("Using key " + name + ". Refresh the page.");
-};
-_window.genKey = function (name) {
-    if (localStorage.getItem(prefix(name))) {
-        console.log("That key already exists.");
-    }
-    if (!name || name.length <= 8) {
-        console.log("You must specify a key name >= 8 characters.");
-        return;
-    }
-    var keyByteCount = 2048 / 8;
-    var keyArr = new Uint8Array(keyByteCount);
-    var key = "";
-    window.crypto.getRandomValues(keyArr);
-    for (var i = 0; i < keyByteCount; i++) {
-        key += String.fromCharCode(keyArr[i]);
-    }
-    localStorage.setItem(prefix(name), key);
-    copyToClipboard(key);
-    console.log("Key \"" + name + "\" saved to localStorage and clipboard.");
-};
-
-
-/***/ }),
-
 /***/ "./src/app/app.globals.ts":
 /*!********************************!*\
   !*** ./src/app/app.globals.ts ***!
@@ -260,8 +264,8 @@ var Globals = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
-/* harmony import */ var _app_debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.debug */ "./src/app/app.debug.ts");
-/* harmony import */ var _app_debug__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_app_debug__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _app_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.auth */ "./src/app/app.auth.ts");
+/* harmony import */ var _app_auth__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_app_auth__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
@@ -460,7 +464,7 @@ var AuthenticatorComponent = /** @class */ (function () {
         this.waiting = true;
         this.globals.passcode = code;
         setTimeout(function () {
-            _this.httpService.submitPasscode(code)
+            _this.httpService.authenticate(code)
                 .subscribe(function (res) {
                 _this.waiting = false;
                 _this.curCode = "";
@@ -1180,9 +1184,9 @@ var HttpService = /** @class */ (function () {
         this.httpClient = httpClient;
     }
     // Authentication
-    HttpService.prototype.submitPasscode = function (code) {
+    HttpService.prototype.authenticate = function (code) {
         return this.httpClient
-            .post(_shared_routes__WEBPACK_IMPORTED_MODULE_3__["Routes"].submitPasscode, { code: code })
+            .post(_shared_routes__WEBPACK_IMPORTED_MODULE_3__["Routes"].authenticate, { code: code })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1));
     };
     // Task Lists

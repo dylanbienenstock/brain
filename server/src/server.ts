@@ -19,6 +19,7 @@ const app: express.Application = express();
     app.use(express.static(join(__dirname, "../../client/dist/client")));
     app.use(Auth.middleware);
 
+    Auth.loadKeys();
     Router.initialize(app);
 
     app.get("*", (req, res) => {

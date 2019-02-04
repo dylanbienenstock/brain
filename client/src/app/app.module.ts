@@ -1,4 +1,4 @@
-import "./app.debug";
+import "./app.auth";
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';

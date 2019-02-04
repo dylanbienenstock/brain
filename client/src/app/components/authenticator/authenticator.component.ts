@@ -56,8 +56,8 @@ export class AuthenticatorComponent {
         this.globals.passcode = code;
 
         setTimeout(() => {
-            this.httpService.submitPasscode(code)
-                .subscribe((res: Responses.SubmitPasscode) => {
+            this.httpService.authenticate(code)
+                .subscribe((res: Responses.Authenticate) => {
                     this.waiting = false;
                     this.curCode = "";
     

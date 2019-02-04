@@ -15,11 +15,11 @@ export class HttpService {
     constructor(private httpClient: HttpClient) { }
 
     // Authentication
-    submitPasscode(code: string): 
-        Observable<Responses.SubmitPasscode> {
+    authenticate(code: string): 
+        Observable<Responses.Authenticate> {
             return this.httpClient
-                .post(Routes.submitPasscode, <Requests.SubmitPasscode> { code })
-                .pipe(take(1)) as Observable<Responses.SubmitPasscode>;
+                .post(Routes.authenticate, <Requests.Authenticate> { code })
+                .pipe(take(1)) as Observable<Responses.Authenticate>;
         }
 
 

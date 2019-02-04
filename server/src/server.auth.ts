@@ -21,7 +21,7 @@ export module Auth {
                 }
 
                 filenames.forEach((filename) => {
-                    readFile(dirname + filename, 'utf-8', (err, content) => {
+                    readFile(join(dirname, filename), "utf-8", (err, content) => {
                         if (err) {
                             onError(err);
                             return;

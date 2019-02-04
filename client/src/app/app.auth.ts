@@ -41,6 +41,7 @@ _window.useKey = (name: string) => {
 _window.genKey = (name: string) => {
     if (localStorage.getItem(prefix(name))) {
         console.log("That key already exists.");
+        return;
     }
 
     if (!name || name.length <= 8) {
@@ -55,7 +56,11 @@ _window.genKey = (name: string) => {
     window.crypto.getRandomValues(keyArr);
 
     for (let i = 0; i < keyByteCount; i++) {
-        key += String.fromCharCode(keyArr[i]);
+        key += keyArr[i].toString(16);
+
+        if (i != keyByteCount - 1) {
+            key += " ";
+        }
     }
 
     localStorage.setItem(prefix(name), key);
