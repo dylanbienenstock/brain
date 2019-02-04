@@ -1,5 +1,7 @@
 <app-authenticator
 *ngIf="showAuthenticator"
+[keyName]="keyName"
+[key]="key"
 (authenticated)="onAuthenticated()">
 </app-authenticator>
 

@@ -8,9 +8,7 @@ export module Auth {
     let keys: { [name: string]: string } = {};
 
     export function loadKeys() {
-        console.log("Loading keys...");
-
-        let keyDir = join(__dirname, "../keys");
+        let keyDir = join(__dirname, "../keys/");
         let keyCount = 0;
 
         function readFiles(dirname, onFileContent, onError) {
@@ -41,9 +39,6 @@ export module Auth {
         }, (err) => {
             throw err;
         });
-
-        console.log(`Done! Loaded ${keyCount} keys.`);
-        console.log();
     }
 
     export function valid(passcode: string, key: string, keyName: string) {
@@ -59,6 +54,8 @@ export module Auth {
         let passcode = req.header("B-PASSCODE");
         let key = req.header("B-KEY");
         let keyName = req.header("B-KEY-NAME");
+
+        console.log({ passcode, key, keyName })
 
         if (!valid(passcode, key, keyName)) {
             res.redirect("/authenticate"); return;

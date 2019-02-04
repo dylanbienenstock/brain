@@ -122,7 +122,7 @@ _window.genKey = function (name) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-authenticator\r\n*ngIf=\"showAuthenticator\"\r\n(authenticated)=\"onAuthenticated()\">\r\n</app-authenticator>\r\n\r\n<div class=\"content\">\r\n    <app-navbar></app-navbar>\r\n    <router-outlet></router-outlet>\r\n</div>"
+module.exports = "<app-authenticator\r\n*ngIf=\"showAuthenticator\"\r\n[keyName]=\"keyName\"\r\n[key]=\"key\"\r\n(authenticated)=\"onAuthenticated()\">\r\n</app-authenticator>\r\n\r\n<div class=\"content\">\r\n    <app-navbar></app-navbar>\r\n    <router-outlet></router-outlet>\r\n</div>"
 
 /***/ }),
 
@@ -150,8 +150,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _app_globals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.globals */ "./src/app/app.globals.ts");
-/* harmony import */ var _services_http_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/http.service */ "./src/app/services/http.service.ts");
-/* harmony import */ var _services_screen_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/screen.service */ "./src/app/services/screen.service.ts");
+/* harmony import */ var _services_screen_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/screen.service */ "./src/app/services/screen.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -165,15 +164,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var AppComponent = /** @class */ (function () {
-    function AppComponent(globals, router, httpService, screenService) {
+    function AppComponent(globals, router, screenService) {
         var _this = this;
         this.globals = globals;
         this.router = router;
-        this.httpService = httpService;
         this.screenService = screenService;
         this.showAuthenticator = false;
+        this.key = "";
+        this.keyName = "";
         this.onWindowResized();
         router.events.subscribe(function (e) {
             if (e instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]) {
@@ -183,20 +182,24 @@ var AppComponent = /** @class */ (function () {
             }
         });
     }
-    AppComponent.prototype.ngOnInit = function () {
-        if (!this.loadKey()) {
-            console.log("Failed to load authentication key.");
-        }
+    AppComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        setTimeout(function () {
+            if (!_this.loadKey()) {
+                console.log("Failed to load authentication key.");
+            }
+        });
     };
     AppComponent.prototype.loadKey = function () {
         var keyName = localStorage.getItem("use-key");
         if (!keyName)
             return false;
-        var key = localStorage.getItem("key-" + keyName);
+        var key = localStorage.getItem(keyName);
         if (!key)
             return false;
-        this.globals.keyName = keyName;
-        this.globals.key = key;
+        this.keyName = keyName.substr(4);
+        this.key = key;
+        return true;
     };
     AppComponent.prototype.onAuthenticated = function () {
         this.showAuthenticator = false;
@@ -218,8 +221,7 @@ var AppComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_app_globals__WEBPACK_IMPORTED_MODULE_2__["Globals"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            _services_http_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"],
-            _services_screen_service__WEBPACK_IMPORTED_MODULE_4__["ScreenService"]])
+            _services_screen_service__WEBPACK_IMPORTED_MODULE_3__["ScreenService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -238,12 +240,25 @@ var AppComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Globals", function() { return Globals; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
 var Globals = /** @class */ (function () {
     function Globals() {
         this.passcode = "";
         this.key = "";
         this.keyName = "";
     }
+    Globals = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root',
+        })
+    ], Globals);
     return Globals;
 }());
 
@@ -456,12 +471,14 @@ var AuthenticatorComponent = /** @class */ (function () {
             this.curCode += key;
         }
     };
-    AuthenticatorComponent.prototype.onPasscodeEntered = function (code) {
+    AuthenticatorComponent.prototype.onPasscodeEntered = function (passcode) {
         var _this = this;
         this.waiting = true;
-        this.globals.passcode = code;
+        this.globals.passcode = passcode;
+        this.globals.keyName = this.keyName;
+        this.globals.key = this.key;
         setTimeout(function () {
-            _this.httpService.authenticate(code)
+            _this.httpService.authenticate(passcode)
                 .subscribe(function (res) {
                 _this.waiting = false;
                 _this.curCode = "";
@@ -494,6 +511,14 @@ var AuthenticatorComponent = /** @class */ (function () {
             _this.passwordIncorrect = false;
         }, 1000);
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], AuthenticatorComponent.prototype, "key", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], AuthenticatorComponent.prototype, "keyName", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
         __metadata("design:type", Object)
@@ -1131,11 +1156,13 @@ var PasscodeInterceptor = /** @class */ (function () {
         this.globals = globals;
     }
     PasscodeInterceptor.prototype.intercept = function (_req, next) {
-        var req = _req.clone({ setHeaders: {
-                "B-PASSCODE": this.globals.passcode,
-                "B-KEY-NAME": this.globals.keyName,
-                "B-KEY": this.globals.key
-            } });
+        var headers = {
+            "B-PASSCODE": this.globals.passcode,
+            "B-KEY-NAME": this.globals.keyName,
+            "B-KEY": this.globals.key
+        };
+        console.log(headers);
+        var req = _req.clone({ setHeaders: headers });
         return next.handle(req);
     };
     PasscodeInterceptor = __decorate([

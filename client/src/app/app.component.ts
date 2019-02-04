@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Globals } from './app.globals';
 import { HttpService } from './services/http.service';
@@ -9,11 +9,10 @@ import { ScreenService } from './services/screen.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
 
     constructor(private globals: Globals, 
         private router: Router,
-        private httpService: HttpService,
         private screenService: ScreenService) {
 
             this.onWindowResized();
@@ -29,10 +28,15 @@ export class AppComponent implements OnInit {
 
     public showAuthenticator: boolean = false;
 
-    ngOnInit() {
-        if (!this.loadKey()) {
-            console.log("Failed to load authentication key.")
-        }
+    public key: string = "";
+    public keyName: string = "";
+
+    ngAfterViewInit() {
+        setTimeout(() => {
+            if (!this.loadKey()) {
+                console.log("Failed to load authentication key.")
+            }
+        });
     }
 
     loadKey(): boolean {
@@ -40,12 +44,14 @@ export class AppComponent implements OnInit {
         
         if (!keyName) return false;
 
-        let key = localStorage.getItem("key-" + keyName);
+        let key = localStorage.getItem(keyName);
 
         if (!key) return false;
 
-        this.globals.keyName = keyName;
-        this.globals.key = key;
+        this.keyName = keyName.substr(4);
+        this.key = key;
+
+        return true;
     }
 
     onAuthenticated() {

@@ -32,8 +32,6 @@ const app: express.Application = express();
 function listen() {
     let port: string = process.env.port || "8000";
 
-    console.log(join(__dirname, "../ssl/server.key"));
-
     let listenSecure = () => {
         https.createServer({
             key: readFileSync(join(__dirname, "../ssl/server.key")),

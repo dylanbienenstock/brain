@@ -1,4 +1,4 @@
-import { Component, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, HostListener, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { Responses } from '../../../../../shared/responses';
 import { Globals } from '../../app.globals';
@@ -13,6 +13,8 @@ export class AuthenticatorComponent {
     constructor(private httpService: HttpService,
                 private globals: Globals) { }
 
+    @Input() key: string;
+    @Input() keyName: string;
     @Output() authenticated = new EventEmitter<void>();
 
     private clearKey: string = "C";
@@ -51,12 +53,14 @@ export class AuthenticatorComponent {
         }
     }
 
-    onPasscodeEntered(code: string) {
+    onPasscodeEntered(passcode: string) {
         this.waiting = true;
-        this.globals.passcode = code;
+        this.globals.passcode = passcode;
+        this.globals.keyName = this.keyName;
+        this.globals.key = this.key;
 
         setTimeout(() => {
-            this.httpService.authenticate(code)
+            this.httpService.authenticate(passcode)
                 .subscribe((res: Responses.Authenticate) => {
                     this.waiting = false;
                     this.curCode = "";
