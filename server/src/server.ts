@@ -1,6 +1,8 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
+import * as https from "https";
+import { readFileSync } from "fs";
 
 import { join } from "path";
 
@@ -28,7 +30,26 @@ const app: express.Application = express();
 function listen() {
     let port: string = process.env.port || "8000";
 
-    app.listen(port, () => {
-        console.log(`Listening on port ${port}`);
-    });
+    console.log(join(__dirname, "../ssl/server.key"));
+
+    let listenSecure = () => {
+        https.createServer({
+            key: readFileSync(join(__dirname, "../ssl/server.key")),
+            cert: readFileSync(join(__dirname, "../ssl/server.cert"))
+        }, app).listen(port, () => {
+            console.log(`[HTTPS] Listening on port ${port}`);
+        });
+    }
+
+    let listenInsecure = () => {
+        app.listen(port, () => {
+            console.log(`[HTTP] Listening on port ${port}`);
+        });
+    }
+
+    try {
+        listenSecure();
+    } catch {
+        listenInsecure();
+    }
 }

@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "ts-node ./src/server.ts",
+        "genkey": "mkdir -p ssl && cd ssl && openssl req -nodes -new -x509 -keyout server.key -out server.cert",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
