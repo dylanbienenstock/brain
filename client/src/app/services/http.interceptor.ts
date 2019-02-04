@@ -9,7 +9,9 @@ export class PasscodeInterceptor implements HttpInterceptor {
 
     intercept(_req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let req = _req.clone({ setHeaders: {
-            "B-PASSCODE": this.globals.passcode
+            "B-PASSCODE": this.globals.passcode,
+            "B-KEY-NAME": this.globals.keyName,
+            "B-KEY": this.globals.key
         }});
 
         return next.handle(req);

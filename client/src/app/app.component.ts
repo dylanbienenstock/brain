@@ -1,9 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Globals } from './app.globals';
-import { TaskList } from '../../../server/src/task-list/task-list.types';
 import { HttpService } from './services/http.service';
-import { Responses } from '../../../shared/responses';
 import { ScreenService } from './services/screen.service';
 
 @Component({
@@ -11,7 +9,7 @@ import { ScreenService } from './services/screen.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     constructor(private globals: Globals, 
         private router: Router,
@@ -30,6 +28,25 @@ export class AppComponent {
     }
 
     public showAuthenticator: boolean = false;
+
+    ngOnInit() {
+        if (!this.loadKey()) {
+            console.log("Failed to load authentication key.")
+        }
+    }
+
+    loadKey(): boolean {
+        let keyName = localStorage.getItem("use-key");
+        
+        if (!keyName) return false;
+
+        let key = localStorage.getItem("key-" + keyName);
+
+        if (!key) return false;
+
+        this.globals.keyName = keyName;
+        this.globals.key = key;
+    }
 
     onAuthenticated() {
         this.showAuthenticator = false;

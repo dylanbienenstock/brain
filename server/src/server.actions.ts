@@ -3,36 +3,17 @@ import { Requests } from "../../shared/requests";
 import { Responses } from "../../shared/responses";
 import { Routes } from "../../shared/routes";
 import { TaskListModule } from "./task-list/tast-list.module";
+import { Auth } from "./server.auth";
 
 export module Actions {
 
-    // Authentication
-    function passcodeCorrect(code: string) {
-        return code == "1111";
-    }
-
-    export function authenticate(req: Request, res: Response, next: () => void) {
-        if (req.url == "/authenticate" ||
-            req.url == Routes.submitPasscode) {
-                next(); return;
-        }
-
-        let passcode = req.header("B-PASSCODE");
-
-        if (!passcodeCorrect(passcode)) {
-            res.redirect("/authenticate"); return;
-        }
-
-        next();
-    }
-
-    export async function submitPasscode(req: Request):
-        Promise<Responses.SubmitPasscode> {
+    export async function authenticate(req: Request):
+        Promise<Responses.Authenticate> {
             let passcode = req.header("B-PASSCODE");
+            let key = req.header("B-KEY");
+            let success = Auth.valid(passcode, key);
 
-            return <Responses.SubmitPasscode> {
-                success: passcodeCorrect(passcode)
-            };
+            return <Responses.Authenticate> { success };
         }
 
 

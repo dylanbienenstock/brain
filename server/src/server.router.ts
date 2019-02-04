@@ -9,8 +9,8 @@ export module Router {
 
         // Authentication
         app.post(Routes.submitPasscode, (req: Request, res: Response) => {
-            Actions.submitPasscode(req)
-                .then((response: Responses.SubmitPasscode) => {
+            Actions.authenticate(req)
+                .then((response: Responses.Authenticate) => {
                     res.send(response);
                 });
         });

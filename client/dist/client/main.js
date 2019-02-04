@@ -120,6 +120,21 @@ var AppComponent = /** @class */ (function () {
             }
         });
     }
+    AppComponent.prototype.ngOnInit = function () {
+        if (!this.loadKey()) {
+            console.log("Failed to load authentication key.");
+        }
+    };
+    AppComponent.prototype.loadKey = function () {
+        var keyName = localStorage.getItem("use-key");
+        if (!keyName)
+            return false;
+        var key = localStorage.getItem("key-" + keyName);
+        if (!key)
+            return false;
+        this.globals.keyName = keyName;
+        this.globals.key = key;
+    };
     AppComponent.prototype.onAuthenticated = function () {
         this.showAuthenticator = false;
     };
@@ -150,6 +165,68 @@ var AppComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/app.debug.ts":
+/*!******************************!*\
+  !*** ./src/app/app.debug.ts ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var _window = window;
+var copyToClipboard = function (str) {
+    var el = document.createElement("textarea");
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+};
+var prefix = function (name) {
+    return "key-" + name;
+};
+_window.deleteKey = function (name) {
+    if (!localStorage.getItem(prefix(name))) {
+        console.log("Key does not exist.");
+        return;
+    }
+    localStorage.removeItem(prefix(name));
+    console.log("Key \"" + name + "\" deleted from localStorage");
+};
+_window.clearAllKeys = function () {
+    localStorage.clear();
+    console.log("Cleared all keys.");
+};
+_window.useKey = function (name) {
+    if (!localStorage.getItem(prefix(name))) {
+        console.log("Key does not exist.");
+        return;
+    }
+    localStorage.setItem("use-key", prefix(name));
+    console.log("Using key " + name + ". Refresh the page.");
+};
+_window.genKey = function (name) {
+    if (localStorage.getItem(prefix(name))) {
+        console.log("That key already exists.");
+    }
+    if (!name || name.length <= 8) {
+        console.log("You must specify a key name >= 8 characters.");
+        return;
+    }
+    var keyByteCount = 2048 / 8;
+    var keyArr = new Uint8Array(keyByteCount);
+    var key = "";
+    window.crypto.getRandomValues(keyArr);
+    for (var i = 0; i < keyByteCount; i++) {
+        key += String.fromCharCode(keyArr[i]);
+    }
+    localStorage.setItem(prefix(name), key);
+    copyToClipboard(key);
+    console.log("Key \"" + name + "\" saved to localStorage and clipboard.");
+};
+
+
+/***/ }),
+
 /***/ "./src/app/app.globals.ts":
 /*!********************************!*\
   !*** ./src/app/app.globals.ts ***!
@@ -163,6 +240,8 @@ __webpack_require__.r(__webpack_exports__);
 var Globals = /** @class */ (function () {
     function Globals() {
         this.passcode = "";
+        this.key = "";
+        this.keyName = "";
     }
     return Globals;
 }());
@@ -181,23 +260,25 @@ var Globals = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/tool-selector/tool-selector.component */ "./src/app/components/tool-selector/tool-selector.component.ts");
-/* harmony import */ var _app_routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.routes */ "./src/app/app.routes.ts");
-/* harmony import */ var _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/navbar/navbar.component */ "./src/app/components/navbar/navbar.component.ts");
-/* harmony import */ var _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/task-list/task-list.component */ "./src/app/components/task-list/task-list.component.ts");
-/* harmony import */ var _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/authenticator/authenticator.component */ "./src/app/components/authenticator/authenticator.component.ts");
-/* harmony import */ var _services_http_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/http.service */ "./src/app/services/http.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _services_http_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/http.interceptor */ "./src/app/services/http.interceptor.ts");
-/* harmony import */ var _app_globals__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app.globals */ "./src/app/app.globals.ts");
-/* harmony import */ var _services_screen_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/screen.service */ "./src/app/services/screen.service.ts");
-/* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/navbar.service */ "./src/app/services/navbar.service.ts");
-/* harmony import */ var _services_string_util_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/string-util.service */ "./src/app/services/string-util.service.ts");
+/* harmony import */ var _app_debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.debug */ "./src/app/app.debug.ts");
+/* harmony import */ var _app_debug__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_app_debug__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/tool-selector/tool-selector.component */ "./src/app/components/tool-selector/tool-selector.component.ts");
+/* harmony import */ var _app_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.routes */ "./src/app/app.routes.ts");
+/* harmony import */ var _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/navbar/navbar.component */ "./src/app/components/navbar/navbar.component.ts");
+/* harmony import */ var _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/task-list/task-list.component */ "./src/app/components/task-list/task-list.component.ts");
+/* harmony import */ var _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/authenticator/authenticator.component */ "./src/app/components/authenticator/authenticator.component.ts");
+/* harmony import */ var _services_http_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/http.service */ "./src/app/services/http.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _services_http_interceptor__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/http.interceptor */ "./src/app/services/http.interceptor.ts");
+/* harmony import */ var _app_globals__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./app.globals */ "./src/app/app.globals.ts");
+/* harmony import */ var _services_screen_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/screen.service */ "./src/app/services/screen.service.ts");
+/* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/navbar.service */ "./src/app/services/navbar.service.ts");
+/* harmony import */ var _services_string_util_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/string-util.service */ "./src/app/services/string-util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -221,33 +302,34 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-                _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_5__["ToolSelectorComponent"],
-                _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_7__["NavbarComponent"],
-                _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_8__["TaskListComponent"],
-                _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_9__["AuthenticatorComponent"],
+                _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
+                _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_6__["ToolSelectorComponent"],
+                _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_8__["NavbarComponent"],
+                _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_9__["TaskListComponent"],
+                _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_10__["AuthenticatorComponent"],
             ],
             imports: [
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(_app_routes__WEBPACK_IMPORTED_MODULE_6__["AppRoutes"]),
-                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"]
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(_app_routes__WEBPACK_IMPORTED_MODULE_7__["AppRoutes"]),
+                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"]
             ],
             providers: [
-                _services_http_service__WEBPACK_IMPORTED_MODULE_10__["HttpService"],
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _services_http_interceptor__WEBPACK_IMPORTED_MODULE_12__["PasscodeInterceptor"], multi: true },
-                _app_globals__WEBPACK_IMPORTED_MODULE_13__["Globals"],
-                _services_screen_service__WEBPACK_IMPORTED_MODULE_14__["ScreenService"],
-                _services_navbar_service__WEBPACK_IMPORTED_MODULE_15__["NavbarService"],
-                _services_string_util_service__WEBPACK_IMPORTED_MODULE_16__["StringUtilService"]
+                _services_http_service__WEBPACK_IMPORTED_MODULE_11__["HttpService"],
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"], useClass: _services_http_interceptor__WEBPACK_IMPORTED_MODULE_13__["PasscodeInterceptor"], multi: true },
+                _app_globals__WEBPACK_IMPORTED_MODULE_14__["Globals"],
+                _services_screen_service__WEBPACK_IMPORTED_MODULE_15__["ScreenService"],
+                _services_navbar_service__WEBPACK_IMPORTED_MODULE_16__["NavbarService"],
+                _services_string_util_service__WEBPACK_IMPORTED_MODULE_17__["StringUtilService"]
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -1049,7 +1131,9 @@ var PasscodeInterceptor = /** @class */ (function () {
     }
     PasscodeInterceptor.prototype.intercept = function (_req, next) {
         var req = _req.clone({ setHeaders: {
-                "B-PASSCODE": this.globals.passcode
+                "B-PASSCODE": this.globals.passcode,
+                "B-KEY-NAME": this.globals.keyName,
+                "B-KEY": this.globals.key
             } });
         return next.handle(req);
     };

@@ -8,6 +8,7 @@ import { join } from "path";
 
 import { Router } from "./server.router";
 import { Actions } from "./server.actions";
+import { Auth } from "./server.auth";
 
 const app: express.Application = express();
 
@@ -16,7 +17,7 @@ const app: express.Application = express();
 
     app.use(bodyParser.json({ limit: "50mb" }));
     app.use(express.static(join(__dirname, "../../client/dist/client")));
-    app.use(Actions.authenticate);
+    app.use(Auth.middleware);
 
     Router.initialize(app);
 

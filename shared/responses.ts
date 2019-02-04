@@ -7,7 +7,7 @@ export module Responses {
 
 
     // Authentication
-    export interface SubmitPasscode extends GenericResponse { }
+    export interface Authenticate extends GenericResponse { }
 
 
     // Task Lists

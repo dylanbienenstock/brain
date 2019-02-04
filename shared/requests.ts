@@ -2,8 +2,9 @@ import { ITaskList, ITask } from "../server/src/task-list/task-list.types";
 
 export module Requests {
     // Authentication
-    export interface SubmitPasscode {
+    export interface Authenticate {
         code: string;
+        key: string;
     }
 
 
