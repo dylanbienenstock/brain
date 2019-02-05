@@ -11,7 +11,7 @@ export module Actions {
         Promise<Responses.Authenticate> {
             let passcode = req.header("B-PASSCODE");
             let keyName = req.header("B-KEY-NAME");
-            let key = req.header("B-KEY");
+            let key = req.header("B-KEY").trim();
             let success = Auth.valid(passcode, key, keyName);
 
             return <Responses.Authenticate> { success };

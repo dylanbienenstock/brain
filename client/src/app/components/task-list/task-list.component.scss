@@ -1,6 +1,9 @@
 @import "mixins";
 @import "variables";
 
+$list-width: 350px;
+$task-details-width: 350px;
+
 .placeholder {
     pointer-events: none;
     color: rgba(darken(white, 20%), 0.25) !important;
@@ -23,7 +26,7 @@ input[type=text] {
 
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 300px auto 350px;
+    grid-template-columns: $list-width auto $task-details-width;
 
     @include mobile {
         grid-template-columns: 100vw 100vw 100vw;
@@ -38,6 +41,10 @@ input[type=text] {
         display: grid;
         grid-template-rows: $cell-size auto;
         overflow: hidden;
+
+        @include mobile {
+            grid-template-rows: $cell-size-mobile auto;
+        }
 
         @include not-mobile {
             box-shadow: 0 0 12px black;
@@ -61,14 +68,20 @@ input[type=text] {
             }
 
             .list-create,
-            .list-delete {
+            .list-delete-toggle {
                 .text {
                     @include tile-text;
                 }
             }
 
             .list-create { @include tile-accept; }
-            .list-delete { @include tile-reject; }
+            .list-delete-toggle {
+                @include tile-reject;
+
+                &.deleting {
+                    @include tile-accept
+                }
+            }
         }
 
         .list-container {
@@ -82,16 +95,48 @@ input[type=text] {
 
                 height: $cell-size;
 
+                @include mobile {
+                    height: $cell-size-mobile !important;
+                }
+
                 &.selected {
                     @include tile-active;
                     
                     pointer-events: none;
                 }
 
-                .text {
+                &.deleting {
+                    pointer-events: none;
+
+                    display: grid;
+                    grid-template-columns: auto $cell-size;
+
+                    background: transparent !important;
+
+                    @include mobile {
+                        grid-template-columns: auto $cell-size-mobile;
+                    }
+
+                    .text.name {
+                        height: min-content;
+                    }
+                }
+
+                .list-delete {
+                    @include tile-reject;
+
+                    pointer-events: all;
+                }
+
+                .text.name {
                     @include tile-text-left;
                     @include ellipsis;
+
                     max-width: calc(100% - 32px);
+                }
+
+                .text.delete {
+                    @include tile-text;
                 }
             }
         }
@@ -116,7 +161,7 @@ input[type=text] {
 
             display: grid;
             grid-template-rows: 1fr 1fr 1fr;
-            grid-template-columns: 1fr repeat(2, $cell-size);
+            grid-template-columns: auto repeat(2, $cell-size);
             grid-template-areas:
                 "name delete create"
                 "desc desc desc"
@@ -124,14 +169,18 @@ input[type=text] {
             ;
 
             @include mobile {
-                grid-template-columns: 1fr repeat(2, $cell-size-mobile);
+                grid-template-columns: auto repeat(2, $cell-size-mobile);
             }
             
-            .list-name   { grid-area: name; }
-            .list-desc   { grid-area: desc; }
-            .list-info   { grid-area: info; }
-            .task-delete { grid-area: delete; }
-            .task-create { grid-area: create; }
+            &.deleting {
+                pointer-events: none;
+            }
+
+            .list-name          { grid-area: name; }
+            .list-desc          { grid-area: desc; }
+            .list-info          { grid-area: info; }
+            .task-delete-toggle { grid-area: delete; }
+            .task-create        { grid-area: create; }
 
             > :not(.list-delete) {
                 .text {
@@ -195,7 +244,7 @@ input[type=text] {
                 }
             }
 
-            .task-delete,
+            .task-delete-toggle,
             .task-create {
                 z-index: 1;
 
@@ -204,8 +253,20 @@ input[type=text] {
                 }
             }
 
-            .task-delete { @include tile-reject; }
             .task-create { @include tile-accept; }
+
+            .task-delete-toggle {
+                @include tile-reject;
+
+                &:not(.placeholder) {
+                    pointer-events: all;
+                }
+
+                &.deleting {
+                    @include tile-accept;
+                }
+            }
+            
 
             .hoverable { @include tile-hover; }
             .active { @include tile-active; }
@@ -239,6 +300,16 @@ input[type=text] {
                         pointer-events: none;
                     }
 
+                    &.deleting {
+                        grid-template-columns: $cell-size auto $cell-size;
+                        background: transparent !important;
+                        pointer-events: none;
+    
+                        @include mobile {
+                            grid-template-columns: $cell-size-mobile auto $cell-size-mobile;
+                        }
+                    }
+
                     .task-checkbox {
                         z-index: 1;
                         pointer-events: all;
@@ -265,10 +336,33 @@ input[type=text] {
 
                             left: 0;
 
-                            .other-stuff {
-                                font-size: 14px;
-                                opacity: 0.25;
+                            .task-info {
+                                font-size: 0;
+
+                                span {
+                                    font-size: 14px;
+                                    color: rgba(darken(white, 20%), 0.5);
+                                }
+
+                                .urgent {
+                                    color: hsl(0, 100%, 45%);
+                                }
+
+                                span + span {
+                                    &:before {
+                                        content: " •";
+                                    }
+                                }
                             }
+                        }
+                    }
+
+                    .task-delete {
+                        @include tile-reject;
+                        pointer-events: all;
+
+                        .text {
+                            @include tile-text;
                         }
                     }
                 }

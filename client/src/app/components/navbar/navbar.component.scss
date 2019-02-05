@@ -64,6 +64,11 @@
         width: $cell-size;
         height: $cell-size;
 
+        @include mobile {
+            width: $cell-size-mobile;
+            height: $cell-size-mobile;
+        }
+
         .fullscreen-inner {
             display: inline-block;
             position: relative;

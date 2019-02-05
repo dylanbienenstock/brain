@@ -14,8 +14,6 @@ export class PasscodeInterceptor implements HttpInterceptor {
             "B-KEY": this.globals.key
         };
 
-        console.log(headers);
-            
         let req = _req.clone({ setHeaders: headers });
 
         return next.handle(req);

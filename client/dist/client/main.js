@@ -29,6 +29,294 @@ var Routes;
 
 /***/ }),
 
+/***/ "./node_modules/moment/locale sync recursive ^\\.\\/.*$":
+/*!**************************************************!*\
+  !*** ./node_modules/moment/locale sync ^\.\/.*$ ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./af": "./node_modules/moment/locale/af.js",
+	"./af.js": "./node_modules/moment/locale/af.js",
+	"./ar": "./node_modules/moment/locale/ar.js",
+	"./ar-dz": "./node_modules/moment/locale/ar-dz.js",
+	"./ar-dz.js": "./node_modules/moment/locale/ar-dz.js",
+	"./ar-kw": "./node_modules/moment/locale/ar-kw.js",
+	"./ar-kw.js": "./node_modules/moment/locale/ar-kw.js",
+	"./ar-ly": "./node_modules/moment/locale/ar-ly.js",
+	"./ar-ly.js": "./node_modules/moment/locale/ar-ly.js",
+	"./ar-ma": "./node_modules/moment/locale/ar-ma.js",
+	"./ar-ma.js": "./node_modules/moment/locale/ar-ma.js",
+	"./ar-sa": "./node_modules/moment/locale/ar-sa.js",
+	"./ar-sa.js": "./node_modules/moment/locale/ar-sa.js",
+	"./ar-tn": "./node_modules/moment/locale/ar-tn.js",
+	"./ar-tn.js": "./node_modules/moment/locale/ar-tn.js",
+	"./ar.js": "./node_modules/moment/locale/ar.js",
+	"./az": "./node_modules/moment/locale/az.js",
+	"./az.js": "./node_modules/moment/locale/az.js",
+	"./be": "./node_modules/moment/locale/be.js",
+	"./be.js": "./node_modules/moment/locale/be.js",
+	"./bg": "./node_modules/moment/locale/bg.js",
+	"./bg.js": "./node_modules/moment/locale/bg.js",
+	"./bm": "./node_modules/moment/locale/bm.js",
+	"./bm.js": "./node_modules/moment/locale/bm.js",
+	"./bn": "./node_modules/moment/locale/bn.js",
+	"./bn.js": "./node_modules/moment/locale/bn.js",
+	"./bo": "./node_modules/moment/locale/bo.js",
+	"./bo.js": "./node_modules/moment/locale/bo.js",
+	"./br": "./node_modules/moment/locale/br.js",
+	"./br.js": "./node_modules/moment/locale/br.js",
+	"./bs": "./node_modules/moment/locale/bs.js",
+	"./bs.js": "./node_modules/moment/locale/bs.js",
+	"./ca": "./node_modules/moment/locale/ca.js",
+	"./ca.js": "./node_modules/moment/locale/ca.js",
+	"./cs": "./node_modules/moment/locale/cs.js",
+	"./cs.js": "./node_modules/moment/locale/cs.js",
+	"./cv": "./node_modules/moment/locale/cv.js",
+	"./cv.js": "./node_modules/moment/locale/cv.js",
+	"./cy": "./node_modules/moment/locale/cy.js",
+	"./cy.js": "./node_modules/moment/locale/cy.js",
+	"./da": "./node_modules/moment/locale/da.js",
+	"./da.js": "./node_modules/moment/locale/da.js",
+	"./de": "./node_modules/moment/locale/de.js",
+	"./de-at": "./node_modules/moment/locale/de-at.js",
+	"./de-at.js": "./node_modules/moment/locale/de-at.js",
+	"./de-ch": "./node_modules/moment/locale/de-ch.js",
+	"./de-ch.js": "./node_modules/moment/locale/de-ch.js",
+	"./de.js": "./node_modules/moment/locale/de.js",
+	"./dv": "./node_modules/moment/locale/dv.js",
+	"./dv.js": "./node_modules/moment/locale/dv.js",
+	"./el": "./node_modules/moment/locale/el.js",
+	"./el.js": "./node_modules/moment/locale/el.js",
+	"./en-SG": "./node_modules/moment/locale/en-SG.js",
+	"./en-SG.js": "./node_modules/moment/locale/en-SG.js",
+	"./en-au": "./node_modules/moment/locale/en-au.js",
+	"./en-au.js": "./node_modules/moment/locale/en-au.js",
+	"./en-ca": "./node_modules/moment/locale/en-ca.js",
+	"./en-ca.js": "./node_modules/moment/locale/en-ca.js",
+	"./en-gb": "./node_modules/moment/locale/en-gb.js",
+	"./en-gb.js": "./node_modules/moment/locale/en-gb.js",
+	"./en-ie": "./node_modules/moment/locale/en-ie.js",
+	"./en-ie.js": "./node_modules/moment/locale/en-ie.js",
+	"./en-il": "./node_modules/moment/locale/en-il.js",
+	"./en-il.js": "./node_modules/moment/locale/en-il.js",
+	"./en-nz": "./node_modules/moment/locale/en-nz.js",
+	"./en-nz.js": "./node_modules/moment/locale/en-nz.js",
+	"./eo": "./node_modules/moment/locale/eo.js",
+	"./eo.js": "./node_modules/moment/locale/eo.js",
+	"./es": "./node_modules/moment/locale/es.js",
+	"./es-do": "./node_modules/moment/locale/es-do.js",
+	"./es-do.js": "./node_modules/moment/locale/es-do.js",
+	"./es-us": "./node_modules/moment/locale/es-us.js",
+	"./es-us.js": "./node_modules/moment/locale/es-us.js",
+	"./es.js": "./node_modules/moment/locale/es.js",
+	"./et": "./node_modules/moment/locale/et.js",
+	"./et.js": "./node_modules/moment/locale/et.js",
+	"./eu": "./node_modules/moment/locale/eu.js",
+	"./eu.js": "./node_modules/moment/locale/eu.js",
+	"./fa": "./node_modules/moment/locale/fa.js",
+	"./fa.js": "./node_modules/moment/locale/fa.js",
+	"./fi": "./node_modules/moment/locale/fi.js",
+	"./fi.js": "./node_modules/moment/locale/fi.js",
+	"./fo": "./node_modules/moment/locale/fo.js",
+	"./fo.js": "./node_modules/moment/locale/fo.js",
+	"./fr": "./node_modules/moment/locale/fr.js",
+	"./fr-ca": "./node_modules/moment/locale/fr-ca.js",
+	"./fr-ca.js": "./node_modules/moment/locale/fr-ca.js",
+	"./fr-ch": "./node_modules/moment/locale/fr-ch.js",
+	"./fr-ch.js": "./node_modules/moment/locale/fr-ch.js",
+	"./fr.js": "./node_modules/moment/locale/fr.js",
+	"./fy": "./node_modules/moment/locale/fy.js",
+	"./fy.js": "./node_modules/moment/locale/fy.js",
+	"./ga": "./node_modules/moment/locale/ga.js",
+	"./ga.js": "./node_modules/moment/locale/ga.js",
+	"./gd": "./node_modules/moment/locale/gd.js",
+	"./gd.js": "./node_modules/moment/locale/gd.js",
+	"./gl": "./node_modules/moment/locale/gl.js",
+	"./gl.js": "./node_modules/moment/locale/gl.js",
+	"./gom-latn": "./node_modules/moment/locale/gom-latn.js",
+	"./gom-latn.js": "./node_modules/moment/locale/gom-latn.js",
+	"./gu": "./node_modules/moment/locale/gu.js",
+	"./gu.js": "./node_modules/moment/locale/gu.js",
+	"./he": "./node_modules/moment/locale/he.js",
+	"./he.js": "./node_modules/moment/locale/he.js",
+	"./hi": "./node_modules/moment/locale/hi.js",
+	"./hi.js": "./node_modules/moment/locale/hi.js",
+	"./hr": "./node_modules/moment/locale/hr.js",
+	"./hr.js": "./node_modules/moment/locale/hr.js",
+	"./hu": "./node_modules/moment/locale/hu.js",
+	"./hu.js": "./node_modules/moment/locale/hu.js",
+	"./hy-am": "./node_modules/moment/locale/hy-am.js",
+	"./hy-am.js": "./node_modules/moment/locale/hy-am.js",
+	"./id": "./node_modules/moment/locale/id.js",
+	"./id.js": "./node_modules/moment/locale/id.js",
+	"./is": "./node_modules/moment/locale/is.js",
+	"./is.js": "./node_modules/moment/locale/is.js",
+	"./it": "./node_modules/moment/locale/it.js",
+	"./it-ch": "./node_modules/moment/locale/it-ch.js",
+	"./it-ch.js": "./node_modules/moment/locale/it-ch.js",
+	"./it.js": "./node_modules/moment/locale/it.js",
+	"./ja": "./node_modules/moment/locale/ja.js",
+	"./ja.js": "./node_modules/moment/locale/ja.js",
+	"./jv": "./node_modules/moment/locale/jv.js",
+	"./jv.js": "./node_modules/moment/locale/jv.js",
+	"./ka": "./node_modules/moment/locale/ka.js",
+	"./ka.js": "./node_modules/moment/locale/ka.js",
+	"./kk": "./node_modules/moment/locale/kk.js",
+	"./kk.js": "./node_modules/moment/locale/kk.js",
+	"./km": "./node_modules/moment/locale/km.js",
+	"./km.js": "./node_modules/moment/locale/km.js",
+	"./kn": "./node_modules/moment/locale/kn.js",
+	"./kn.js": "./node_modules/moment/locale/kn.js",
+	"./ko": "./node_modules/moment/locale/ko.js",
+	"./ko.js": "./node_modules/moment/locale/ko.js",
+	"./ku": "./node_modules/moment/locale/ku.js",
+	"./ku.js": "./node_modules/moment/locale/ku.js",
+	"./ky": "./node_modules/moment/locale/ky.js",
+	"./ky.js": "./node_modules/moment/locale/ky.js",
+	"./lb": "./node_modules/moment/locale/lb.js",
+	"./lb.js": "./node_modules/moment/locale/lb.js",
+	"./lo": "./node_modules/moment/locale/lo.js",
+	"./lo.js": "./node_modules/moment/locale/lo.js",
+	"./lt": "./node_modules/moment/locale/lt.js",
+	"./lt.js": "./node_modules/moment/locale/lt.js",
+	"./lv": "./node_modules/moment/locale/lv.js",
+	"./lv.js": "./node_modules/moment/locale/lv.js",
+	"./me": "./node_modules/moment/locale/me.js",
+	"./me.js": "./node_modules/moment/locale/me.js",
+	"./mi": "./node_modules/moment/locale/mi.js",
+	"./mi.js": "./node_modules/moment/locale/mi.js",
+	"./mk": "./node_modules/moment/locale/mk.js",
+	"./mk.js": "./node_modules/moment/locale/mk.js",
+	"./ml": "./node_modules/moment/locale/ml.js",
+	"./ml.js": "./node_modules/moment/locale/ml.js",
+	"./mn": "./node_modules/moment/locale/mn.js",
+	"./mn.js": "./node_modules/moment/locale/mn.js",
+	"./mr": "./node_modules/moment/locale/mr.js",
+	"./mr.js": "./node_modules/moment/locale/mr.js",
+	"./ms": "./node_modules/moment/locale/ms.js",
+	"./ms-my": "./node_modules/moment/locale/ms-my.js",
+	"./ms-my.js": "./node_modules/moment/locale/ms-my.js",
+	"./ms.js": "./node_modules/moment/locale/ms.js",
+	"./mt": "./node_modules/moment/locale/mt.js",
+	"./mt.js": "./node_modules/moment/locale/mt.js",
+	"./my": "./node_modules/moment/locale/my.js",
+	"./my.js": "./node_modules/moment/locale/my.js",
+	"./nb": "./node_modules/moment/locale/nb.js",
+	"./nb.js": "./node_modules/moment/locale/nb.js",
+	"./ne": "./node_modules/moment/locale/ne.js",
+	"./ne.js": "./node_modules/moment/locale/ne.js",
+	"./nl": "./node_modules/moment/locale/nl.js",
+	"./nl-be": "./node_modules/moment/locale/nl-be.js",
+	"./nl-be.js": "./node_modules/moment/locale/nl-be.js",
+	"./nl.js": "./node_modules/moment/locale/nl.js",
+	"./nn": "./node_modules/moment/locale/nn.js",
+	"./nn.js": "./node_modules/moment/locale/nn.js",
+	"./pa-in": "./node_modules/moment/locale/pa-in.js",
+	"./pa-in.js": "./node_modules/moment/locale/pa-in.js",
+	"./pl": "./node_modules/moment/locale/pl.js",
+	"./pl.js": "./node_modules/moment/locale/pl.js",
+	"./pt": "./node_modules/moment/locale/pt.js",
+	"./pt-br": "./node_modules/moment/locale/pt-br.js",
+	"./pt-br.js": "./node_modules/moment/locale/pt-br.js",
+	"./pt.js": "./node_modules/moment/locale/pt.js",
+	"./ro": "./node_modules/moment/locale/ro.js",
+	"./ro.js": "./node_modules/moment/locale/ro.js",
+	"./ru": "./node_modules/moment/locale/ru.js",
+	"./ru.js": "./node_modules/moment/locale/ru.js",
+	"./sd": "./node_modules/moment/locale/sd.js",
+	"./sd.js": "./node_modules/moment/locale/sd.js",
+	"./se": "./node_modules/moment/locale/se.js",
+	"./se.js": "./node_modules/moment/locale/se.js",
+	"./si": "./node_modules/moment/locale/si.js",
+	"./si.js": "./node_modules/moment/locale/si.js",
+	"./sk": "./node_modules/moment/locale/sk.js",
+	"./sk.js": "./node_modules/moment/locale/sk.js",
+	"./sl": "./node_modules/moment/locale/sl.js",
+	"./sl.js": "./node_modules/moment/locale/sl.js",
+	"./sq": "./node_modules/moment/locale/sq.js",
+	"./sq.js": "./node_modules/moment/locale/sq.js",
+	"./sr": "./node_modules/moment/locale/sr.js",
+	"./sr-cyrl": "./node_modules/moment/locale/sr-cyrl.js",
+	"./sr-cyrl.js": "./node_modules/moment/locale/sr-cyrl.js",
+	"./sr.js": "./node_modules/moment/locale/sr.js",
+	"./ss": "./node_modules/moment/locale/ss.js",
+	"./ss.js": "./node_modules/moment/locale/ss.js",
+	"./sv": "./node_modules/moment/locale/sv.js",
+	"./sv.js": "./node_modules/moment/locale/sv.js",
+	"./sw": "./node_modules/moment/locale/sw.js",
+	"./sw.js": "./node_modules/moment/locale/sw.js",
+	"./ta": "./node_modules/moment/locale/ta.js",
+	"./ta.js": "./node_modules/moment/locale/ta.js",
+	"./te": "./node_modules/moment/locale/te.js",
+	"./te.js": "./node_modules/moment/locale/te.js",
+	"./tet": "./node_modules/moment/locale/tet.js",
+	"./tet.js": "./node_modules/moment/locale/tet.js",
+	"./tg": "./node_modules/moment/locale/tg.js",
+	"./tg.js": "./node_modules/moment/locale/tg.js",
+	"./th": "./node_modules/moment/locale/th.js",
+	"./th.js": "./node_modules/moment/locale/th.js",
+	"./tl-ph": "./node_modules/moment/locale/tl-ph.js",
+	"./tl-ph.js": "./node_modules/moment/locale/tl-ph.js",
+	"./tlh": "./node_modules/moment/locale/tlh.js",
+	"./tlh.js": "./node_modules/moment/locale/tlh.js",
+	"./tr": "./node_modules/moment/locale/tr.js",
+	"./tr.js": "./node_modules/moment/locale/tr.js",
+	"./tzl": "./node_modules/moment/locale/tzl.js",
+	"./tzl.js": "./node_modules/moment/locale/tzl.js",
+	"./tzm": "./node_modules/moment/locale/tzm.js",
+	"./tzm-latn": "./node_modules/moment/locale/tzm-latn.js",
+	"./tzm-latn.js": "./node_modules/moment/locale/tzm-latn.js",
+	"./tzm.js": "./node_modules/moment/locale/tzm.js",
+	"./ug-cn": "./node_modules/moment/locale/ug-cn.js",
+	"./ug-cn.js": "./node_modules/moment/locale/ug-cn.js",
+	"./uk": "./node_modules/moment/locale/uk.js",
+	"./uk.js": "./node_modules/moment/locale/uk.js",
+	"./ur": "./node_modules/moment/locale/ur.js",
+	"./ur.js": "./node_modules/moment/locale/ur.js",
+	"./uz": "./node_modules/moment/locale/uz.js",
+	"./uz-latn": "./node_modules/moment/locale/uz-latn.js",
+	"./uz-latn.js": "./node_modules/moment/locale/uz-latn.js",
+	"./uz.js": "./node_modules/moment/locale/uz.js",
+	"./vi": "./node_modules/moment/locale/vi.js",
+	"./vi.js": "./node_modules/moment/locale/vi.js",
+	"./x-pseudo": "./node_modules/moment/locale/x-pseudo.js",
+	"./x-pseudo.js": "./node_modules/moment/locale/x-pseudo.js",
+	"./yo": "./node_modules/moment/locale/yo.js",
+	"./yo.js": "./node_modules/moment/locale/yo.js",
+	"./zh-cn": "./node_modules/moment/locale/zh-cn.js",
+	"./zh-cn.js": "./node_modules/moment/locale/zh-cn.js",
+	"./zh-hk": "./node_modules/moment/locale/zh-hk.js",
+	"./zh-hk.js": "./node_modules/moment/locale/zh-hk.js",
+	"./zh-tw": "./node_modules/moment/locale/zh-tw.js",
+	"./zh-tw.js": "./node_modules/moment/locale/zh-tw.js"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	var module = __webpack_require__(id);
+	return module;
+}
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) { // check for number or string
+		var e = new Error('Cannot find module "' + req + '".');
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return id;
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
+
+/***/ }),
+
 /***/ "./src/$$_lazy_route_resource lazy recursive":
 /*!**********************************************************!*\
   !*** ./src/$$_lazy_route_resource lazy namespace object ***!
@@ -282,19 +570,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/tool-selector/tool-selector.component */ "./src/app/components/tool-selector/tool-selector.component.ts");
-/* harmony import */ var _app_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.routes */ "./src/app/app.routes.ts");
-/* harmony import */ var _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/navbar/navbar.component */ "./src/app/components/navbar/navbar.component.ts");
-/* harmony import */ var _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/task-list/task-list.component */ "./src/app/components/task-list/task-list.component.ts");
-/* harmony import */ var _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/authenticator/authenticator.component */ "./src/app/components/authenticator/authenticator.component.ts");
-/* harmony import */ var _services_http_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/http.service */ "./src/app/services/http.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _services_http_interceptor__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/http.interceptor */ "./src/app/services/http.interceptor.ts");
-/* harmony import */ var _app_globals__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./app.globals */ "./src/app/app.globals.ts");
-/* harmony import */ var _services_screen_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/screen.service */ "./src/app/services/screen.service.ts");
-/* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/navbar.service */ "./src/app/services/navbar.service.ts");
-/* harmony import */ var _services_string_util_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/string-util.service */ "./src/app/services/string-util.service.ts");
+/* harmony import */ var ngx_moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-moment */ "./node_modules/ngx-moment/fesm5/ngx-moment.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/tool-selector/tool-selector.component */ "./src/app/components/tool-selector/tool-selector.component.ts");
+/* harmony import */ var _app_routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.routes */ "./src/app/app.routes.ts");
+/* harmony import */ var _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/navbar/navbar.component */ "./src/app/components/navbar/navbar.component.ts");
+/* harmony import */ var _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/task-list/task-list.component */ "./src/app/components/task-list/task-list.component.ts");
+/* harmony import */ var _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/authenticator/authenticator.component */ "./src/app/components/authenticator/authenticator.component.ts");
+/* harmony import */ var _services_http_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/http.service */ "./src/app/services/http.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _services_http_interceptor__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/http.interceptor */ "./src/app/services/http.interceptor.ts");
+/* harmony import */ var _app_globals__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./app.globals */ "./src/app/app.globals.ts");
+/* harmony import */ var _services_screen_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/screen.service */ "./src/app/services/screen.service.ts");
+/* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/navbar.service */ "./src/app/services/navbar.service.ts");
+/* harmony import */ var _services_string_util_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./services/string-util.service */ "./src/app/services/string-util.service.ts");
+/* harmony import */ var _pipes_day_only_pipe__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pipes/day-only.pipe */ "./src/app/pipes/day-only.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -319,33 +609,37 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
-                _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_6__["ToolSelectorComponent"],
-                _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_8__["NavbarComponent"],
-                _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_9__["TaskListComponent"],
-                _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_10__["AuthenticatorComponent"],
+                _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
+                _components_tool_selector_tool_selector_component__WEBPACK_IMPORTED_MODULE_7__["ToolSelectorComponent"],
+                _components_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_9__["NavbarComponent"],
+                _components_task_list_task_list_component__WEBPACK_IMPORTED_MODULE_10__["TaskListComponent"],
+                _components_authenticator_authenticator_component__WEBPACK_IMPORTED_MODULE_11__["AuthenticatorComponent"],
+                _pipes_day_only_pipe__WEBPACK_IMPORTED_MODULE_19__["DayOnlyPipe"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(_app_routes__WEBPACK_IMPORTED_MODULE_7__["AppRoutes"]),
-                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"]
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(_app_routes__WEBPACK_IMPORTED_MODULE_8__["AppRoutes"]),
+                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
+                ngx_moment__WEBPACK_IMPORTED_MODULE_5__["MomentModule"]
             ],
             providers: [
-                _services_http_service__WEBPACK_IMPORTED_MODULE_11__["HttpService"],
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"], useClass: _services_http_interceptor__WEBPACK_IMPORTED_MODULE_13__["PasscodeInterceptor"], multi: true },
-                _app_globals__WEBPACK_IMPORTED_MODULE_14__["Globals"],
-                _services_screen_service__WEBPACK_IMPORTED_MODULE_15__["ScreenService"],
-                _services_navbar_service__WEBPACK_IMPORTED_MODULE_16__["NavbarService"],
-                _services_string_util_service__WEBPACK_IMPORTED_MODULE_17__["StringUtilService"]
+                _services_http_service__WEBPACK_IMPORTED_MODULE_12__["HttpService"],
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HTTP_INTERCEPTORS"], useClass: _services_http_interceptor__WEBPACK_IMPORTED_MODULE_14__["PasscodeInterceptor"], multi: true },
+                _app_globals__WEBPACK_IMPORTED_MODULE_15__["Globals"],
+                _services_screen_service__WEBPACK_IMPORTED_MODULE_16__["ScreenService"],
+                _services_navbar_service__WEBPACK_IMPORTED_MODULE_17__["NavbarService"],
+                _services_string_util_service__WEBPACK_IMPORTED_MODULE_18__["StringUtilService"]
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -405,7 +699,7 @@ module.exports = "<div class=\"container\" [class.hidden]=\"hidden\">\r\n    <di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".container {\n  display: block;\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 9999;\n  background-color: #1a1919;\n  box-shadow: inset 0 0 8px black;\n  transition: opacity 500ms ease; }\n  .container.hidden {\n    opacity: 0; }\n  .container .keypad {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr;\n        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;\n    -ms-grid-columns: 1fr 1fr 1fr;\n        grid-template-columns: 1fr 1fr 1fr;\n    position: relative;\n    left: 50%;\n    top: 50%;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    width: 240px;\n    height: 400px;\n    box-shadow: 0 0 8px black; }\n  @media (max-width: 786px) {\n      .container .keypad {\n        width: 100%;\n        height: 100%; } }\n  .container .keypad .key .text, .container .keypad .code .text {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%);\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      font-size: 18px; }\n  @media (max-width: 786px) {\n        .container .keypad .key .text, .container .keypad .code .text {\n          font-size: 14px; } }\n  .container .keypad .code {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      grid-column: span 3; }\n  .container .keypad .code .dot {\n        display: inline-block;\n        width: 24px;\n        height: 24px;\n        border-radius: 50%;\n        background-color: #cccccc;\n        opacity: 0.2; }\n  .container .keypad .code .dot + .dot {\n          margin-left: 16px; }\n  .container .keypad .code .dot.opaque {\n          opacity: 1; }\n  .container .keypad .code .dot.waiting {\n          -webkit-animation: \"waiting\" 500ms ease infinite;\n                  animation: \"waiting\" 500ms ease infinite; }\n  @-webkit-keyframes waiting {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n  @keyframes waiting {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n  .container .keypad .code .dot.correct {\n          opacity: 1;\n          background-color: #009900; }\n  .container .keypad .code .dot.incorrect {\n          opacity: 1;\n          background-color: #990000; }\n  .container .keypad .key {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n  @media (min-width: 786px) {\n        .container .keypad .key {\n          cursor: pointer; }\n          .container .keypad .key:hover {\n            background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n          .container .keypad .key:active {\n            background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  .container .keypad .key:nth-child(11) {\n        color: #e60000; }\n  @media (min-width: 786px) {\n          .container .keypad .key:nth-child(11) {\n            cursor: pointer; }\n            .container .keypad .key:nth-child(11):hover {\n              background: linear-gradient(135deg, #420000 0%, #330000 100%); }\n            .container .keypad .key:nth-child(11):active {\n              background: linear-gradient(135deg, #380000 0%, #290000 100%); } }\n  .container .keypad .key:nth-child(13) {\n        color: #009900; }\n  @media (min-width: 786px) {\n          .container .keypad .key:nth-child(13) {\n            cursor: pointer; }\n            .container .keypad .key:nth-child(13):hover {\n              background: linear-gradient(135deg, #003300 0%, #002400 100%); }\n            .container .keypad .key:nth-child(13):active {\n              background: linear-gradient(135deg, #002900 0%, #001a00 100%); } }\n"
+module.exports = ".container {\n  display: block;\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 9999;\n  background-color: #1a1919;\n  box-shadow: inset 0 0 8px black;\n  transition: opacity 500ms ease; }\n  .container.hidden {\n    opacity: 0; }\n  .container .keypad {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr;\n        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;\n    -ms-grid-columns: 1fr 1fr 1fr;\n        grid-template-columns: 1fr 1fr 1fr;\n    position: relative;\n    left: 50%;\n    top: 50%;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    width: 240px;\n    height: 400px;\n    box-shadow: 0 0 8px black; }\n  @media (max-width: 786px) {\n      .container .keypad {\n        width: 100%;\n        height: 100%; } }\n  .container .keypad .key .text, .container .keypad .code .text {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%);\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      font-size: 18px; }\n  @media (max-width: 786px) {\n        .container .keypad .key .text, .container .keypad .code .text {\n          font-size: 14px; } }\n  .container .keypad .code {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      grid-column: span 3; }\n  .container .keypad .code .dot {\n        display: inline-block;\n        width: 24px;\n        height: 24px;\n        border-radius: 50%;\n        background-color: #cccccc;\n        opacity: 0.2; }\n  .container .keypad .code .dot + .dot {\n          margin-left: 16px; }\n  .container .keypad .code .dot.opaque {\n          opacity: 1; }\n  .container .keypad .code .dot.waiting {\n          -webkit-animation: \"waiting\" 500ms ease infinite;\n                  animation: \"waiting\" 500ms ease infinite; }\n  @-webkit-keyframes waiting {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n  @keyframes waiting {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n  .container .keypad .code .dot.correct {\n          opacity: 1;\n          background-color: #009900; }\n  .container .keypad .code .dot.incorrect {\n          opacity: 1;\n          background-color: #990000; }\n  .container .keypad .key {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n  @media (min-width: 786px) {\n        .container .keypad .key {\n          cursor: pointer; }\n          .container .keypad .key:hover {\n            background: linear-gradient(135deg, #073740 0%, #052329 100%); } }\n  @media (max-width: 786px) {\n        .container .keypad .key:active {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  .container .keypad .key:nth-child(11) {\n        color: #e60000; }\n  @media (min-width: 786px) {\n          .container .keypad .key:nth-child(11) {\n            cursor: pointer; }\n            .container .keypad .key:nth-child(11):hover {\n              background: linear-gradient(135deg, #420000 0%, #330000 100%); } }\n  .container .keypad .key:nth-child(11):active {\n          background: linear-gradient(135deg, #380000 0%, #290000 100%); }\n  .container .keypad .key:nth-child(13) {\n        color: #009900; }\n  @media (min-width: 786px) {\n          .container .keypad .key:nth-child(13) {\n            cursor: pointer; }\n            .container .keypad .key:nth-child(13):hover {\n              background: linear-gradient(135deg, #003300 0%, #002400 100%); } }\n  .container .keypad .key:nth-child(13):active {\n          background: linear-gradient(135deg, #002900 0%, #001a00 100%); }\n"
 
 /***/ }),
 
@@ -563,7 +857,7 @@ module.exports = "<div class=\"path\">\n    <ng-container *ngIf=\"!screenService
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\n  box-sizing: border-box;\n  background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n  position: relative;\n  z-index: 999;\n  box-shadow: 0 0 8px black;\n  display: flex;\n  flex-flow: row nowrap;\n  box-sizing: border-box;\n  padding-left: 16px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  font-size: 18px; }\n  @media (max-width: 786px) {\n    :host {\n      font-size: 14px; } }\n  :host > * {\n    display: inline-block;\n    position: relative;\n    top: 50%;\n    -webkit-transform: translateY(-50%);\n            transform: translateY(-50%); }\n  :host .path {\n    flex: 1;\n    height: -webkit-min-content;\n    height: -moz-min-content;\n    height: min-content; }\n  :host .path .dir {\n      text-transform: capitalize; }\n  :host .path .dir:not(:last-child) {\n        cursor: pointer; }\n  :host .path .dir:last-child {\n        cursor: default; }\n  @media (min-width: 786px) {\n        :host .path .dir:hover:not(:last-child) {\n          text-decoration: underline;\n          color: #008099; } }\n  :host .path .delim {\n      opacity: 0.5;\n      margin: 0 18px; }\n  :host .path .hint {\n      opacity: 0.5; }\n  :host .fullscreen {\n    position: absolute;\n    right: 0;\n    width: 72px;\n    height: 72px; }\n  @media (min-width: 786px) {\n      :host .fullscreen {\n        cursor: pointer; }\n        :host .fullscreen:hover {\n          background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n        :host .fullscreen:active {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  :host .fullscreen .fullscreen-inner {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%); }\n"
+module.exports = ":host {\n  box-sizing: border-box;\n  background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n  position: relative;\n  z-index: 999;\n  box-shadow: 0 0 8px black;\n  display: flex;\n  flex-flow: row nowrap;\n  box-sizing: border-box;\n  padding-left: 16px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  font-size: 18px; }\n  @media (max-width: 786px) {\n    :host {\n      font-size: 14px; } }\n  :host > * {\n    display: inline-block;\n    position: relative;\n    top: 50%;\n    -webkit-transform: translateY(-50%);\n            transform: translateY(-50%); }\n  :host .path {\n    flex: 1;\n    height: -webkit-min-content;\n    height: -moz-min-content;\n    height: min-content; }\n  :host .path .dir {\n      text-transform: capitalize; }\n  :host .path .dir:not(:last-child) {\n        cursor: pointer; }\n  :host .path .dir:last-child {\n        cursor: default; }\n  @media (min-width: 786px) {\n        :host .path .dir:hover:not(:last-child) {\n          text-decoration: underline;\n          color: #008099; } }\n  :host .path .delim {\n      opacity: 0.5;\n      margin: 0 18px; }\n  :host .path .hint {\n      opacity: 0.5; }\n  :host .fullscreen {\n    position: absolute;\n    right: 0;\n    width: 72px;\n    height: 72px; }\n  @media (min-width: 786px) {\n      :host .fullscreen {\n        cursor: pointer; }\n        :host .fullscreen:hover {\n          background: linear-gradient(135deg, #073740 0%, #052329 100%); } }\n  @media (max-width: 786px) {\n      :host .fullscreen:active {\n        background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  @media (max-width: 786px) {\n      :host .fullscreen {\n        width: 56px;\n        height: 56px; } }\n  :host .fullscreen .fullscreen-inner {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%); }\n"
 
 /***/ }),
 
@@ -663,7 +957,7 @@ var NavbarComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\"\n[class.view-one]=\"screenService.mobile && !listSelected && !taskSelected\"\n[class.view-two]=\"screenService.mobile && listSelected && !taskSelected\"\n[class.view-three]=\"screenService.mobile && listSelected && taskSelected\">\n    <div class=\"list-section\">\n        <div class=\"list-header\">\n            <div class=\"label\">\n                <div class=\"text\">Task Lists</div>\n            </div>\n            \n            <div class=\"list-delete\"\n            (click)=\"onDeleteTaskList()\"\n            [class.placeholder]=\"!listSelected\">\n                <span class=\"text\">[-]</span>        \n            </div>\n\n            <div class=\"list-create\"\n            (click)=\"onCreateTaskList()\">\n                <div class=\"text\">[+]</div>\n            </div>\n        </div>\n\n        <div class=\"list-container\">\n            <div class=\"list\"\n            *ngFor=\"let taskList of taskLists; index as index;\"\n            (click)=\"onSelectTaskList(index)\"\n            [class.selected]=\"!screenService.mobile && index == curListIndex\">\n                <div class=\"text\" *ngIf=\"taskList.name.trim()\">\n                    {{ listSymbol }}&nbsp;{{ taskList.name }}\n                </div>\n\n                <div class=\"text\" *ngIf=\"!taskList.name.trim()\">\n                    {{ listSymbol }}&nbsp;&lt;Untitled&gt;\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"task-section\">\n        <div class=\"task-header\">\n            <ng-container *ngIf=\"!listSelected\">\n                <div class=\"list-name\">\n                    <div class=\"text\">\n                        <span class=\"placeholder\">{{ listSymbol }}&nbsp;&lt;Task List: Name&gt;</span>\n                    </div>\n                </div>\n                        \n                <div class=\"list-desc\">\n                    <span class=\"text placeholder\">&lt;Task List: Description&gt;</span>\n                </div>\n\n                <div class=\"list-info\">\n                    <span class=\"text placeholder\">\n                        &lt;Task List: Length&gt; | &lt;Task List: ID&gt;\n                    </span>\n                </div>\n            </ng-container>\n\n            <ng-container *ngIf=\"listSelected\">\n                <div class=\"list-name\" \n                [class.hoverable]=\"focusedInput != 'list-name'\"\n                [class.active]=\"focusedInput == 'list-name'\"\n                (click)=\"onInputFocus('list-name', listNameInput, true)\">\n                    <span class=\"text\"\n                    *ngIf=\"focusedInput != 'list-name'\"\n                    [class.placeholder]=\"!curTaskList?.name?.trim()\">\n                        {{ listSymbol }}&nbsp;{{ curTaskList?.name?.trim() || \"<Task List: Name>\" }}\n                    </span>\n\n                    <div class=\"text\"\n                    [style.display]=\"focusedInput != 'list-name' ? 'none' : 'flex'\">\n                        <div class=\"icon-container\">\n                            <span class=\"icon\"\n                            [class.placeholder]=\"!curTaskList?.name?.trim()\">\n                                {{ listSymbol }}&nbsp;\n                            </span>\n                        </div>\n                        \n                        <div class=\"input-container\">\n                            <input type=\"text\" placeholder=\"<Task List: Name>\"\n                            [(ngModel)]=\"curTaskList.name\"\n                            (ngModelChange)=\"onTaskListDetailsModified()\"\n                            (blur)=\"onInputBlur()\"\n                            #listNameInput>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"list-desc\"\n                [class.hoverable]=\"focusedInput != 'list-description'\"\n                [class.active]=\"focusedInput == 'list-description'\"\n                (click)=\"onInputFocus('list-description', listDescInput, true)\">\n                    <span class=\"text\"\n                    *ngIf=\"focusedInput != 'list-description'\"\n                    [class.placeholder]=\"!curTaskList?.description?.trim()\">\n                        {{ curTaskList?.description?.trim() || \"<Task List: Description>\" }}\n                    </span>\n\n                    <input type=\"text\" class=\"text\" placeholder=\"<Task List: Description>\"\n                    [(ngModel)]=\"curTaskList.description\"\n                    (ngModelChange)=\"onTaskListDetailsModified()\"\n                    (blur)=\"onInputBlur()\"\n                    [style.display]=\"focusedInput != 'list-description' ? 'none' : ''\"\n                    #listDescInput>\n                </div>\n\n                <div class=\"list-info\">\n                    <span class=\"text\">\n                        {{ curTaskList?.tasks?.length }} tasks |\n                        ID: {{ curTaskList?._id }}\n                    </span>\n                </div>\n            </ng-container>\n\n            <div class=\"task-delete\"\n            (click)=\"onDeleteTask()\"\n            *ngIf=\"!screenService.mobile\"\n            [class.placeholder]=\"!(listSelected && taskSelected) || focusedInput == 'list-name'\">\n                <span class=\"text\">[-]</span>        \n            </div>\n\n            <div class=\"task-create\"\n            (click)=\"onCreateTask()\"\n            [class.placeholder]=\"!listSelected || focusedInput == 'list-name'\">\n                <span class=\"text\">[+]</span>        \n            </div>\n        </div>\n\n        <div class=\"task-container\">\n            <div class=\"task-container-inner\">\n                <div class=\"task\"\n                *ngFor=\"let task of curTaskList?.tasks; index as index;\"\n                [class.active]=\"!screenService.mobile && index == this.curTaskIndex\">\n                    <div class=\"task-checkbox\"\n                    (click)=\"onCheckTask(index)\">\n                        <span class=\"text\">\n                            [{{ task.completed ? checkSymbol : ' ' }}]\n                        </span>\n                    </div>\n                    \n                    <div class=\"task-details\"\n                    [class.completed]=\"task.completed\"\n                    (click)=\"onSelectTask(index)\">\n                        <span class=\"text\">\n                            <div class=\"task-name\">\n                                {{ task.name }}\n                            </div>\n\n                            <!-- <div class=\"other-stuff\">\n                                Today @ 8:50\n                            </div> -->\n                        </span>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"task-details-section\"\n    [class.hide-top-tile]=\"screenService.mobile && taskSelected && focusedInput == 'task-desc'\">\n        <ng-container *ngIf=\"!taskSelected\">\n            <div class=\"top-tile\">\n                <div class=\"task-name placeholder\">\n                    <span class=\"text\">&lt;Task: Name&gt;</span>    \n                </div>\n\n                <div class=\"task-date placeholder\">\n                    <span class=\"text\">&lt;Task: Date&gt;</span>\n                </div>\n\n                <div class=\"task-completed placeholder\">\n                    <span class=\"text left\">&lt;Task: Done&gt;</span>\n                </div>\n\n                <div class=\"task-urgent placeholder\">\n                    <span class=\"text left\">&lt;Task: Urgent&gt;</span>\n                </div>\n            </div>\n\n            <div class=\"task-desc placeholder\">\n                <span class=\"text placeholder\">&lt;Task: Description&gt;</span>\n            </div>\n        </ng-container>\n\n        <ng-container *ngIf=\"taskSelected\">\n            <div class=\"top-tile\" \n            *ngIf=\"!(screenService.mobile && focusedInput == 'task-desc')\">\n                <div class=\"task-name\"\n                [class.hoverable]=\"focusedInput != 'task-name'\"\n                [class.active]=\"focusedInput == 'task-name'\"\n                (click)=\"onInputFocus('task-name', taskNameInput)\">\n                    <span class=\"text\"\n                    [class.placeholder]=\"!curTask?.name?.trim()\"\n                    *ngIf=\"focusedInput != 'task-name'\">\n                        {{ curTask?.name?.trim() || \"<Task: Name>\" }}\n                    </span>\n                    \n                    <input type=\"text\" class=\"text\" placeholder=\"<Task: Name>\"\n                    [(ngModel)]=\"curTask.name\"\n                    (ngModelChange)=\"onTaskDetailsModified()\"\n                    (blur)=\"onInputBlur()\"\n                    [style.display]=\"focusedInput != 'task-name' ? 'none' : ''\"\n                    #taskNameInput>\n                </div>\n\n                <div class=\"task-date\"\n                [class.hoverable]=\"focusedInput != 'task-date'\"\n                [class.active]=\"focusedInput == 'task-date'\"\n                [class.invalid]=\"!dateValid(curTask?.date)\"\n                (click)=\"onInputFocus('task-date', taskDateInput)\">\n                    <span class=\"text\"\n                    [class.placeholder]=\"!curTask?.date?.trim()\"\n                    *ngIf=\"focusedInput != 'task-date'\">\n                        {{ curTask?.date?.trim() || \"<Task: Date>\" }}\n                    </span>\n                    \n                    <input type=\"text\" class=\"text\" placeholder=\"<Task: Date>\"\n                    [(ngModel)]=\"curTask.date\"\n                    (ngModelChange)=\"onTaskDetailsModified()\"\n                    (blur)=\"onInputBlur()\"\n                    [style.display]=\"focusedInput != 'task-date' ? 'none' : ''\"\n                    #taskDateInput>\n                </div>\n\n                <div class=\"task-completed\"\n                (click)=\"onToggleTaskProp('completed')\">\n                    <span class=\"text placeholder left\"\n                    *ngIf=\"!taskSelected\">\n                        &lt;Task: Done&gt;\n                    </span>\n\n                    <span class=\"text\"\n                    [class.good]=\"curTask.completed\"\n                    [class.bad]=\"!curTask.completed\"\n                    *ngIf=\"taskSelected\">\n                        {{ curTask?.completed ? 'DONE' : 'NOT DONE' }}\n                    </span>\n                </div>\n\n                <div class=\"task-urgent\"\n                (click)=\"onToggleTaskProp('urgent')\"\n                [class.placeholder]=\"curTask?.completed\">\n                    <span class=\"text placeholder left\"\n                    *ngIf=\"!taskSelected\">\n                        &lt;Task: Urgent&gt;\n                    </span>\n\n                    <span class=\"text\"\n                    [class.good]=\"!curTask?.completed && !curTask?.urgent\"\n                    [class.bad]=\"!curTask?.completed && curTask?.urgent\"\n                    *ngIf=\"taskSelected\">\n                        {{ curTask?.urgent ? 'URGENT' : 'NOT URGENT' }}\n                    </span>\n                </div>\n            </div>\n\n            <div class=\"task-desc\"\n            [class.placeholder]=\"!taskSelected\"\n            [class.hoverable]=\"focusedInput != 'task-desc'\"\n            [class.active]=\"focusedInput == 'task-desc'\"\n            (click)=\"onInputFocus('task-desc', taskDescInput)\">\n                <span class=\"text\"\n                [class.placeholder]=\"!curTask?.description?.trim()\"\n                *ngIf=\"focusedInput != 'task-desc'\">\n                    {{ curTask?.description?.trim() ? curTask.description : '&lt;Task: Description&gt;' }}  \n                </span>\n\n                <textarea class=\"text\"\n                [(ngModel)]=\"curTask.description\"\n                (ngModelChange)=\"onTaskDetailsModified()\"\n                (blur)=\"onInputBlur()\"\n                [style.display]=\"focusedInput != 'task-desc' ? 'none' : ''\"\n                #taskDescInput>\n                </textarea>\n            </div>\n        </ng-container>\n    </div>\n</div>"
+module.exports = "<div class=\"container\"\n[class.view-one]=\"screenService.mobile && !listSelected && !taskSelected\"\n[class.view-two]=\"screenService.mobile && listSelected && !taskSelected\"\n[class.view-three]=\"screenService.mobile && listSelected && taskSelected\">\n    <div class=\"list-section\">\n        <div class=\"list-header\">\n            <div class=\"label\">\n                <div class=\"text\">Task Lists</div>\n            </div>\n            \n            <div class=\"list-delete-toggle\"\n            (click)=\"onToggleDeletingTaskLists()\"\n            [class.deleting]=\"deletingLists\"\n            [class.placeholder]=\"taskLists.length == 0 || deletingTasks\">\n                <span class=\"text\">\n                    {{ deletingLists ? '[x]' : '[-]' }}\n                </span>      \n            </div>\n\n            <div class=\"list-create\"\n            (click)=\"onCreateTaskList()\"\n            [class.placeholder]=\"deletingLists || deletingTasks\">\n                <div class=\"text\">[+]</div>\n            </div>\n        </div>\n\n        <div class=\"list-container\">\n            <div class=\"list\"\n            *ngFor=\"let taskList of taskLists; index as index;\"\n            (click)=\"onClickTaskList(index)\"\n            [class.selected]=\"!screenService.mobile && index == curListIndex\"\n            [class.deleting]=\"deletingLists\">\n                <div class=\"text name\" *ngIf=\"taskList.name.trim()\">\n                    {{ listSymbol }}&nbsp;{{ taskList.name }}\n                </div>\n\n                <div class=\"text name\" *ngIf=\"!taskList.name.trim()\">\n                    {{ listSymbol }}&nbsp;&lt;Untitled&gt;\n                </div>\n\n                <div class=\"list-delete\"\n                *ngIf=\"deletingLists\"\n                (click)=\"onDeleteTaskList(index); $event.stopPropagation()\">\n                    <span class=\"text delete\">[-]</span>      \n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"task-section\">\n        <div class=\"task-header\"\n        [class.deleting]=\"deletingTasks\">\n            <ng-container *ngIf=\"!listSelected\">\n                <div class=\"list-name\">\n                    <div class=\"text\">\n                        <span class=\"placeholder\">{{ listSymbol }}&nbsp;&lt;Task List: Name&gt;</span>\n                    </div>\n                </div>\n                        \n                <div class=\"list-desc\">\n                    <span class=\"text placeholder\">&lt;Task List: Description&gt;</span>\n                </div>\n\n                <div class=\"list-info\">\n                    <span class=\"text placeholder\">\n                        &lt;Task List: Length&gt; | &lt;Task List: ID&gt;\n                    </span>\n                </div>\n            </ng-container>\n\n            <ng-container *ngIf=\"listSelected\">\n                <div class=\"list-name\" \n                [class.hoverable]=\"focusedInput != 'list-name'\"\n                [class.active]=\"focusedInput == 'list-name'\"\n                (click)=\"onInputFocus('list-name', listNameInput, true)\">\n                    <span class=\"text\"\n                    *ngIf=\"focusedInput != 'list-name'\"\n                    [class.placeholder]=\"!curTaskList?.name?.trim()\">\n                        {{ listSymbol }}&nbsp;{{ curTaskList?.name?.trim() || \"<Task List: Name>\" }}\n                    </span>\n\n                    <div class=\"text\"\n                    [style.display]=\"focusedInput != 'list-name' ? 'none' : 'flex'\">\n                        <div class=\"icon-container\">\n                            <span class=\"icon\"\n                            [class.placeholder]=\"!curTaskList?.name?.trim()\">\n                                {{ listSymbol }}&nbsp;\n                            </span>\n                        </div>\n                        \n                        <div class=\"input-container\">\n                            <input type=\"text\" placeholder=\"<Task List: Name>\"\n                            [(ngModel)]=\"curTaskList.name\"\n                            (ngModelChange)=\"onTaskListDetailsModified()\"\n                            (blur)=\"onInputBlur()\"\n                            #listNameInput>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"list-desc\"\n                [class.hoverable]=\"focusedInput != 'list-description'\"\n                [class.active]=\"focusedInput == 'list-description'\"\n                (click)=\"onInputFocus('list-description', listDescInput, true)\">\n                    <span class=\"text\"\n                    *ngIf=\"focusedInput != 'list-description'\"\n                    [class.placeholder]=\"!curTaskList?.description?.trim()\">\n                        {{ curTaskList?.description?.trim() || \"<Task List: Description>\" }}\n                    </span>\n\n                    <input type=\"text\" class=\"text\" placeholder=\"<Task List: Description>\"\n                    [(ngModel)]=\"curTaskList.description\"\n                    (ngModelChange)=\"onTaskListDetailsModified()\"\n                    (blur)=\"onInputBlur()\"\n                    [style.display]=\"focusedInput != 'list-description' ? 'none' : ''\"\n                    #listDescInput>\n                </div>\n\n                <div class=\"list-info\">\n                    <span class=\"text\">\n                        {{ curTaskList?.tasks?.length }} tasks |\n                        ID: {{ curTaskList?._id }}\n                    </span>\n                </div>\n            </ng-container>\n\n            <div class=\"task-delete-toggle\"\n            (click)=\"onToggleDeletingTasks()\"\n            [class.deleting]=\"deletingTasks\"\n            [class.placeholder]=\"!listSelected || focusedInput == 'list-name' || curTaskList?.tasks?.length == 0\">\n                <span class=\"text\">\n                    {{ deletingTasks ? '[x]' : '[-]' }}\n                </span>\n            </div>\n\n            <div class=\"task-create\"\n            (click)=\"onCreateTask()\"\n            [class.placeholder]=\"!listSelected || focusedInput == 'list-name' || deletingTasks\">\n                <span class=\"text\">[+]</span>        \n            </div>\n        </div>\n\n        <div class=\"task-container\">\n            <div class=\"task-container-inner\">\n                <div class=\"task\"\n                *ngFor=\"let task of curTaskList?.tasks; index as index;\"\n                [class.active]=\"!screenService.mobile && index == this.curTaskIndex\"\n                [class.deleting]=\"deletingTasks\">\n                    <div class=\"task-checkbox\"\n                    (click)=\"onCheckTask(index)\">\n                        <span class=\"text\">\n                            [{{ task.completed ? checkSymbol : ' ' }}]\n                        </span>\n                    </div>\n                    \n                    <div class=\"task-details\"\n                    [class.completed]=\"task.completed\"\n                    (click)=\"onSelectTask(index)\">\n                        <span class=\"text\">\n                            <div class=\"task-name\">\n                                {{ task.name }}\n                            </div>\n\n                            <div class=\"task-info\">\n                                <span class=\"urgent\" *ngIf=\"task?.urgent\">Urgent</span>\n\n                                <ng-container *ngIf=\"dateValid(task?.date)\">\n                                    <span *ngIf=\"dateContainsTime(task?.date); else noTime\">\n                                        {{ parseDate(task.date) | amCalendar }}\n                                    </span>\n    \n                                    <ng-template #noTime>\n                                        <span>{{ parseDate(task.date) | amCalendar | dayOnly }}</span>\n                                    </ng-template>\n                                </ng-container>\n                            </div>\n                        </span>\n                    </div>\n\n                    <div class=\"task-delete\"\n                    *ngIf=\"deletingTasks\"\n                    (click)=\"onDeleteTask(index); $event.stopPropagation()\">\n                        <span class=\"text\">[-]</span>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"task-details-section\"\n    [class.hide-top-tile]=\"screenService.mobile && taskSelected && focusedInput == 'task-desc'\">\n        <ng-container *ngIf=\"!taskSelected\">\n            <div class=\"top-tile\">\n                <div class=\"task-name placeholder\">\n                    <span class=\"text\">&lt;Task: Name&gt;</span>    \n                </div>\n\n                <div class=\"task-date placeholder\">\n                    <span class=\"text\">&lt;Task: Date&gt;</span>\n                </div>\n\n                <div class=\"task-completed placeholder\">\n                    <span class=\"text left\">&lt;Task: Done&gt;</span>\n                </div>\n\n                <div class=\"task-urgent placeholder\">\n                    <span class=\"text left\">&lt;Task: Urgent&gt;</span>\n                </div>\n            </div>\n\n            <div class=\"task-desc placeholder\">\n                <span class=\"text placeholder\">&lt;Task: Description&gt;</span>\n            </div>\n        </ng-container>\n\n        <ng-container *ngIf=\"taskSelected\">\n            <div class=\"top-tile\" \n            *ngIf=\"!(screenService.mobile && focusedInput == 'task-desc')\">\n                <div class=\"task-name\"\n                [class.hoverable]=\"focusedInput != 'task-name'\"\n                [class.active]=\"focusedInput == 'task-name'\"\n                (click)=\"onInputFocus('task-name', taskNameInput)\">\n                    <span class=\"text\"\n                    [class.placeholder]=\"!curTask?.name?.trim()\"\n                    *ngIf=\"focusedInput != 'task-name'\">\n                        {{ curTask?.name?.trim() || \"<Task: Name>\" }}\n                    </span>\n                    \n                    <input type=\"text\" class=\"text\" placeholder=\"<Task: Name>\"\n                    [(ngModel)]=\"curTask.name\"\n                    (ngModelChange)=\"onTaskDetailsModified()\"\n                    (blur)=\"onInputBlur()\"\n                    [style.display]=\"focusedInput != 'task-name' ? 'none' : ''\"\n                    #taskNameInput>\n                </div>\n\n                <div class=\"task-date\"\n                [class.hoverable]=\"focusedInput != 'task-date'\"\n                [class.active]=\"focusedInput == 'task-date'\"\n                [class.invalid]=\"!dateValid(curTask?.date, true)\"\n                (click)=\"onInputFocus('task-date', taskDateInput)\">\n                    <span class=\"text\"\n                    [class.placeholder]=\"!curTask?.date?.trim()\"\n                    *ngIf=\"focusedInput != 'task-date'\">\n                        {{ curTask?.date?.trim() || \"<Task: Date>\" }}\n                    </span>\n                    \n                    <input type=\"text\" class=\"text\" placeholder=\"<Task: Date>\"\n                    [(ngModel)]=\"curTask.date\"\n                    (ngModelChange)=\"onTaskDetailsModified()\"\n                    (blur)=\"onInputBlur()\"\n                    [style.display]=\"focusedInput != 'task-date' ? 'none' : ''\"\n                    #taskDateInput>\n                </div>\n\n                <div class=\"task-completed\"\n                (click)=\"onToggleTaskProp('completed')\">\n                    <span class=\"text placeholder left\"\n                    *ngIf=\"!taskSelected\">\n                        &lt;Task: Done&gt;\n                    </span>\n\n                    <span class=\"text\"\n                    [class.good]=\"curTask.completed\"\n                    [class.bad]=\"!curTask.completed\"\n                    *ngIf=\"taskSelected\">\n                        {{ curTask?.completed ? 'DONE' : 'NOT DONE' }}\n                    </span>\n                </div>\n\n                <div class=\"task-urgent\"\n                (click)=\"onToggleTaskProp('urgent')\"\n                [class.placeholder]=\"curTask?.completed\">\n                    <span class=\"text placeholder left\"\n                    *ngIf=\"!taskSelected\">\n                        &lt;Task: Urgent&gt;\n                    </span>\n\n                    <span class=\"text\"\n                    [class.good]=\"!curTask?.completed && !curTask?.urgent\"\n                    [class.bad]=\"!curTask?.completed && curTask?.urgent\"\n                    *ngIf=\"taskSelected\">\n                        {{ curTask?.urgent ? 'URGENT' : 'NOT URGENT' }}\n                    </span>\n                </div>\n            </div>\n\n            <div class=\"task-desc\"\n            [class.placeholder]=\"!taskSelected\"\n            [class.hoverable]=\"focusedInput != 'task-desc'\"\n            [class.active]=\"focusedInput == 'task-desc'\"\n            (click)=\"onInputFocus('task-desc', taskDescInput)\">\n                <span class=\"text\"\n                [class.placeholder]=\"!curTask?.description?.trim()\"\n                *ngIf=\"focusedInput != 'task-desc'\">\n                    {{ curTask?.description?.trim() ? curTask.description : '&lt;Task: Description&gt;' }}  \n                </span>\n\n                <textarea class=\"text\"\n                placeholder=\"<Task: Description>\"\n                [(ngModel)]=\"curTask.description\"\n                (ngModelChange)=\"onTaskDetailsModified()\"\n                (blur)=\"onInputBlur()\"\n                [style.display]=\"focusedInput != 'task-desc' ? 'none' : ''\"\n                #taskDescInput>\n                </textarea>\n            </div>\n        </ng-container>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -674,7 +968,7 @@ module.exports = "<div class=\"container\"\n[class.view-one]=\"screenService.mob
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".placeholder {\n  pointer-events: none;\n  color: rgba(204, 204, 204, 0.25) !important; }\n\ninput[type=text] {\n  width: calc(100% - 32px);\n  padding: 0;\n  margin: 0;\n  background: transparent;\n  height: 72px; }\n\n@media (max-width: 786px) {\n    input[type=text] {\n      height: 56px; } }\n\n.container {\n  position: absolute;\n  left: 0;\n  top: 72px;\n  width: 100%;\n  height: calc(100% - 72px);\n  font-size: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  -ms-grid-columns: 300px auto 350px;\n      grid-template-columns: 300px auto 350px; }\n\n@media (max-width: 786px) {\n    .container {\n      top: 56px;\n      height: calc(100% - 56px); } }\n\n@media (max-width: 786px) {\n    .container {\n      -ms-grid-columns: 100vw 100vw 100vw;\n          grid-template-columns: 100vw 100vw 100vw;\n      transition: -webkit-transform 300ms ease;\n      transition: transform 300ms ease;\n      transition: transform 300ms ease, -webkit-transform 300ms ease; } }\n\n.container.view-one {\n    -webkit-transform: translateX(0);\n            transform: translateX(0); }\n\n.container.view-two {\n    -webkit-transform: translateX(-100vw);\n            transform: translateX(-100vw); }\n\n.container.view-three {\n    -webkit-transform: translateX(-200vw);\n            transform: translateX(-200vw); }\n\n.container .list-section {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 72px auto;\n        grid-template-rows: 72px auto;\n    overflow: hidden; }\n\n@media (min-width: 786px) {\n      .container .list-section {\n        box-shadow: 0 0 12px black;\n        z-index: 2; } }\n\n.container .list-section .list-header {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      display: -ms-grid;\n      display: grid;\n      -ms-grid-columns: auto (72px)[2];\n          grid-template-columns: auto repeat(2, 72px); }\n\n@media (max-width: 786px) {\n        .container .list-section .list-header {\n          -ms-grid-columns: auto (56px)[2];\n              grid-template-columns: auto repeat(2, 56px); } }\n\n.container .list-section .list-header .label .text {\n        display: inline-block;\n        position: relative;\n        left: 16px;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n                transform: translateY(-50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n\n@media (max-width: 786px) {\n          .container .list-section .list-header .label .text {\n            font-size: 14px; } }\n\n.container .list-section .list-header .list-create .text,\n      .container .list-section .list-header .list-delete .text {\n        display: inline-block;\n        position: relative;\n        left: 50%;\n        top: 50%;\n        -webkit-transform: translate(-50%, -50%);\n                transform: translate(-50%, -50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n\n@media (max-width: 786px) {\n          .container .list-section .list-header .list-create .text,\n          .container .list-section .list-header .list-delete .text {\n            font-size: 14px; } }\n\n.container .list-section .list-header .list-create {\n        color: #009900; }\n\n@media (min-width: 786px) {\n          .container .list-section .list-header .list-create {\n            cursor: pointer; }\n            .container .list-section .list-header .list-create:hover {\n              background: linear-gradient(135deg, #003300 0%, #002400 100%); }\n            .container .list-section .list-header .list-create:active {\n              background: linear-gradient(135deg, #002900 0%, #001a00 100%); } }\n\n.container .list-section .list-header .list-delete {\n        color: #e60000; }\n\n@media (min-width: 786px) {\n          .container .list-section .list-header .list-delete {\n            cursor: pointer; }\n            .container .list-section .list-header .list-delete:hover {\n              background: linear-gradient(135deg, #420000 0%, #330000 100%); }\n            .container .list-section .list-header .list-delete:active {\n              background: linear-gradient(135deg, #380000 0%, #290000 100%); } }\n\n.container .list-section .list-container {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      overflow-x: hidden;\n      overflow-y: auto; }\n\n.container .list-section .list-container .list {\n        height: 72px; }\n\n@media (min-width: 786px) {\n          .container .list-section .list-container .list {\n            cursor: pointer; }\n            .container .list-section .list-container .list:hover {\n              background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n            .container .list-section .list-container .list:active {\n              background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n\n.container .list-section .list-container .list.selected {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%);\n          pointer-events: none; }\n\n.container .list-section .list-container .list .text {\n          display: inline-block;\n          position: relative;\n          left: 16px;\n          top: 50%;\n          -webkit-transform: translateY(-50%);\n                  transform: translateY(-50%);\n          -webkit-user-select: none;\n             -moz-user-select: none;\n              -ms-user-select: none;\n                  user-select: none;\n          font-size: 18px;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis;\n          max-width: calc(100% - 32px); }\n\n@media (max-width: 786px) {\n            .container .list-section .list-container .list .text {\n              font-size: 14px; } }\n\n.container .task-section {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 216px auto;\n        grid-template-rows: 216px auto;\n    overflow: hidden; }\n\n@media (max-width: 786px) {\n      .container .task-section {\n        -ms-grid-rows: 168px auto;\n            grid-template-rows: 168px auto; } }\n\n@media (min-width: 786px) {\n      .container .task-section {\n        box-shadow: 0 0 12px black;\n        z-index: 1; } }\n\n.container .task-section .task-header {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      display: -ms-grid;\n      display: grid;\n          -ms-grid-rows: 1fr 1fr 1fr;\n          grid-template-rows: 1fr 1fr 1fr;\n          -ms-grid-columns: 1fr (72px)[2];\n          grid-template-columns: 1fr repeat(2, 72px);\n          grid-template-areas: \"name delete create\"\r \"desc desc desc\"\r \"info info info\"; }\n\n@media (max-width: 786px) {\n        .container .task-section .task-header {\n          -ms-grid-columns: 1fr (56px)[2];\n              grid-template-columns: 1fr repeat(2, 56px); } }\n\n.container .task-section .task-header .list-name {\n        -ms-grid-row: 1;\n        -ms-grid-column: 1;\n        -ms-grid-column-span: 2;\n        grid-area: name; }\n\n.container .task-section .task-header .list-desc {\n        -ms-grid-row: 2;\n        -ms-grid-column: 1;\n        -ms-grid-column-span: 3;\n        grid-area: desc; }\n\n.container .task-section .task-header .list-info {\n        -ms-grid-row: 3;\n        -ms-grid-column: 1;\n        -ms-grid-column-span: 3;\n        grid-area: info; }\n\n.container .task-section .task-header .task-delete {\n        -ms-grid-row: 1;\n        -ms-grid-column: 2;\n        grid-area: delete; }\n\n.container .task-section .task-header .task-create {\n        -ms-grid-row: 1;\n        -ms-grid-column: 3;\n        grid-area: create; }\n\n.container .task-section .task-header > :not(.list-delete) .text {\n        display: inline-block;\n        position: relative;\n        left: 16px;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n                transform: translateY(-50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n\n@media (max-width: 786px) {\n          .container .task-section .task-header > :not(.list-delete) .text {\n            font-size: 14px; } }\n\n.container .task-section .task-header .list-name span.text,\n      .container .task-section .task-header .list-desc span.text,\n      .container .task-section .task-header .list-info span.text {\n        white-space: nowrap;\n        overflow: hidden;\n        text-overflow: ellipsis;\n        max-width: calc(100% - 32px); }\n\n.container .task-section .task-header .list-name {\n        width: calc(100% + 144px); }\n\n.container .task-section .task-header .list-name .text {\n          display: flex;\n          flex-flow: row nowrap; }\n\n.container .task-section .task-header .list-name .text .icon {\n            display: inline-block;\n            position: relative;\n            top: 50%;\n            -webkit-transform: translateY(-50%);\n                    transform: translateY(-50%); }\n\n.container .task-section .task-header .list-name .text .input-container {\n            flex: 1; }\n\n.container .task-section .task-header .list-name .text .input-container input[type=text] {\n              height: 24px !important;\n              position: relative;\n              top: 50%;\n              -webkit-transform: translateY(calc(-50% + 0.5px));\n                      transform: translateY(calc(-50% + 0.5px)); }\n\n.container .task-section .task-header .list-name .text .input-container input[type=text]::-webkit-input-placeholder {\n                color: rgba(204, 204, 204, 0.25); }\n\n.container .task-section .task-header .list-name .text .input-container input[type=text]::-ms-input-placeholder {\n                color: rgba(204, 204, 204, 0.25); }\n\n.container .task-section .task-header .list-name .text .input-container input[type=text]::placeholder {\n                color: rgba(204, 204, 204, 0.25); }\n\n.container .task-section .task-header .list-desc .text,\n      .container .task-section .task-header .list-info .text {\n        color: rgba(204, 204, 204, 0.5); }\n\n.container .task-section .task-header .list-desc input[type=text],\n      .container .task-section .task-header .list-info input[type=text] {\n        color: rgba(204, 204, 204, 0.5) !important; }\n\n.container .task-section .task-header .list-desc input[type=text]::-webkit-input-placeholder,\n        .container .task-section .task-header .list-info input[type=text]::-webkit-input-placeholder {\n          color: rgba(204, 204, 204, 0.25) !important;\n          opacity: 1; }\n\n.container .task-section .task-header .list-desc input[type=text]::-ms-input-placeholder,\n        .container .task-section .task-header .list-info input[type=text]::-ms-input-placeholder {\n          color: rgba(204, 204, 204, 0.25) !important;\n          opacity: 1; }\n\n.container .task-section .task-header .list-desc input[type=text]::placeholder,\n        .container .task-section .task-header .list-info input[type=text]::placeholder {\n          color: rgba(204, 204, 204, 0.25) !important;\n          opacity: 1; }\n\n.container .task-section .task-header .task-delete,\n      .container .task-section .task-header .task-create {\n        z-index: 1; }\n\n.container .task-section .task-header .task-delete .text,\n        .container .task-section .task-header .task-create .text {\n          display: inline-block;\n          position: relative;\n          left: 50%;\n          top: 50%;\n          -webkit-transform: translate(-50%, -50%);\n                  transform: translate(-50%, -50%);\n          -webkit-user-select: none;\n             -moz-user-select: none;\n              -ms-user-select: none;\n                  user-select: none;\n          font-size: 18px; }\n\n@media (max-width: 786px) {\n            .container .task-section .task-header .task-delete .text,\n            .container .task-section .task-header .task-create .text {\n              font-size: 14px; } }\n\n.container .task-section .task-header .task-delete {\n        color: #e60000; }\n\n@media (min-width: 786px) {\n          .container .task-section .task-header .task-delete {\n            cursor: pointer; }\n            .container .task-section .task-header .task-delete:hover {\n              background: linear-gradient(135deg, #420000 0%, #330000 100%); }\n            .container .task-section .task-header .task-delete:active {\n              background: linear-gradient(135deg, #380000 0%, #290000 100%); } }\n\n.container .task-section .task-header .task-create {\n        color: #009900; }\n\n@media (min-width: 786px) {\n          .container .task-section .task-header .task-create {\n            cursor: pointer; }\n            .container .task-section .task-header .task-create:hover {\n              background: linear-gradient(135deg, #003300 0%, #002400 100%); }\n            .container .task-section .task-header .task-create:active {\n              background: linear-gradient(135deg, #002900 0%, #001a00 100%); } }\n\n@media (min-width: 786px) {\n        .container .task-section .task-header .hoverable {\n          cursor: pointer; }\n          .container .task-section .task-header .hoverable:hover {\n            background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n          .container .task-section .task-header .hoverable:active {\n            background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n\n.container .task-section .task-header .active {\n        background: linear-gradient(135deg, #062f37 0%, #041b20 100%); }\n\n.container .task-section .task-container {\n      overflow: hidden; }\n\n.container .task-section .task-container .task-container-inner {\n        box-sizing: border-box;\n        background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n        height: 100%;\n        overflow-x: hidden;\n        overflow-y: auto; }\n\n.container .task-section .task-container .task-container-inner .task {\n          display: -ms-grid;\n          display: grid;\n          -ms-grid-columns: 72px auto;\n              grid-template-columns: 72px auto;\n          height: 72px; }\n\n@media (max-width: 786px) {\n            .container .task-section .task-container .task-container-inner .task {\n              -ms-grid-columns: 56px auto;\n                  grid-template-columns: 56px auto;\n              height: 56px; } }\n\n@media (min-width: 786px) {\n            .container .task-section .task-container .task-container-inner .task {\n              cursor: pointer; }\n              .container .task-section .task-container .task-container-inner .task:hover {\n                background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n              .container .task-section .task-container .task-container-inner .task:active {\n                background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n\n.container .task-section .task-container .task-container-inner .task.active {\n            background: linear-gradient(135deg, #062f37 0%, #041b20 100%);\n            pointer-events: none; }\n\n.container .task-section .task-container .task-container-inner .task .task-checkbox {\n            z-index: 1;\n            pointer-events: all; }\n\n.container .task-section .task-container .task-container-inner .task .task-checkbox .text {\n              display: inline-block;\n              position: relative;\n              left: 50%;\n              top: 50%;\n              -webkit-transform: translate(-50%, -50%);\n                      transform: translate(-50%, -50%);\n              -webkit-user-select: none;\n                 -moz-user-select: none;\n                  -ms-user-select: none;\n                      user-select: none;\n              font-size: 18px;\n              -webkit-transform: translate(-50%, calc(-50% - 1.5px));\n                      transform: translate(-50%, calc(-50% - 1.5px)); }\n\n@media (max-width: 786px) {\n                .container .task-section .task-container .task-container-inner .task .task-checkbox .text {\n                  font-size: 14px; } }\n\n.container .task-section .task-container .task-container-inner .task .task-details.completed .text .task-name {\n            text-decoration: line-through;\n            opacity: 0.25; }\n\n.container .task-section .task-container .task-container-inner .task .task-details .text {\n            display: inline-block;\n            position: relative;\n            left: 16px;\n            top: 50%;\n            -webkit-transform: translateY(-50%);\n                    transform: translateY(-50%);\n            -webkit-user-select: none;\n               -moz-user-select: none;\n                -ms-user-select: none;\n                    user-select: none;\n            font-size: 18px;\n            left: 0; }\n\n@media (max-width: 786px) {\n              .container .task-section .task-container .task-container-inner .task .task-details .text {\n                font-size: 14px; } }\n\n.container .task-section .task-container .task-container-inner .task .task-details .text .other-stuff {\n              font-size: 14px;\n              opacity: 0.25; }\n\n.container .task-details-section {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 216px auto;\n        grid-template-rows: 216px auto; }\n\n@media (max-width: 786px) {\n      .container .task-details-section {\n        -ms-grid-rows: 168px auto;\n            grid-template-rows: 168px auto; } }\n\n.container .task-details-section.hide-top-tile {\n      -ms-grid-rows: auto;\n          grid-template-rows: auto; }\n\n.container .task-details-section .top-tile {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      display: -ms-grid;\n      display: grid;\n          -ms-grid-rows: (72px)[3];\n          grid-template-rows: repeat(3, 72px);\n          -ms-grid-columns: (1fr)[2];\n          grid-template-columns: repeat(2, 1fr);\n          grid-template-areas: \"name name\"\r \"date date\"\r \"completed urgent\"; }\n\n@media (max-width: 786px) {\n        .container .task-details-section .top-tile {\n          -ms-grid-rows: (56px)[3];\n              grid-template-rows: repeat(3, 56px); } }\n\n.container .task-details-section ::-webkit-input-placeholder {\n      color: rgba(204, 204, 204, 0.25); }\n\n.container .task-details-section ::-ms-input-placeholder {\n      color: rgba(204, 204, 204, 0.25); }\n\n.container .task-details-section ::placeholder {\n      color: rgba(204, 204, 204, 0.25); }\n\n.container .task-details-section .task-name {\n      -ms-grid-row: 1;\n      -ms-grid-column: 1;\n      -ms-grid-column-span: 2;\n      grid-area: name; }\n\n.container .task-details-section .task-date {\n      -ms-grid-row: 2;\n      -ms-grid-column: 1;\n      -ms-grid-column-span: 2;\n      grid-area: date; }\n\n.container .task-details-section .task-completed {\n      -ms-grid-row: 3;\n      -ms-grid-column: 1;\n      grid-area: completed; }\n\n.container .task-details-section .task-urgent {\n      -ms-grid-row: 3;\n      -ms-grid-column: 2;\n      grid-area: urgent; }\n\n@media (min-width: 786px) {\n      .container .task-details-section .task-name,\n      .container .task-details-section .task-date,\n      .container .task-details-section .task-completed,\n      .container .task-details-section .task-urgent {\n        cursor: pointer; }\n        .container .task-details-section .task-name:hover,\n        .container .task-details-section .task-date:hover,\n        .container .task-details-section .task-completed:hover,\n        .container .task-details-section .task-urgent:hover {\n          background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n        .container .task-details-section .task-name:active,\n        .container .task-details-section .task-date:active,\n        .container .task-details-section .task-completed:active,\n        .container .task-details-section .task-urgent:active {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n\n.container .task-details-section .task-name.active,\n    .container .task-details-section .task-date.active,\n    .container .task-details-section .task-completed.active,\n    .container .task-details-section .task-urgent.active {\n      background: linear-gradient(135deg, #062f37 0%, #041b20 100%); }\n\n.container .task-details-section .task-name .text,\n    .container .task-details-section .task-date .text {\n      display: inline-block;\n      position: relative;\n      left: 16px;\n      top: 50%;\n      -webkit-transform: translateY(-50%);\n              transform: translateY(-50%);\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      font-size: 18px; }\n\n@media (max-width: 786px) {\n        .container .task-details-section .task-name .text,\n        .container .task-details-section .task-date .text {\n          font-size: 14px; } }\n\n.container .task-details-section .task-date.invalid .text {\n      color: #e6bf00 !important; }\n\n.container .task-details-section .task-completed .text,\n    .container .task-details-section .task-urgent .text {\n      pointer-events: none; }\n\n.container .task-details-section .task-completed .text:not(.left),\n      .container .task-details-section .task-urgent .text:not(.left) {\n        display: inline-block;\n        position: relative;\n        left: 50%;\n        top: 50%;\n        -webkit-transform: translate(-50%, -50%);\n                transform: translate(-50%, -50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n\n@media (max-width: 786px) {\n          .container .task-details-section .task-completed .text:not(.left),\n          .container .task-details-section .task-urgent .text:not(.left) {\n            font-size: 14px; } }\n\n.container .task-details-section .task-completed .text.left,\n      .container .task-details-section .task-urgent .text.left {\n        display: inline-block;\n        position: relative;\n        left: 16px;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n                transform: translateY(-50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n\n@media (max-width: 786px) {\n          .container .task-details-section .task-completed .text.left,\n          .container .task-details-section .task-urgent .text.left {\n            font-size: 14px; } }\n\n.container .task-details-section .task-completed .text.good,\n      .container .task-details-section .task-urgent .text.good {\n        color: #009900; }\n\n.container .task-details-section .task-completed .text.bad,\n      .container .task-details-section .task-urgent .text.bad {\n        color: #e60000; }\n\n.container .task-details-section .task-urgent .text.left {\n      left: 0px; }\n\n.container .task-details-section .task-desc {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n\n@media (min-width: 786px) {\n        .container .task-details-section .task-desc {\n          cursor: pointer; }\n          .container .task-details-section .task-desc:hover {\n            background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n          .container .task-details-section .task-desc:active {\n            background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n\n.container .task-details-section .task-desc.active {\n        background: linear-gradient(135deg, #062f37 0%, #041b20 100%); }\n\n.container .task-details-section .task-desc .text {\n        font-size: 18px; }\n\n@media (max-width: 786px) {\n          .container .task-details-section .task-desc .text {\n            font-size: 14px; } }\n\n.container .task-details-section .task-desc span.text {\n        display: inline-block;\n        margin: 16px;\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        white-space: pre-line; }\n\n.container .task-details-section .task-desc textarea.text {\n        width: 100%;\n        height: 100%;\n        padding: 16px;\n        box-sizing: border-box;\n        background: transparent;\n        border: 0;\n        outline: 0; }\n"
+module.exports = "@charset \"UTF-8\";\n.placeholder {\n  pointer-events: none;\n  color: rgba(204, 204, 204, 0.25) !important; }\ninput[type=text] {\n  width: calc(100% - 32px);\n  padding: 0;\n  margin: 0;\n  background: transparent;\n  height: 72px; }\n@media (max-width: 786px) {\n    input[type=text] {\n      height: 56px; } }\n.container {\n  position: absolute;\n  left: 0;\n  top: 72px;\n  width: 100%;\n  height: calc(100% - 72px);\n  font-size: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  -ms-grid-columns: 350px auto 350px;\n      grid-template-columns: 350px auto 350px; }\n@media (max-width: 786px) {\n    .container {\n      top: 56px;\n      height: calc(100% - 56px); } }\n@media (max-width: 786px) {\n    .container {\n      -ms-grid-columns: 100vw 100vw 100vw;\n          grid-template-columns: 100vw 100vw 100vw;\n      transition: -webkit-transform 300ms ease;\n      transition: transform 300ms ease;\n      transition: transform 300ms ease, -webkit-transform 300ms ease; } }\n.container.view-one {\n    -webkit-transform: translateX(0);\n            transform: translateX(0); }\n.container.view-two {\n    -webkit-transform: translateX(-100vw);\n            transform: translateX(-100vw); }\n.container.view-three {\n    -webkit-transform: translateX(-200vw);\n            transform: translateX(-200vw); }\n.container .list-section {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 72px auto;\n        grid-template-rows: 72px auto;\n    overflow: hidden; }\n@media (max-width: 786px) {\n      .container .list-section {\n        -ms-grid-rows: 56px auto;\n            grid-template-rows: 56px auto; } }\n@media (min-width: 786px) {\n      .container .list-section {\n        box-shadow: 0 0 12px black;\n        z-index: 2; } }\n.container .list-section .list-header {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      display: -ms-grid;\n      display: grid;\n      -ms-grid-columns: auto (72px)[2];\n          grid-template-columns: auto repeat(2, 72px); }\n@media (max-width: 786px) {\n        .container .list-section .list-header {\n          -ms-grid-columns: auto (56px)[2];\n              grid-template-columns: auto repeat(2, 56px); } }\n.container .list-section .list-header .label .text {\n        display: inline-block;\n        position: relative;\n        left: 16px;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n                transform: translateY(-50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n@media (max-width: 786px) {\n          .container .list-section .list-header .label .text {\n            font-size: 14px; } }\n.container .list-section .list-header .list-create .text,\n      .container .list-section .list-header .list-delete-toggle .text {\n        display: inline-block;\n        position: relative;\n        left: 50%;\n        top: 50%;\n        -webkit-transform: translate(-50%, -50%);\n                transform: translate(-50%, -50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n@media (max-width: 786px) {\n          .container .list-section .list-header .list-create .text,\n          .container .list-section .list-header .list-delete-toggle .text {\n            font-size: 14px; } }\n.container .list-section .list-header .list-create {\n        color: #009900; }\n@media (min-width: 786px) {\n          .container .list-section .list-header .list-create {\n            cursor: pointer; }\n            .container .list-section .list-header .list-create:hover {\n              background: linear-gradient(135deg, #003300 0%, #002400 100%); } }\n.container .list-section .list-header .list-create:active {\n          background: linear-gradient(135deg, #002900 0%, #001a00 100%); }\n.container .list-section .list-header .list-delete-toggle {\n        color: #e60000; }\n@media (min-width: 786px) {\n          .container .list-section .list-header .list-delete-toggle {\n            cursor: pointer; }\n            .container .list-section .list-header .list-delete-toggle:hover {\n              background: linear-gradient(135deg, #420000 0%, #330000 100%); } }\n.container .list-section .list-header .list-delete-toggle:active {\n          background: linear-gradient(135deg, #380000 0%, #290000 100%); }\n.container .list-section .list-header .list-delete-toggle.deleting {\n          color: #009900; }\n@media (min-width: 786px) {\n            .container .list-section .list-header .list-delete-toggle.deleting {\n              cursor: pointer; }\n              .container .list-section .list-header .list-delete-toggle.deleting:hover {\n                background: linear-gradient(135deg, #003300 0%, #002400 100%); } }\n.container .list-section .list-header .list-delete-toggle.deleting:active {\n            background: linear-gradient(135deg, #002900 0%, #001a00 100%); }\n.container .list-section .list-container {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      overflow-x: hidden;\n      overflow-y: auto; }\n.container .list-section .list-container .list {\n        height: 72px; }\n@media (min-width: 786px) {\n          .container .list-section .list-container .list {\n            cursor: pointer; }\n            .container .list-section .list-container .list:hover {\n              background: linear-gradient(135deg, #073740 0%, #052329 100%); } }\n@media (max-width: 786px) {\n          .container .list-section .list-container .list:active {\n            background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n@media (max-width: 786px) {\n          .container .list-section .list-container .list {\n            height: 56px !important; } }\n.container .list-section .list-container .list.selected {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%);\n          pointer-events: none; }\n.container .list-section .list-container .list.deleting {\n          pointer-events: none;\n          display: -ms-grid;\n          display: grid;\n          -ms-grid-columns: auto 72px;\n              grid-template-columns: auto 72px;\n          background: transparent !important; }\n@media (max-width: 786px) {\n            .container .list-section .list-container .list.deleting {\n              -ms-grid-columns: auto 56px;\n                  grid-template-columns: auto 56px; } }\n.container .list-section .list-container .list.deleting .text.name {\n            height: -webkit-min-content;\n            height: -moz-min-content;\n            height: min-content; }\n.container .list-section .list-container .list .list-delete {\n          color: #e60000;\n          pointer-events: all; }\n@media (min-width: 786px) {\n            .container .list-section .list-container .list .list-delete {\n              cursor: pointer; }\n              .container .list-section .list-container .list .list-delete:hover {\n                background: linear-gradient(135deg, #420000 0%, #330000 100%); } }\n.container .list-section .list-container .list .list-delete:active {\n            background: linear-gradient(135deg, #380000 0%, #290000 100%); }\n.container .list-section .list-container .list .text.name {\n          display: inline-block;\n          position: relative;\n          left: 16px;\n          top: 50%;\n          -webkit-transform: translateY(-50%);\n                  transform: translateY(-50%);\n          -webkit-user-select: none;\n             -moz-user-select: none;\n              -ms-user-select: none;\n                  user-select: none;\n          font-size: 18px;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis;\n          max-width: calc(100% - 32px); }\n@media (max-width: 786px) {\n            .container .list-section .list-container .list .text.name {\n              font-size: 14px; } }\n.container .list-section .list-container .list .text.delete {\n          display: inline-block;\n          position: relative;\n          left: 50%;\n          top: 50%;\n          -webkit-transform: translate(-50%, -50%);\n                  transform: translate(-50%, -50%);\n          -webkit-user-select: none;\n             -moz-user-select: none;\n              -ms-user-select: none;\n                  user-select: none;\n          font-size: 18px; }\n@media (max-width: 786px) {\n            .container .list-section .list-container .list .text.delete {\n              font-size: 14px; } }\n.container .task-section {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 216px auto;\n        grid-template-rows: 216px auto;\n    overflow: hidden; }\n@media (max-width: 786px) {\n      .container .task-section {\n        -ms-grid-rows: 168px auto;\n            grid-template-rows: 168px auto; } }\n@media (min-width: 786px) {\n      .container .task-section {\n        box-shadow: 0 0 12px black;\n        z-index: 1; } }\n.container .task-section .task-header {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      display: -ms-grid;\n      display: grid;\n          -ms-grid-rows: 1fr 1fr 1fr;\n          grid-template-rows: 1fr 1fr 1fr;\n          -ms-grid-columns: auto (72px)[2];\n          grid-template-columns: auto repeat(2, 72px);\n          grid-template-areas: \"name delete create\"\r \"desc desc desc\"\r \"info info info\"; }\n@media (max-width: 786px) {\n        .container .task-section .task-header {\n          -ms-grid-columns: auto (56px)[2];\n              grid-template-columns: auto repeat(2, 56px); } }\n.container .task-section .task-header.deleting {\n        pointer-events: none; }\n.container .task-section .task-header .list-name {\n        -ms-grid-row: 1;\n        -ms-grid-column: 1;\n        -ms-grid-column-span: 2;\n        grid-area: name; }\n.container .task-section .task-header .list-desc {\n        -ms-grid-row: 2;\n        -ms-grid-column: 1;\n        -ms-grid-column-span: 3;\n        grid-area: desc; }\n.container .task-section .task-header .list-info {\n        -ms-grid-row: 3;\n        -ms-grid-column: 1;\n        -ms-grid-column-span: 3;\n        grid-area: info; }\n.container .task-section .task-header .task-delete-toggle {\n        -ms-grid-row: 1;\n        -ms-grid-column: 2;\n        grid-area: delete; }\n.container .task-section .task-header .task-create {\n        -ms-grid-row: 1;\n        -ms-grid-column: 3;\n        grid-area: create; }\n.container .task-section .task-header > :not(.list-delete) .text {\n        display: inline-block;\n        position: relative;\n        left: 16px;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n                transform: translateY(-50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n@media (max-width: 786px) {\n          .container .task-section .task-header > :not(.list-delete) .text {\n            font-size: 14px; } }\n.container .task-section .task-header .list-name span.text,\n      .container .task-section .task-header .list-desc span.text,\n      .container .task-section .task-header .list-info span.text {\n        white-space: nowrap;\n        overflow: hidden;\n        text-overflow: ellipsis;\n        max-width: calc(100% - 32px); }\n.container .task-section .task-header .list-name {\n        width: calc(100% + 144px); }\n.container .task-section .task-header .list-name .text {\n          display: flex;\n          flex-flow: row nowrap; }\n.container .task-section .task-header .list-name .text .icon {\n            display: inline-block;\n            position: relative;\n            top: 50%;\n            -webkit-transform: translateY(-50%);\n                    transform: translateY(-50%); }\n.container .task-section .task-header .list-name .text .input-container {\n            flex: 1; }\n.container .task-section .task-header .list-name .text .input-container input[type=text] {\n              height: 24px !important;\n              position: relative;\n              top: 50%;\n              -webkit-transform: translateY(calc(-50% + 0.5px));\n                      transform: translateY(calc(-50% + 0.5px)); }\n.container .task-section .task-header .list-name .text .input-container input[type=text]::-webkit-input-placeholder {\n                color: rgba(204, 204, 204, 0.25); }\n.container .task-section .task-header .list-name .text .input-container input[type=text]::-ms-input-placeholder {\n                color: rgba(204, 204, 204, 0.25); }\n.container .task-section .task-header .list-name .text .input-container input[type=text]::placeholder {\n                color: rgba(204, 204, 204, 0.25); }\n.container .task-section .task-header .list-desc .text,\n      .container .task-section .task-header .list-info .text {\n        color: rgba(204, 204, 204, 0.5); }\n.container .task-section .task-header .list-desc input[type=text],\n      .container .task-section .task-header .list-info input[type=text] {\n        color: rgba(204, 204, 204, 0.5) !important; }\n.container .task-section .task-header .list-desc input[type=text]::-webkit-input-placeholder,\n        .container .task-section .task-header .list-info input[type=text]::-webkit-input-placeholder {\n          color: rgba(204, 204, 204, 0.25) !important;\n          opacity: 1; }\n.container .task-section .task-header .list-desc input[type=text]::-ms-input-placeholder,\n        .container .task-section .task-header .list-info input[type=text]::-ms-input-placeholder {\n          color: rgba(204, 204, 204, 0.25) !important;\n          opacity: 1; }\n.container .task-section .task-header .list-desc input[type=text]::placeholder,\n        .container .task-section .task-header .list-info input[type=text]::placeholder {\n          color: rgba(204, 204, 204, 0.25) !important;\n          opacity: 1; }\n.container .task-section .task-header .task-delete-toggle,\n      .container .task-section .task-header .task-create {\n        z-index: 1; }\n.container .task-section .task-header .task-delete-toggle .text,\n        .container .task-section .task-header .task-create .text {\n          display: inline-block;\n          position: relative;\n          left: 50%;\n          top: 50%;\n          -webkit-transform: translate(-50%, -50%);\n                  transform: translate(-50%, -50%);\n          -webkit-user-select: none;\n             -moz-user-select: none;\n              -ms-user-select: none;\n                  user-select: none;\n          font-size: 18px; }\n@media (max-width: 786px) {\n            .container .task-section .task-header .task-delete-toggle .text,\n            .container .task-section .task-header .task-create .text {\n              font-size: 14px; } }\n.container .task-section .task-header .task-create {\n        color: #009900; }\n@media (min-width: 786px) {\n          .container .task-section .task-header .task-create {\n            cursor: pointer; }\n            .container .task-section .task-header .task-create:hover {\n              background: linear-gradient(135deg, #003300 0%, #002400 100%); } }\n.container .task-section .task-header .task-create:active {\n          background: linear-gradient(135deg, #002900 0%, #001a00 100%); }\n.container .task-section .task-header .task-delete-toggle {\n        color: #e60000; }\n@media (min-width: 786px) {\n          .container .task-section .task-header .task-delete-toggle {\n            cursor: pointer; }\n            .container .task-section .task-header .task-delete-toggle:hover {\n              background: linear-gradient(135deg, #420000 0%, #330000 100%); } }\n.container .task-section .task-header .task-delete-toggle:active {\n          background: linear-gradient(135deg, #380000 0%, #290000 100%); }\n.container .task-section .task-header .task-delete-toggle:not(.placeholder) {\n          pointer-events: all; }\n.container .task-section .task-header .task-delete-toggle.deleting {\n          color: #009900; }\n@media (min-width: 786px) {\n            .container .task-section .task-header .task-delete-toggle.deleting {\n              cursor: pointer; }\n              .container .task-section .task-header .task-delete-toggle.deleting:hover {\n                background: linear-gradient(135deg, #003300 0%, #002400 100%); } }\n.container .task-section .task-header .task-delete-toggle.deleting:active {\n            background: linear-gradient(135deg, #002900 0%, #001a00 100%); }\n@media (min-width: 786px) {\n        .container .task-section .task-header .hoverable {\n          cursor: pointer; }\n          .container .task-section .task-header .hoverable:hover {\n            background: linear-gradient(135deg, #073740 0%, #052329 100%); } }\n@media (max-width: 786px) {\n        .container .task-section .task-header .hoverable:active {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n.container .task-section .task-header .active {\n        background: linear-gradient(135deg, #062f37 0%, #041b20 100%); }\n.container .task-section .task-container {\n      overflow: hidden; }\n.container .task-section .task-container .task-container-inner {\n        box-sizing: border-box;\n        background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n        height: 100%;\n        overflow-x: hidden;\n        overflow-y: auto; }\n.container .task-section .task-container .task-container-inner .task {\n          display: -ms-grid;\n          display: grid;\n          -ms-grid-columns: 72px auto;\n              grid-template-columns: 72px auto;\n          height: 72px; }\n@media (max-width: 786px) {\n            .container .task-section .task-container .task-container-inner .task {\n              -ms-grid-columns: 56px auto;\n                  grid-template-columns: 56px auto;\n              height: 56px; } }\n@media (min-width: 786px) {\n            .container .task-section .task-container .task-container-inner .task {\n              cursor: pointer; }\n              .container .task-section .task-container .task-container-inner .task:hover {\n                background: linear-gradient(135deg, #073740 0%, #052329 100%); } }\n@media (max-width: 786px) {\n            .container .task-section .task-container .task-container-inner .task:active {\n              background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n.container .task-section .task-container .task-container-inner .task.active {\n            background: linear-gradient(135deg, #062f37 0%, #041b20 100%);\n            pointer-events: none; }\n.container .task-section .task-container .task-container-inner .task.deleting {\n            -ms-grid-columns: 72px auto 72px;\n                grid-template-columns: 72px auto 72px;\n            background: transparent !important;\n            pointer-events: none; }\n@media (max-width: 786px) {\n              .container .task-section .task-container .task-container-inner .task.deleting {\n                -ms-grid-columns: 56px auto 56px;\n                    grid-template-columns: 56px auto 56px; } }\n.container .task-section .task-container .task-container-inner .task .task-checkbox {\n            z-index: 1;\n            pointer-events: all; }\n.container .task-section .task-container .task-container-inner .task .task-checkbox .text {\n              display: inline-block;\n              position: relative;\n              left: 50%;\n              top: 50%;\n              -webkit-transform: translate(-50%, -50%);\n                      transform: translate(-50%, -50%);\n              -webkit-user-select: none;\n                 -moz-user-select: none;\n                  -ms-user-select: none;\n                      user-select: none;\n              font-size: 18px;\n              -webkit-transform: translate(-50%, calc(-50% - 1.5px));\n                      transform: translate(-50%, calc(-50% - 1.5px)); }\n@media (max-width: 786px) {\n                .container .task-section .task-container .task-container-inner .task .task-checkbox .text {\n                  font-size: 14px; } }\n.container .task-section .task-container .task-container-inner .task .task-details.completed .text .task-name {\n            text-decoration: line-through;\n            opacity: 0.25; }\n.container .task-section .task-container .task-container-inner .task .task-details .text {\n            display: inline-block;\n            position: relative;\n            left: 16px;\n            top: 50%;\n            -webkit-transform: translateY(-50%);\n                    transform: translateY(-50%);\n            -webkit-user-select: none;\n               -moz-user-select: none;\n                -ms-user-select: none;\n                    user-select: none;\n            font-size: 18px;\n            left: 0; }\n@media (max-width: 786px) {\n              .container .task-section .task-container .task-container-inner .task .task-details .text {\n                font-size: 14px; } }\n.container .task-section .task-container .task-container-inner .task .task-details .text .task-info {\n              font-size: 0; }\n.container .task-section .task-container .task-container-inner .task .task-details .text .task-info span {\n                font-size: 14px;\n                color: rgba(204, 204, 204, 0.5); }\n.container .task-section .task-container .task-container-inner .task .task-details .text .task-info .urgent {\n                color: #e60000; }\n.container .task-section .task-container .task-container-inner .task .task-details .text .task-info span + span:before {\n                content: \" •\"; }\n.container .task-section .task-container .task-container-inner .task .task-delete {\n            color: #e60000;\n            pointer-events: all; }\n@media (min-width: 786px) {\n              .container .task-section .task-container .task-container-inner .task .task-delete {\n                cursor: pointer; }\n                .container .task-section .task-container .task-container-inner .task .task-delete:hover {\n                  background: linear-gradient(135deg, #420000 0%, #330000 100%); } }\n.container .task-section .task-container .task-container-inner .task .task-delete:active {\n              background: linear-gradient(135deg, #380000 0%, #290000 100%); }\n.container .task-section .task-container .task-container-inner .task .task-delete .text {\n              display: inline-block;\n              position: relative;\n              left: 50%;\n              top: 50%;\n              -webkit-transform: translate(-50%, -50%);\n                      transform: translate(-50%, -50%);\n              -webkit-user-select: none;\n                 -moz-user-select: none;\n                  -ms-user-select: none;\n                      user-select: none;\n              font-size: 18px; }\n@media (max-width: 786px) {\n                .container .task-section .task-container .task-container-inner .task .task-delete .text {\n                  font-size: 14px; } }\n.container .task-details-section {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-rows: 216px auto;\n        grid-template-rows: 216px auto; }\n@media (max-width: 786px) {\n      .container .task-details-section {\n        -ms-grid-rows: 168px auto;\n            grid-template-rows: 168px auto; } }\n.container .task-details-section.hide-top-tile {\n      -ms-grid-rows: auto;\n          grid-template-rows: auto; }\n.container .task-details-section .top-tile {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%);\n      display: -ms-grid;\n      display: grid;\n          -ms-grid-rows: (72px)[3];\n          grid-template-rows: repeat(3, 72px);\n          -ms-grid-columns: (1fr)[2];\n          grid-template-columns: repeat(2, 1fr);\n          grid-template-areas: \"name name\"\r \"date date\"\r \"completed urgent\"; }\n@media (max-width: 786px) {\n        .container .task-details-section .top-tile {\n          -ms-grid-rows: (56px)[3];\n              grid-template-rows: repeat(3, 56px); } }\n.container .task-details-section ::-webkit-input-placeholder {\n      color: rgba(204, 204, 204, 0.25); }\n.container .task-details-section ::-ms-input-placeholder {\n      color: rgba(204, 204, 204, 0.25); }\n.container .task-details-section ::placeholder {\n      color: rgba(204, 204, 204, 0.25); }\n.container .task-details-section .task-name {\n      -ms-grid-row: 1;\n      -ms-grid-column: 1;\n      -ms-grid-column-span: 2;\n      grid-area: name; }\n.container .task-details-section .task-date {\n      -ms-grid-row: 2;\n      -ms-grid-column: 1;\n      -ms-grid-column-span: 2;\n      grid-area: date; }\n.container .task-details-section .task-completed {\n      -ms-grid-row: 3;\n      -ms-grid-column: 1;\n      grid-area: completed; }\n.container .task-details-section .task-urgent {\n      -ms-grid-row: 3;\n      -ms-grid-column: 2;\n      grid-area: urgent; }\n@media (min-width: 786px) {\n      .container .task-details-section .task-name,\n      .container .task-details-section .task-date,\n      .container .task-details-section .task-completed,\n      .container .task-details-section .task-urgent {\n        cursor: pointer; }\n        .container .task-details-section .task-name:hover,\n        .container .task-details-section .task-date:hover,\n        .container .task-details-section .task-completed:hover,\n        .container .task-details-section .task-urgent:hover {\n          background: linear-gradient(135deg, #073740 0%, #052329 100%); } }\n@media (max-width: 786px) {\n      .container .task-details-section .task-name:active,\n      .container .task-details-section .task-date:active,\n      .container .task-details-section .task-completed:active,\n      .container .task-details-section .task-urgent:active {\n        background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n.container .task-details-section .task-name.active,\n    .container .task-details-section .task-date.active,\n    .container .task-details-section .task-completed.active,\n    .container .task-details-section .task-urgent.active {\n      background: linear-gradient(135deg, #062f37 0%, #041b20 100%); }\n.container .task-details-section .task-name .text,\n    .container .task-details-section .task-date .text {\n      display: inline-block;\n      position: relative;\n      left: 16px;\n      top: 50%;\n      -webkit-transform: translateY(-50%);\n              transform: translateY(-50%);\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      font-size: 18px; }\n@media (max-width: 786px) {\n        .container .task-details-section .task-name .text,\n        .container .task-details-section .task-date .text {\n          font-size: 14px; } }\n.container .task-details-section .task-date.invalid .text {\n      color: #e6bf00 !important; }\n.container .task-details-section .task-completed .text,\n    .container .task-details-section .task-urgent .text {\n      pointer-events: none; }\n.container .task-details-section .task-completed .text:not(.left),\n      .container .task-details-section .task-urgent .text:not(.left) {\n        display: inline-block;\n        position: relative;\n        left: 50%;\n        top: 50%;\n        -webkit-transform: translate(-50%, -50%);\n                transform: translate(-50%, -50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n@media (max-width: 786px) {\n          .container .task-details-section .task-completed .text:not(.left),\n          .container .task-details-section .task-urgent .text:not(.left) {\n            font-size: 14px; } }\n.container .task-details-section .task-completed .text.left,\n      .container .task-details-section .task-urgent .text.left {\n        display: inline-block;\n        position: relative;\n        left: 16px;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n                transform: translateY(-50%);\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        font-size: 18px; }\n@media (max-width: 786px) {\n          .container .task-details-section .task-completed .text.left,\n          .container .task-details-section .task-urgent .text.left {\n            font-size: 14px; } }\n.container .task-details-section .task-completed .text.good,\n      .container .task-details-section .task-urgent .text.good {\n        color: #009900; }\n.container .task-details-section .task-completed .text.bad,\n      .container .task-details-section .task-urgent .text.bad {\n        color: #e60000; }\n.container .task-details-section .task-urgent .text.left {\n      left: 0px; }\n.container .task-details-section .task-desc {\n      box-sizing: border-box;\n      background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n@media (min-width: 786px) {\n        .container .task-details-section .task-desc {\n          cursor: pointer; }\n          .container .task-details-section .task-desc:hover {\n            background: linear-gradient(135deg, #073740 0%, #052329 100%); } }\n@media (max-width: 786px) {\n        .container .task-details-section .task-desc:active {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n.container .task-details-section .task-desc.active {\n        background: linear-gradient(135deg, #062f37 0%, #041b20 100%); }\n.container .task-details-section .task-desc .text {\n        font-size: 18px; }\n@media (max-width: 786px) {\n          .container .task-details-section .task-desc .text {\n            font-size: 14px; } }\n.container .task-details-section .task-desc span.text {\n        display: inline-block;\n        margin: 16px;\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n        white-space: pre-line; }\n.container .task-details-section .task-desc textarea.text {\n        width: 100%;\n        height: 100%;\n        padding: 16px;\n        box-sizing: border-box;\n        background: transparent;\n        border: 0;\n        outline: 0; }\n"
 
 /***/ }),
 
@@ -725,6 +1019,8 @@ var TaskListComponent = /** @class */ (function () {
         this.listSelected = false;
         this.taskSelected = false;
         this.focusedInput = "";
+        this.deletingLists = false;
+        this.deletingTasks = false;
         this.defaultTaskListName = "<New Task List>";
         this.defaultTaskName = "<New Task>";
         this.listSymbol = "☰";
@@ -848,7 +1144,7 @@ var TaskListComponent = /** @class */ (function () {
                 return;
             }
             _this.taskLists.push(response.taskList);
-            _this.onSelectTaskList(_this.taskLists.length - 1);
+            // this.onClickTaskList(this.taskLists.length - 1);
         });
     };
     TaskListComponent.prototype.getTaskLists = function () {
@@ -885,6 +1181,9 @@ var TaskListComponent = /** @class */ (function () {
             var listIndex = _this.findTaskListIndexById(listId);
             _this.taskLists.splice(listIndex, 1);
             _this.setNavbarExtensions();
+            if (_this.taskLists.length == 0) {
+                _this.deletingLists = false;
+            }
         });
     };
     TaskListComponent.prototype.onCreateTaskList = function () {
@@ -895,19 +1194,32 @@ var TaskListComponent = /** @class */ (function () {
         name = this.stringUtilService.makeUnique(name, otherNames);
         this.createTaskList(name);
     };
-    TaskListComponent.prototype.onSelectTaskList = function (index) {
-        this.curListIndex = index;
-        this.listSelected = true;
-        this.setNavbarExtensions();
-        var listId = this.curTaskListId;
-        if (listId == null)
-            return;
-        this.getTasks(listId);
+    TaskListComponent.prototype.onClickTaskList = function (index) {
+        if (!this.deletingLists) {
+            this.curListIndex = index;
+            this.listSelected = true;
+            this.setNavbarExtensions();
+            var listId = this.curTaskListId;
+            if (listId == null)
+                return;
+            this.getTasks(listId);
+        }
+        else {
+            this.onDeleteTaskList(index);
+        }
     };
-    TaskListComponent.prototype.onDeleteTaskList = function () {
-        if (!this.listSelected)
-            return;
-        var list = this.taskLists[this.curListIndex];
+    TaskListComponent.prototype.onToggleDeletingTaskLists = function () {
+        this.deletingLists = !this.deletingLists;
+        if (this.deletingLists) {
+            this.curListIndex = null;
+            this.listSelected = false;
+            this.curTaskIndex = null;
+            this.taskSelected = false;
+            this.setNavbarExtensions();
+        }
+    };
+    TaskListComponent.prototype.onDeleteTaskList = function (index) {
+        var list = this.taskLists[index];
         if (!list)
             return;
         this.deleteTaskList(list._id);
@@ -978,6 +1290,9 @@ var TaskListComponent = /** @class */ (function () {
             if (taskIndex == -1)
                 return;
             _this.taskLists[listIndex].tasks.splice(taskIndex, 1);
+            if (_this.taskLists[listIndex].tasks.length == 0) {
+                _this.deletingTasks = false;
+            }
         });
     };
     TaskListComponent.prototype.onCreateTask = function () {
@@ -989,12 +1304,22 @@ var TaskListComponent = /** @class */ (function () {
         name = this.stringUtilService.makeUnique(name, otherNames);
         this.createTask(listId, name);
     };
-    TaskListComponent.prototype.onDeleteTask = function () {
+    TaskListComponent.prototype.onToggleDeletingTasks = function () {
+        this.deletingTasks = !this.deletingTasks;
+        if (this.deletingTasks) {
+            this.curTaskIndex = null;
+            this.taskSelected = false;
+            this.setNavbarExtensions();
+        }
+    };
+    TaskListComponent.prototype.onDeleteTask = function (index) {
         var listId = this.curTaskListId;
-        var taskId = this.curTaskId;
+        var task = this.curTaskList.tasks[index];
+        if (!task)
+            return;
         this.curTaskIndex = null;
         this.taskSelected = false;
-        this.deleteTask(listId, taskId);
+        this.deleteTask(listId, task._id);
         this.setNavbarExtensions();
     };
     TaskListComponent.prototype.onSelectTask = function (index) {
@@ -1014,6 +1339,7 @@ var TaskListComponent = /** @class */ (function () {
             return;
         this.curTask[prop] = !this.curTask[prop];
         this.curTask = __assign({}, this.curTask);
+        this.onTaskDetailsModified();
     };
     TaskListComponent.prototype.onTaskDetailsModified = function () {
         var _this = this;
@@ -1037,11 +1363,83 @@ var TaskListComponent = /** @class */ (function () {
                 });
             }, this.saveDelay);
     };
-    TaskListComponent.prototype.dateValid = function (dateStr) {
-        if (!dateStr || !dateStr.trim())
-            return true;
-        var date = new Date(dateStr);
+    TaskListComponent.prototype.dateEmpty = function (dateStr) {
+        return !dateStr || !dateStr.trim();
+    };
+    TaskListComponent.prototype.dateValid = function (dateStr, acceptEmpty) {
+        if (acceptEmpty === void 0) { acceptEmpty = false; }
+        if (this.dateEmpty(dateStr))
+            return acceptEmpty;
+        var date = this.parseDate(dateStr);
+        if (!date)
+            return false;
         return date.getTime() === date.getTime();
+    };
+    TaskListComponent.prototype.dateContainsTime = function (dateStr) {
+        return dateStr.includes("@") &&
+            (dateStr.includes("AM") || dateStr.includes("PM"));
+    };
+    TaskListComponent.prototype.parseDate = function (dateStr) {
+        var regex = {
+            MonthDayYearHourMinutePeriod: /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)\s@\s([1-9][0-2]?):([0-6]\d)\s(AM|PM)$/,
+            MonthDayYearHourPeriod: /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)\s@\s([1-9][0-2]?)\s(AM|PM)$/,
+            MonthDayHourMinutePeriod: /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:\s|\/)@\s([1-9][0-2]?):([0-6]\d)\s(AM|PM)$/,
+            MonthDayHourPeriod: /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:\s|\/)@\s([1-9][0-2]?)\s(AM|PM)$/,
+            MonthDayYear: /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)$/,
+            MonthDay: /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)$/,
+        };
+        var date = (function () {
+            var _loop_1 = function (regexName) {
+                var s = dateStr.match(regex[regexName]);
+                if (!s)
+                    return "continue";
+                s.shift();
+                var n = function (i) {
+                    return parseInt(s[i]);
+                };
+                var year = function (i) {
+                    if (s[i].length == 2) {
+                        return 2000 + n(i);
+                    }
+                    return n(i);
+                };
+                var month = function (i) {
+                    var _n = n(i);
+                    if (isNaN(_n)) {
+                        var months = [
+                            "Jan", "Feb", "Mar", "Apr",
+                            "May", "Jun", "Jul", "Aug",
+                            "Sep", "Oct", "Nov", "Dec"
+                        ];
+                        return months.indexOf(s[i]);
+                    }
+                    return _n - 1;
+                };
+                var hour = function (hI, pI) {
+                    var _a = [s[hI] == "12", s[pI] == "PM"], tw = _a[0], pm = _a[1];
+                    if (tw && !pm)
+                        return n(hI) - 12;
+                    return n(hI);
+                };
+                var curYr = function () {
+                    return new Date().getFullYear();
+                };
+                switch (regexName) {
+                    case "MonthDayYearHourMinutePeriod": return { value: new Date(year(2), month(0), n(1), hour(3, 5), n(4)) };
+                    case "MonthDayHourMinutePeriod": return { value: new Date(curYr(), month(0), n(1), hour(2, 4), n(3)) };
+                    case "MonthDayHourPeriod": return { value: new Date(curYr(), month(0), n(1), hour(2, 3)) };
+                    case "MonthDayYear": return { value: new Date(year(2), month(0), n(1)) };
+                    case "MonthDay": return { value: new Date(curYr(), month(0), n(1)) };
+                }
+            };
+            for (var regexName in regex) {
+                var state_1 = _loop_1(regexName);
+                if (typeof state_1 === "object")
+                    return state_1.value;
+            }
+            return null;
+        })();
+        return date;
     };
     TaskListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1079,7 +1477,7 @@ module.exports = "<div class=\"tool\" (click)=\"navigateTo('tasks')\">\r\n    <d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\n  position: absolute;\n  left: 0;\n  top: 72px;\n  width: 100%;\n  height: calc(100% - 72px);\n  font-size: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr 1fr;\n      grid-template-rows: 1fr 1fr;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr; }\n  @media (max-width: 786px) {\n    :host {\n      top: 56px;\n      height: calc(100% - 56px); } }\n  @media (max-width: 786px) {\n    :host {\n      -ms-grid-rows: 1fr 1fr 1fr 1fr;\n          grid-template-rows: 1fr 1fr 1fr 1fr;\n      -ms-grid-columns: 1fr;\n          grid-template-columns: 1fr; } }\n  :host .tool {\n    box-sizing: border-box;\n    background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n  @media (min-width: 786px) {\n      :host .tool {\n        cursor: pointer; }\n        :host .tool:hover {\n          background: linear-gradient(135deg, #073740 0%, #052329 100%); }\n        :host .tool:active {\n          background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  :host .tool .text {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%);\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      font-size: 18px; }\n  @media (max-width: 786px) {\n        :host .tool .text {\n          font-size: 14px; } }\n  :host .tool .text.placeholder {\n        opacity: 0.4; }\n"
+module.exports = ":host {\n  position: absolute;\n  left: 0;\n  top: 72px;\n  width: 100%;\n  height: calc(100% - 72px);\n  font-size: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr 1fr;\n      grid-template-rows: 1fr 1fr;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr; }\n  @media (max-width: 786px) {\n    :host {\n      top: 56px;\n      height: calc(100% - 56px); } }\n  @media (max-width: 786px) {\n    :host {\n      -ms-grid-rows: 1fr 1fr 1fr 1fr;\n          grid-template-rows: 1fr 1fr 1fr 1fr;\n      -ms-grid-columns: 1fr;\n          grid-template-columns: 1fr; } }\n  :host .tool {\n    box-sizing: border-box;\n    background: linear-gradient(135deg, #242424 0%, #1a1919 100%); }\n  @media (min-width: 786px) {\n      :host .tool {\n        cursor: pointer; }\n        :host .tool:hover {\n          background: linear-gradient(135deg, #073740 0%, #052329 100%); } }\n  @media (max-width: 786px) {\n      :host .tool:active {\n        background: linear-gradient(135deg, #062f37 0%, #041b20 100%); } }\n  :host .tool .text {\n      display: inline-block;\n      position: relative;\n      left: 50%;\n      top: 50%;\n      -webkit-transform: translate(-50%, -50%);\n              transform: translate(-50%, -50%);\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      font-size: 18px; }\n  @media (max-width: 786px) {\n        :host .tool .text {\n          font-size: 14px; } }\n  :host .tool .text.placeholder {\n        opacity: 0.4; }\n"
 
 /***/ }),
 
@@ -1128,6 +1526,45 @@ var ToolSelectorComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/pipes/day-only.pipe.ts":
+/*!****************************************!*\
+  !*** ./src/app/pipes/day-only.pipe.ts ***!
+  \****************************************/
+/*! exports provided: DayOnlyPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DayOnlyPipe", function() { return DayOnlyPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var DayOnlyPipe = /** @class */ (function () {
+    function DayOnlyPipe() {
+    }
+    DayOnlyPipe.prototype.transform = function (value, args) {
+        if (value.includes(" at")) {
+            return value.split(" at")[0];
+        }
+        return null;
+    };
+    DayOnlyPipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: 'dayOnly'
+        })
+    ], DayOnlyPipe);
+    return DayOnlyPipe;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/http.interceptor.ts":
 /*!**********************************************!*\
   !*** ./src/app/services/http.interceptor.ts ***!
@@ -1161,7 +1598,6 @@ var PasscodeInterceptor = /** @class */ (function () {
             "B-KEY-NAME": this.globals.keyName,
             "B-KEY": this.globals.key
         };
-        console.log(headers);
         var req = _req.clone({ setHeaders: headers });
         return next.handle(req);
     };

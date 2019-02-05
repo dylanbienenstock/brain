@@ -25,7 +25,7 @@ export module Auth {
                             return;
                         }
 
-                        onFileContent(filename, content);
+                        onFileContent(filename, content.trim());
                     });
                 });
             });

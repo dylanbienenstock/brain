@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 
+import { MomentModule } from 'ngx-moment';
+
 import { AppComponent } from './app.component';
 import { ToolSelectorComponent } from './components/tool-selector/tool-selector.component';
 import { AppRoutes } from './app.routes';
@@ -18,6 +20,7 @@ import { Globals } from './app.globals';
 import { ScreenService } from './services/screen.service';
 import { NavbarService } from './services/navbar.service';
 import { StringUtilService } from './services/string-util.service';
+import { DayOnlyPipe } from './pipes/day-only.pipe';
 
 @NgModule({
     declarations: [
@@ -26,12 +29,14 @@ import { StringUtilService } from './services/string-util.service';
         NavbarComponent,
         TaskListComponent,
         AuthenticatorComponent,
+        DayOnlyPipe,
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
         RouterModule.forRoot(AppRoutes),
-        FormsModule
+        FormsModule,
+        MomentModule
     ],
     providers: [
         HttpService,

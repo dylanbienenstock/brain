@@ -8,6 +8,8 @@ import { NavbarService, NavbarExtensionClickEvent } from '../../services/navbar.
 import { Subscription } from 'rxjs';
 import { StringUtilService } from '../../services/string-util.service';
 
+import * as moment from "moment";
+
 @Component({
     selector: 'app-task-list',
     templateUrl: './task-list.component.html',
@@ -28,12 +30,15 @@ export class TaskListComponent implements OnInit, OnDestroy {
     public taskSelected: boolean = false;
     public focusedInput: string = "";
 
+    public deletingLists: boolean = false;
+    public deletingTasks: boolean = false;
+
     public defaultTaskListName: string = "<New Task List>";
     public defaultTaskName: string = "<New Task>";
 
     public listSymbol = "☰";
     public checkSymbol: string = "x";
-    
+
     private saveDelay: number = 2500;
     private taskListDetailsModifiedTimeout;
     private taskDetailsModifiedTimeout;
@@ -164,7 +169,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
             }
 
             this.taskLists.push(response.taskList);
-            this.onSelectTaskList(this.taskLists.length - 1);
+            // this.onClickTaskList(this.taskLists.length - 1);
         });
     }
 
@@ -205,6 +210,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
             this.taskLists.splice(listIndex, 1);
             this.setNavbarExtensions();
+
+            if (this.taskLists.length == 0) {
+                this.deletingLists = false;
+            }
         });
     }
 
@@ -219,23 +228,39 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.createTaskList(name);
     }
 
-    onSelectTaskList(index: number) {
-        this.curListIndex = index;
-        this.listSelected = true;
-
-        this.setNavbarExtensions();
-
-        let listId = this.curTaskListId;
-
-        if (listId == null) return;
-
-        this.getTasks(listId);
+    onClickTaskList(index: number) {
+        if (!this.deletingLists) {
+            this.curListIndex = index;
+            this.listSelected = true;
+    
+            this.setNavbarExtensions();
+    
+            let listId = this.curTaskListId;
+    
+            if (listId == null) return;
+    
+            this.getTasks(listId);
+        } else {
+            this.onDeleteTaskList(index);
+        }
     }
 
-    onDeleteTaskList() {
-        if (!this.listSelected) return;
+    onToggleDeletingTaskLists() {
+        this.deletingLists = !this.deletingLists;
 
-        let list = this.taskLists[this.curListIndex];
+        if (this.deletingLists) {
+            this.curListIndex = null;
+            this.listSelected = false;
+    
+            this.curTaskIndex = null;
+            this.taskSelected = false;
+
+            this.setNavbarExtensions();
+        }
+    }
+
+    onDeleteTaskList(index: number) {
+        let list = this.taskLists[index];
 
         if (!list) return;
         
@@ -319,6 +344,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
                 if (taskIndex == -1) return;
 
                 this.taskLists[listIndex].tasks.splice(taskIndex, 1);
+
+                if (this.taskLists[listIndex].tasks.length == 0) {
+                    this.deletingTasks = false;
+                }
             });
     }
 
@@ -335,14 +364,27 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.createTask(listId, name);
     }
 
-    onDeleteTask() {
+    onToggleDeletingTasks() {
+        this.deletingTasks = !this.deletingTasks;
+
+        if (this.deletingTasks) {
+            this.curTaskIndex = null;
+            this.taskSelected = false;
+
+            this.setNavbarExtensions();
+        }
+    }
+
+    onDeleteTask(index: number) {
         let listId = this.curTaskListId;
-        let taskId = this.curTaskId;
+        let task = this.curTaskList.tasks[index];
+
+        if (!task) return;
 
         this.curTaskIndex = null;
         this.taskSelected = false;
 
-        this.deleteTask(listId, taskId);
+        this.deleteTask(listId, task._id);
         this.setNavbarExtensions();
     }
 
@@ -369,6 +411,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.curTask[prop] = !this.curTask[prop];
 
         this.curTask = { ...this.curTask };
+
+        this.onTaskDetailsModified();
     }
 
     onTaskDetailsModified() {
@@ -397,11 +441,156 @@ export class TaskListComponent implements OnInit, OnDestroy {
             }, this.saveDelay);
     }
 
-    dateValid(dateStr: string) {
-        if (!dateStr || !dateStr.trim()) return true;
+    dateEmpty(dateStr: string) {
+        return !dateStr || !dateStr.trim();
+    }
 
-        let date = new Date(dateStr);
+    dateValid(dateStr: string, acceptEmpty: boolean = false) {
+        if (this.dateEmpty(dateStr)) return acceptEmpty;
+
+        let date = this.parseDate(dateStr);
+
+        if (!date) return false;
 
         return date.getTime() === date.getTime();
     }
+
+    dateContainsTime(dateStr: string) {
+        return dateStr.includes("@") && 
+            (dateStr.includes("AM") || dateStr.includes("PM"));
+    }
+
+    parseDate(dateStr: string) {
+        let regex = {
+            MonthDayYearHourMinutePeriod: 
+                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)\s@\s([1-9][0-2]?):([0-6]\d)\s(AM|PM)$/,
+            MonthDayYearHourPeriod: 
+                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)\s@\s([1-9][0-2]?)\s(AM|PM)$/,
+            MonthDayHourMinutePeriod:
+                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:\s|\/)@\s([1-9][0-2]?):([0-6]\d)\s(AM|PM)$/,
+            MonthDayHourPeriod:
+                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:\s|\/)@\s([1-9][0-2]?)\s(AM|PM)$/,
+            MonthDayYear: 
+                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)$/,
+            MonthDay:
+                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)$/,
+        };
+        
+        let date = (() => {
+            for (let regexName in regex) {
+                let s = dateStr.match(regex[regexName]);
+
+                if (!s) continue;
+
+                s.shift();
+
+                let n = (i) => {
+                    return parseInt(s[i]);
+                }
+
+                let year = (i) => {
+                    if (s[i].length == 2) {
+                        return 2000 + n(i);
+                    }
+
+                    return n(i);
+                }
+
+                let month = (i) => {
+                    let _n = n(i);
+                    
+                    if (isNaN(_n)) {
+                        let months = [
+                            "Jan", "Feb", "Mar", "Apr",
+                            "May", "Jun", "Jul", "Aug",
+                            "Sep", "Oct", "Nov", "Dec"
+                        ];
+
+                        return months.indexOf(s[i]);
+                    }
+
+                    return _n - 1;
+                }
+
+                let hour = (hI, pI) => {
+                    let [tw, pm] = [s[hI] == "12", s[pI] == "PM"];
+
+                    if (tw && !pm) return n(hI) - 12;
+
+                    return n(hI);
+                }
+
+                let curYr = () => {
+                    return new Date().getFullYear();
+                }
+
+                switch (regexName) {
+                    case "MonthDayYearHourMinutePeriod":
+                        return new Date(year(2), month(0), n(1), hour(3, 5), n(4));
+                    case "MonthDayHourMinutePeriod":
+                        return new Date(curYr(), month(0), n(1), hour(2, 4), n(3));
+                    case "MonthDayHourPeriod":
+                        return new Date(curYr(), month(0), n(1), hour(2, 3));
+                    case "MonthDayYear":
+                        return new Date(year(2), month(0), n(1));
+                    case "MonthDay":
+                        return new Date(curYr(), month(0), n(1));
+                }
+            }
+
+            return null;
+        })();
+        
+        return date;
+    }
+
+    // parseDate(dateStr: string) {
+    //     if (!dateStr || !dateStr.trim()) return null;
+
+    //     let quickValidate = () => {
+    //         let d = new Date(dateStr);
+    //         let m = moment(dateStr);
+
+    //         return d.getTime() === d.getTime() && !m.isValid();
+    //     }
+
+    //     if (!quickValidate()) return null;
+
+    //     let dateParts = dateStr.split("@");
+
+    //     if (dateParts.length > 2) return null;
+
+    //     let date = dateParts[0];
+    //     let time = dateParts[1];
+
+    //     let dateTime = new Date(date);
+    //     let year = dateTime.getFullYear().toString();
+
+    //     if (!date.includes(year)) {
+    //         let currentYear = (new Date()).getFullYear();
+    //         dateTime.setFullYear(currentYear);
+    //     }
+
+    //     if (time) {
+    //         time = time.toUpperCase();
+
+    //         if (time.includes(":")) {
+    //             let timeParts = time.split(":");
+                
+    //             let hours = parseInt(timeParts[0]);
+    //             let minutes = parseInt(timeParts[1]);
+
+    //             if (isNaN(hours) || isNaN(minutes)) return null;
+
+    //             if (time.includes("PM")) {
+    //                 hours += 12;
+    //             }
+
+    //             dateTime.setHours(hours);
+    //             dateTime.setMinutes(minutes);
+    //         }
+    //     }
+        
+    //     return dateTime;
+    // }
 }

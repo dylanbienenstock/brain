@@ -32,24 +32,7 @@ const app: express.Application = express();
 function listen() {
     let port: string = process.env.port || "8000";
 
-    let listenSecure = () => {
-        https.createServer({
-            key: readFileSync(join(__dirname, "../ssl/server.key")),
-            cert: readFileSync(join(__dirname, "../ssl/server.cert"))
-        }, app).listen(port, () => {
-            console.log(`[HTTPS] Listening on port ${port}`);
-        });
-    }
-
-    let listenInsecure = () => {
-        app.listen(port, () => {
-            console.log(`[HTTP] Listening on port ${port}`);
-        });
-    }
-
-    try {
-        listenSecure();
-    } catch {
-        listenInsecure();
-    }
+    app.listen(port, () => {
+        console.log(`[HTTP] Listening on port ${port}`);
+    });
 }

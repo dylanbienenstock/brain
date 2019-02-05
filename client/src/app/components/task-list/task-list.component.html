@@ -8,14 +8,18 @@
                 <div class="text">Task Lists</div>
             </div>
             
-            <div class="list-delete"
-            (click)="onDeleteTaskList()"
-            [class.placeholder]="!listSelected">
-                <span class="text">[-]</span>        
+            <div class="list-delete-toggle"
+            (click)="onToggleDeletingTaskLists()"
+            [class.deleting]="deletingLists"
+            [class.placeholder]="taskLists.length == 0 || deletingTasks">
+                <span class="text">
+                    {{ deletingLists ? '[x]' : '[-]' }}
+                </span>      
             </div>
 
             <div class="list-create"
-            (click)="onCreateTaskList()">
+            (click)="onCreateTaskList()"
+            [class.placeholder]="deletingLists || deletingTasks">
                 <div class="text">[+]</div>
             </div>
         </div>
@@ -23,21 +27,29 @@
         <div class="list-container">
             <div class="list"
             *ngFor="let taskList of taskLists; index as index;"
-            (click)="onSelectTaskList(index)"
-            [class.selected]="!screenService.mobile && index == curListIndex">
-                <div class="text" *ngIf="taskList.name.trim()">
+            (click)="onClickTaskList(index)"
+            [class.selected]="!screenService.mobile && index == curListIndex"
+            [class.deleting]="deletingLists">
+                <div class="text name" *ngIf="taskList.name.trim()">
                     {{ listSymbol }}&nbsp;{{ taskList.name }}
                 </div>
 
-                <div class="text" *ngIf="!taskList.name.trim()">
+                <div class="text name" *ngIf="!taskList.name.trim()">
                     {{ listSymbol }}&nbsp;&lt;Untitled&gt;
+                </div>
+
+                <div class="list-delete"
+                *ngIf="deletingLists"
+                (click)="onDeleteTaskList(index); $event.stopPropagation()">
+                    <span class="text delete">[-]</span>      
                 </div>
             </div>
         </div>
     </div>
 
     <div class="task-section">
-        <div class="task-header">
+        <div class="task-header"
+        [class.deleting]="deletingTasks">
             <ng-container *ngIf="!listSelected">
                 <div class="list-name">
                     <div class="text">
@@ -112,16 +124,18 @@
                 </div>
             </ng-container>
 
-            <div class="task-delete"
-            (click)="onDeleteTask()"
-            *ngIf="!screenService.mobile"
-            [class.placeholder]="!(listSelected && taskSelected) || focusedInput == 'list-name'">
-                <span class="text">[-]</span>        
+            <div class="task-delete-toggle"
+            (click)="onToggleDeletingTasks()"
+            [class.deleting]="deletingTasks"
+            [class.placeholder]="!listSelected || focusedInput == 'list-name' || curTaskList?.tasks?.length == 0">
+                <span class="text">
+                    {{ deletingTasks ? '[x]' : '[-]' }}
+                </span>
             </div>
 
             <div class="task-create"
             (click)="onCreateTask()"
-            [class.placeholder]="!listSelected || focusedInput == 'list-name'">
+            [class.placeholder]="!listSelected || focusedInput == 'list-name' || deletingTasks">
                 <span class="text">[+]</span>        
             </div>
         </div>
@@ -130,7 +144,8 @@
             <div class="task-container-inner">
                 <div class="task"
                 *ngFor="let task of curTaskList?.tasks; index as index;"
-                [class.active]="!screenService.mobile && index == this.curTaskIndex">
+                [class.active]="!screenService.mobile && index == this.curTaskIndex"
+                [class.deleting]="deletingTasks">
                     <div class="task-checkbox"
                     (click)="onCheckTask(index)">
                         <span class="text">
@@ -146,10 +161,26 @@
                                 {{ task.name }}
                             </div>
 
-                            <!-- <div class="other-stuff">
-                                Today @ 8:50
-                            </div> -->
+                            <div class="task-info">
+                                <span class="urgent" *ngIf="task?.urgent">Urgent</span>
+
+                                <ng-container *ngIf="dateValid(task?.date)">
+                                    <span *ngIf="dateContainsTime(task?.date); else noTime">
+                                        {{ parseDate(task.date) | amCalendar }}
+                                    </span>
+    
+                                    <ng-template #noTime>
+                                        <span>{{ parseDate(task.date) | amCalendar | dayOnly }}</span>
+                                    </ng-template>
+                                </ng-container>
+                            </div>
                         </span>
+                    </div>
+
+                    <div class="task-delete"
+                    *ngIf="deletingTasks"
+                    (click)="onDeleteTask(index); $event.stopPropagation()">
+                        <span class="text">[-]</span>
                     </div>
                 </div>
             </div>
@@ -206,7 +237,7 @@
                 <div class="task-date"
                 [class.hoverable]="focusedInput != 'task-date'"
                 [class.active]="focusedInput == 'task-date'"
-                [class.invalid]="!dateValid(curTask?.date)"
+                [class.invalid]="!dateValid(curTask?.date, true)"
                 (click)="onInputFocus('task-date', taskDateInput)">
                     <span class="text"
                     [class.placeholder]="!curTask?.date?.trim()"
@@ -266,6 +297,7 @@
                 </span>
 
                 <textarea class="text"
+                placeholder="<Task: Description>"
                 [(ngModel)]="curTask.description"
                 (ngModelChange)="onTaskDetailsModified()"
                 (blur)="onInputBlur()"
