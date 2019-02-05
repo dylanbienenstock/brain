@@ -1,12 +1,11 @@
 /server/keys
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+*/dist
+*/tmp
+*/out-tsc
 
 # dependencies
-/node_modules
 */node_modules/
 
 # IDEs and editors
