@@ -43,6 +43,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
     private listUpdateTimeouts = [];
     private taskUpdateTimeouts = [];
+    private parsedDates: { [dateStr: string]: Date } = { };
 
     // Convenience
     public get curTaskList(): TaskList | null {
@@ -329,7 +330,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
                 let taskList = this.taskLists.find(tl => tl._id == listId);
 
-                taskList.tasks = res.tasks;
+                taskList.tasks = res.tasks.sort((_a, _b) => {
+                    let [a, b] = [this.parseDate(_a.date), this.parseDate(_b.date)];
+
+                    if (a < b) return -1;
+                    if (a > b) return 1;
+
+                    return 0;
+                });
             });
     }
 
@@ -481,8 +489,18 @@ export class TaskListComponent implements OnInit, OnDestroy {
             (dateStr.includes("AM") || dateStr.includes("PM"));
     }
 
+    dateInPast(dateStr: string) {
+        let date = this.parseDate(dateStr);
+
+        if (!date) return false;
+
+        return date < new Date();
+    }
+
     parseDate(dateStr: string) {
         if (!dateStr) return;
+
+        if (this.parsedDates[dateStr]) return this.parsedDates[dateStr];
 
         dateStr = dateStr.trim().toUpperCase();
 
@@ -574,6 +592,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
             return null;
         })();
+
+        this.parsedDates[dateStr] = date;
         
         return date;
     }

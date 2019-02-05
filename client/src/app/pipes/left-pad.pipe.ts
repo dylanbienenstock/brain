@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'dayOnly'
+    name: 'leftPad'
 })
-export class DayOnlyPipe implements PipeTransform {
+export class LeftPadPipe implements PipeTransform {
     transform(value: string, args?: any): any {
-        if (value.includes(" at")) {
-            return value.split(" at")[0];
+        if (!value.startsWith(" ")) {
+            return " " + value;
         }
 
         return value;

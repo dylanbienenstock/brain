@@ -21,6 +21,7 @@ import { ScreenService } from './services/screen.service';
 import { NavbarService } from './services/navbar.service';
 import { StringUtilService } from './services/string-util.service';
 import { DayOnlyPipe } from './pipes/day-only.pipe';
+import { LeftPadPipe } from './pipes/left-pad.pipe';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { DayOnlyPipe } from './pipes/day-only.pipe';
         TaskListComponent,
         AuthenticatorComponent,
         DayOnlyPipe,
+        LeftPadPipe,
     ],
     imports: [
         BrowserModule,

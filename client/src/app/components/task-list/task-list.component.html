@@ -165,12 +165,15 @@
                                 <span class="urgent" *ngIf="task?.urgent">Urgent</span>
 
                                 <ng-container *ngIf="dateValid(task?.date)">
-                                    <span *ngIf="dateContainsTime(task?.date); else noTime">
-                                        {{ parseDate(task.date) | amCalendar }}
+                                    <span *ngIf="dateContainsTime(task?.date); else noTime"
+                                    [class.urgent]="dateInPast(task?.date)">
+                                        {{ parseDate(task.date) | amCalendar | leftPad }}
                                     </span>
     
                                     <ng-template #noTime>
-                                        <span>{{ parseDate(task.date) | amCalendar | dayOnly }}</span>
+                                        <span [class.urgent]="dateInPast(task?.date)">
+                                            {{ parseDate(task.date) | amCalendar | dayOnly | leftPad }}
+                                        </span>
                                     </ng-template>
                                 </ng-container>
                             </div>
