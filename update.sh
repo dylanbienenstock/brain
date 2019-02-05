@@ -13,7 +13,7 @@ echo "#########################"
 
 cd client
 npm install
-npm build
+npm run build
 
 echo ""
 echo "#########################"
