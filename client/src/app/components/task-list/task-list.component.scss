@@ -148,7 +148,7 @@ input[type=text] {
         overflow: hidden;
 
         @include mobile {
-            grid-template-rows: ($cell-size-mobile * 3) auto;
+            grid-template-rows: ($cell-size-mobile * 2) auto;
         }
 
         @include not-mobile {
@@ -169,7 +169,12 @@ input[type=text] {
             ;
 
             @include mobile {
+                grid-template-rows: 1fr 1fr;
                 grid-template-columns: auto repeat(2, $cell-size-mobile);
+                grid-template-areas:
+                    "name delete create"
+                    "desc desc desc"
+                ;
             }
             
             &.deleting {

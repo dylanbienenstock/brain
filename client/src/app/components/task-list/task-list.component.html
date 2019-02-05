@@ -116,7 +116,7 @@
                     #listDescInput>
                 </div>
 
-                <div class="list-info">
+                <div class="list-info" *ngIf="!screenService.mobile">
                     <span class="text">
                         {{ curTaskList?.tasks?.length }} tasks |
                         ID: {{ curTaskList?._id }}

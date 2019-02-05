@@ -569,8 +569,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
                     }
                 })();
 
-                console.log(dateObj);
-
                 return dateObj;
             }
 
