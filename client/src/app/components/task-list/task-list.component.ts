@@ -330,11 +330,11 @@ export class TaskListComponent implements OnInit, OnDestroy {
     }
 
     updateTask(req: Requests.UpdateTask) {
-        console.log(req);
-
         this.httpService.updateTask(req)
             .subscribe((res: Responses.UpdateTask) => {
-                if (!res.success) alert("Failed to update task.");
+                if (!res.success) {
+                    this.handleErr("Failed to update task.", res.error);
+                }
             });
     }
 
@@ -342,7 +342,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.httpService.deleteTask({ listId, taskId })
             .subscribe((res: Responses.DeleteTask) => {
                 if (!res.success) {
-                    alert("Failed to delete task.");
+                    this.handleErr("Failed to delete task.", res.error);
                     return;
                 }
 
