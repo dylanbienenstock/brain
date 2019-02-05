@@ -315,7 +315,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
                 let taskList = this.taskLists
                     .find(tl => tl._id == listId);
 
-                taskList.tasks.unshift(res.task);
+                taskList.tasks.push(res.task);
             });
     }
 

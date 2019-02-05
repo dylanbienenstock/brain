@@ -104,7 +104,7 @@ export module TaskListModule {
 
             if (!taskList || error) return { success: false, error };
 
-            taskList.tasks.unshift(<Task> { name: req.name });
+            taskList.tasks.push(<Task> { name: req.name });
 
             await taskList.save()
                 .then((taskList: TaskList) => {
