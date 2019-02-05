@@ -37,6 +37,10 @@ export class AuthenticatorComponent {
     public passwordCorrect: boolean = false;
     public passwordIncorrect: boolean = false;
 
+    public litDot: number = 0;
+    public dotColored: boolean[] = [];
+    public animating: boolean = false;
+
     @HostListener("window:keypress", ["$event.key"])
     onKeyClicked(key: string) {
         if (!this.keys.includes(key) && 
@@ -55,6 +59,14 @@ export class AuthenticatorComponent {
 
     onPasscodeEntered(passcode: string) {
         this.waiting = true;
+        this.animating = true;
+        this.litDot = 0;
+        this.dotColored = [];
+
+        setTimeout(() => {
+            this.animate();
+        }, 125);
+
         this.globals.passcode = passcode;
         this.globals.keyName = this.keyName;
         this.globals.key = this.key;
@@ -77,23 +89,59 @@ export class AuthenticatorComponent {
     onCorrectPasscode() {
         this.passwordCorrect = true;
         this.passwordIncorrect = false;
-
-        setTimeout(() => {
-            this.hidden = true;
-
-            setTimeout(() => {
-                this.authenticated.emit();
-            }, 500);
-        }, 500);
     }
 
     onIncorrectPasscode() {
         this.passwordCorrect = false;
         this.passwordIncorrect = true;
+    }
+
+    onDoneAnimating() {
+        if (this.passwordCorrect) {
+            setTimeout(() => {
+                this.hidden = true;
+    
+                setTimeout(() => {
+                    this.authenticated.emit();
+                }, 500);
+            }, 600);
+        } else {
+            setTimeout(() => {
+                this.passwordCorrect = false;
+                this.passwordIncorrect = false;
+                this.dotColored = [];
+            }, 1000);   
+        }
+    }
+
+    animate() {
+        if (!this.animating) return;
+
+        if (this.passwordCorrect || this.passwordIncorrect) {
+            if (this.litDot == 0 || this.dotColored[this.litDot - 1]) {
+                this.dotColored[this.litDot] = true;
+    
+                let allColored = true;
+    
+                for (let i = 0; i < 4; i++) {
+                    allColored = allColored && this.dotColored[i] === true;
+                }
+                
+                if (allColored) {
+                    this.animating = false;
+                    this.litDot = null;
+
+                    this.onDoneAnimating();
+    
+                    return;
+                }
+            }
+        }
+        
+        this.litDot = ++this.litDot % this.codeDots.length;
 
         setTimeout(() => {
-            this.passwordCorrect = false;
-            this.passwordIncorrect = false;            
-        }, 1000);
+            this.animate();
+        }, 125);
     }
 }

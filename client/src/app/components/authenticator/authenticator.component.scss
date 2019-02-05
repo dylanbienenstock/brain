@@ -58,34 +58,23 @@
                 height: $size;
                 border-radius: 50%;
 
-                background-color: darken(white, 20%);
-                opacity: 0.2;
+                background-color: rgba(darken(white, 20%), 0.2);
+                // transition: background 300ms ease;
 
                 + .dot {
                     margin-left: 16px;
                 }
 
                 &.opaque {
-                    opacity: 1;
-                }
-
-                &.waiting {
-                    @keyframes waiting {
-                        0%   { opacity: 1; }
-                        50%  { opacity: 0.2; }
-                        100% { opacity: 1; }
-                    }
-
-                    animation: "waiting" 500ms ease infinite;
+                    background-color: darken(white, 20%);
+                    transition: none;
                 }
 
                 &.correct {
-                    opacity: 1;
                     background-color: hsl(120, 100%, 30%);
                 }
 
                 &.incorrect {
-                    opacity: 1;
                     background-color: hsl(0, 100%, 30%);
                 }
             }

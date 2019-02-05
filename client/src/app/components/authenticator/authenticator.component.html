@@ -4,10 +4,9 @@
             <div class="text">
                 <div class="dot" 
                 *ngFor="let _ of codeDots; index as index"
-                [class.opaque]="index <= curCode.length - 1"
-                [class.waiting]="waiting"
-                [class.correct]="passwordCorrect"
-                [class.incorrect]="passwordIncorrect">
+                [class.opaque]="dotColored[index] || (!waiting && index <= curCode.length - 1) || (animating && litDot == index)"
+                [class.correct]="dotColored[index] && litDot != index && passwordCorrect"
+                [class.incorrect]="dotColored[index] && litDot != index && passwordIncorrect">
                 </div>
             </div>
         </div>
