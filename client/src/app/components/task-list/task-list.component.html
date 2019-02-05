@@ -228,7 +228,7 @@
                     
                     <input type="text" class="text" placeholder="<Task: Name>"
                     [(ngModel)]="curTask.name"
-                    (ngModelChange)="onTaskDetailsModified()"
+                    (ngModelChange)="onTaskDetailsModified(curTaskIndex)"
                     (blur)="onInputBlur()"
                     [style.display]="focusedInput != 'task-name' ? 'none' : ''"
                     #taskNameInput>
