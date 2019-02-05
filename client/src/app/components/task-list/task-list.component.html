@@ -91,7 +91,7 @@
                         <div class="input-container">
                             <input type="text" placeholder="<Task List: Name>"
                             [(ngModel)]="curTaskList.name"
-                            (ngModelChange)="onTaskListDetailsModified()"
+                            (ngModelChange)="onTaskListDetailsModified(curListIndex)"
                             (blur)="onInputBlur()"
                             #listNameInput>
                         </div>
@@ -110,7 +110,7 @@
 
                     <input type="text" class="text" placeholder="<Task List: Description>"
                     [(ngModel)]="curTaskList.description"
-                    (ngModelChange)="onTaskListDetailsModified()"
+                    (ngModelChange)="onTaskListDetailsModified(curListIndex)"
                     (blur)="onInputBlur()"
                     [style.display]="focusedInput != 'list-description' ? 'none' : ''"
                     #listDescInput>
@@ -161,7 +161,7 @@
                                 {{ task.name }}
                             </div>
 
-                            <div class="task-info">
+                            <div class="task-info" *ngIf="!task?.completed">
                                 <span class="urgent" *ngIf="task?.urgent">Urgent</span>
 
                                 <ng-container *ngIf="dateValid(task?.date)">
@@ -247,7 +247,7 @@
                     
                     <input type="text" class="text" placeholder="<Task: Date>"
                     [(ngModel)]="curTask.date"
-                    (ngModelChange)="onTaskDetailsModified()"
+                    (ngModelChange)="onTaskDetailsModified(curTaskIndex)"
                     (blur)="onInputBlur()"
                     [style.display]="focusedInput != 'task-date' ? 'none' : ''"
                     #taskDateInput>
@@ -299,7 +299,7 @@
                 <textarea class="text"
                 placeholder="<Task: Description>"
                 [(ngModel)]="curTask.description"
-                (ngModelChange)="onTaskDetailsModified()"
+                (ngModelChange)="onTaskDetailsModified(curTaskIndex)"
                 (blur)="onInputBlur()"
                 [style.display]="focusedInput != 'task-desc' ? 'none' : ''"
                 #taskDescInput>

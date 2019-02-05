@@ -8,8 +8,6 @@ import { NavbarService, NavbarExtensionClickEvent } from '../../services/navbar.
 import { Subscription } from 'rxjs';
 import { StringUtilService } from '../../services/string-util.service';
 
-import * as moment from "moment";
-
 @Component({
     selector: 'app-task-list',
     templateUrl: './task-list.component.html',
@@ -39,12 +37,12 @@ export class TaskListComponent implements OnInit, OnDestroy {
     public listSymbol = "☰";
     public checkSymbol: string = "x";
 
-    private saveDelay: number = 2500;
-    private taskListDetailsModifiedTimeout;
-    private taskDetailsModifiedTimeout;
+    private saveDelay: number = 1500;
     private navbarExtensionClickedSub: Subscription;
     private navbarExtensionOwner = "task-list";
 
+    private listUpdateTimeouts = [];
+    private taskUpdateTimeouts = [];
 
     // Convenience
     public get curTaskList(): TaskList | null {
@@ -268,10 +266,15 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.setNavbarExtensions();
     }
 
-    onTaskListDetailsModified() {
+    onTaskListDetailsModified(listIndex: number) {
         this.setNavbarExtensions();
 
-        clearTimeout(this.taskListDetailsModifiedTimeout);
+        let listId = this.taskLists[listIndex]._id;
+
+        if (this.listUpdateTimeouts[listId]) {
+            clearTimeout(this.listUpdateTimeouts[listId]);
+            this.listUpdateTimeouts[listId] = null;
+        }
 
         let taskList = { ...this.curTaskList };
 
@@ -279,7 +282,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
             taskList.name = "<Untitled List>";
         }
 
-        this.taskListDetailsModifiedTimeout = 
+        this.listUpdateTimeouts[listId] = 
             setTimeout(() => {
                 this.updateTaskList({
                     listId: taskList._id,
@@ -321,6 +324,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
     }
 
     updateTask(req: Requests.UpdateTask) {
+        console.log(req);
+
         this.httpService.updateTask(req)
             .subscribe((res: Responses.UpdateTask) => {
                 if (!res.success) alert("Failed to update task.");
@@ -402,7 +407,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
         task.completed = !task.completed;
 
-        this.onTaskDetailsModified();
+        this.onTaskDetailsModified(index);
     }
 
     onToggleTaskProp(prop: string) {
@@ -412,26 +417,30 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
         this.curTask = { ...this.curTask };
 
-        this.onTaskDetailsModified();
+        this.onTaskDetailsModified(this.curTaskIndex);
     }
 
-    onTaskDetailsModified() {
+    onTaskDetailsModified(index: number) {
         this.setNavbarExtensions();
 
-        clearTimeout(this.taskDetailsModifiedTimeout);
-
         let listId = this.curTaskListId;
-        let task = { ...this.curTask };
+        let task = { ...this.curTaskList.tasks[index] };
+        let taskId = task._id;
 
-        if (!task.name.trim()) {
+        if (this.taskUpdateTimeouts[taskId]) {
+            clearTimeout(this.taskUpdateTimeouts[taskId]);
+            this.taskUpdateTimeouts[taskId] = null;
+        }
+
+        if (!task.name || !task.name.trim()) {
             task.name = "<Untitled Task>";
         }
 
-        this.taskDetailsModifiedTimeout = 
+        this.taskUpdateTimeouts[taskId] = 
             setTimeout(() => {
                 this.updateTask({
                     listId,
-                    taskId: task._id,
+                    taskId,
                     name: task.name,
                     description: task.description,
                     date: task.date,
@@ -456,24 +465,30 @@ export class TaskListComponent implements OnInit, OnDestroy {
     }
 
     dateContainsTime(dateStr: string) {
+        dateStr = dateStr.trim().toUpperCase();
+
         return dateStr.includes("@") && 
             (dateStr.includes("AM") || dateStr.includes("PM"));
     }
 
     parseDate(dateStr: string) {
+        if (!dateStr) return;
+
+        dateStr = dateStr.trim().toUpperCase();
+
         let regex = {
             MonthDayYearHourMinutePeriod: 
-                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)\s@\s([1-9][0-2]?):([0-6]\d)\s(AM|PM)$/,
+                /^((?:[1-9][0-2]?)|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)\s@\s([1-9][0-2]?):([0-6]\d)\s(AM|PM)$/,
             MonthDayYearHourPeriod: 
-                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)\s@\s([1-9][0-2]?)\s(AM|PM)$/,
+                /^((?:[1-9][0-2]?)|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)\s@\s([1-9][0-2]?)\s(AM|PM)$/,
             MonthDayHourMinutePeriod:
-                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:\s|\/)@\s([1-9][0-2]?):([0-6]\d)\s(AM|PM)$/,
+                /^((?:[1-9][0-2]?)|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))(?:\s|\/)(\d\d?)(?:\s|\/)@\s([1-9][0-2]?):([0-6]\d)\s(AM|PM)$/,
             MonthDayHourPeriod:
-                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:\s|\/)@\s([1-9][0-2]?)\s(AM|PM)$/,
+                /^((?:[1-9][0-2]?)|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))(?:\s|\/)(\d\d?)(?:\s|\/)@\s([1-9][0-2]?)\s(AM|PM)$/,
             MonthDayYear: 
-                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)$/,
+                /^((?:[1-9][0-2]?)|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))(?:\s|\/)(\d\d?)(?:,?\s|\/)(\d\d(?:\d\d)?)$/,
             MonthDay:
-                /^((?:[1-9][0-2]?)|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))(?:\s|\/)(\d\d?)$/,
+                /^((?:[1-9][0-2]?)|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))(?:\s|\/)(\d\d?)$/,
         };
         
         let date = (() => {
@@ -501,19 +516,22 @@ export class TaskListComponent implements OnInit, OnDestroy {
                     
                     if (isNaN(_n)) {
                         let months = [
-                            "Jan", "Feb", "Mar", "Apr",
-                            "May", "Jun", "Jul", "Aug",
-                            "Sep", "Oct", "Nov", "Dec"
+                            "JAN", "FEB", "MAR", "APR",
+                            "MAY", "JUN", "JUL", "AUG",
+                            "SEP", "OCT", "NOV", "DEC"
                         ];
 
                         return months.indexOf(s[i]);
                     }
 
-                    return _n - 1;
+                    return _n;
                 }
 
                 let hour = (hI, pI) => {
-                    let [tw, pm] = [s[hI] == "12", s[pI] == "PM"];
+                    let [tw, pm] = [
+                        s[hI] == "12", 
+                        s[pI] == "PM"
+                    ];
 
                     if (tw && !pm) return n(hI) - 12;
 
@@ -521,21 +539,29 @@ export class TaskListComponent implements OnInit, OnDestroy {
                 }
 
                 let curYr = () => {
-                    return new Date().getFullYear();
+                    return (new Date()).getFullYear();
                 }
 
-                switch (regexName) {
-                    case "MonthDayYearHourMinutePeriod":
-                        return new Date(year(2), month(0), n(1), hour(3, 5), n(4));
-                    case "MonthDayHourMinutePeriod":
-                        return new Date(curYr(), month(0), n(1), hour(2, 4), n(3));
-                    case "MonthDayHourPeriod":
-                        return new Date(curYr(), month(0), n(1), hour(2, 3));
-                    case "MonthDayYear":
-                        return new Date(year(2), month(0), n(1));
-                    case "MonthDay":
-                        return new Date(curYr(), month(0), n(1));
-                }
+                let dateObj = (function createDate() {
+                    switch (regexName) {
+                        case "MonthDayYearHourMinutePeriod":
+                            return new Date(year(2), month(0), n(1), hour(3, 5), n(4));
+                        case "MonthDayYearHourPeriod":
+                            return new Date(year(2), month(0), n(1), hour(3, 4));
+                        case "MonthDayHourMinutePeriod":
+                            return new Date(curYr(), month(0), n(1), hour(2, 4), n(3));
+                        case "MonthDayHourPeriod":
+                            return new Date(curYr(), month(0), n(1), hour(2, 3));
+                        case "MonthDayYear":
+                            return new Date(year(2), month(0), n(1));
+                        case "MonthDay":
+                            return new Date(curYr(), month(0), n(1));
+                    }
+                })();
+
+                console.log(dateObj);
+
+                return dateObj;
             }
 
             return null;
@@ -543,54 +569,4 @@ export class TaskListComponent implements OnInit, OnDestroy {
         
         return date;
     }
-
-    // parseDate(dateStr: string) {
-    //     if (!dateStr || !dateStr.trim()) return null;
-
-    //     let quickValidate = () => {
-    //         let d = new Date(dateStr);
-    //         let m = moment(dateStr);
-
-    //         return d.getTime() === d.getTime() && !m.isValid();
-    //     }
-
-    //     if (!quickValidate()) return null;
-
-    //     let dateParts = dateStr.split("@");
-
-    //     if (dateParts.length > 2) return null;
-
-    //     let date = dateParts[0];
-    //     let time = dateParts[1];
-
-    //     let dateTime = new Date(date);
-    //     let year = dateTime.getFullYear().toString();
-
-    //     if (!date.includes(year)) {
-    //         let currentYear = (new Date()).getFullYear();
-    //         dateTime.setFullYear(currentYear);
-    //     }
-
-    //     if (time) {
-    //         time = time.toUpperCase();
-
-    //         if (time.includes(":")) {
-    //             let timeParts = time.split(":");
-                
-    //             let hours = parseInt(timeParts[0]);
-    //             let minutes = parseInt(timeParts[1]);
-
-    //             if (isNaN(hours) || isNaN(minutes)) return null;
-
-    //             if (time.includes("PM")) {
-    //                 hours += 12;
-    //             }
-
-    //             dateTime.setHours(hours);
-    //             dateTime.setMinutes(minutes);
-    //         }
-    //     }
-        
-    //     return dateTime;
-    // }
 }

@@ -342,6 +342,10 @@ input[type=text] {
                                 span {
                                     font-size: 14px;
                                     color: rgba(darken(white, 20%), 0.5);
+
+                                    @include mobile {
+                                        font-size: 12px;
+                                    }
                                 }
 
                                 .urgent {

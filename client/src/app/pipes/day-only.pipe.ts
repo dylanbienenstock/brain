@@ -9,6 +9,6 @@ export class DayOnlyPipe implements PipeTransform {
             return value.split(" at")[0];
         }
 
-        return null;
+        return value;
     }
 }

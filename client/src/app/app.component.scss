@@ -11,7 +11,5 @@
         @include mobile {
             grid-template-rows: $cell-size-mobile auto;
         }
-
-        overflow: hidden;
     }
 }
