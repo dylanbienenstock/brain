@@ -94,7 +94,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
     handleErr(label: string, req, res) {
         alert(`${label}
         
-        Request data: ${JSON.stringify(res)}
+        Request data: ${JSON.stringify(req)}
 
         Response: ${JSON.stringify(res)}`);
     }
