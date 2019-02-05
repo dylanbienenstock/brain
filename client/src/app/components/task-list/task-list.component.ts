@@ -91,8 +91,12 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.navbarExtensionClickedSub.unsubscribe();
     }
 
-    handleErr(label: string, error: any) {
-        alert(`${label}\n\nError: ${JSON.stringify(error)}`);
+    handleErr(label: string, req, res) {
+        alert(`${label}
+        
+        Request data: ${JSON.stringify(res)}
+
+        Response: ${JSON.stringify(res)}`);
     }
 
 
@@ -165,7 +169,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.httpService.createTaskList({ name })
         .subscribe((res: Responses.CreateTaskList) => {
             if (!res.success) {
-                this.handleErr(`Failed to create task list.`, res.error);
+                this.handleErr(`Failed to create task list.`, name, res);
 
                 return;
             }
@@ -179,7 +183,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.httpService.getTaskLists()
             .subscribe((res: Responses.GetTaskLists) => {
                 if (!res.success) {
-                    this.handleErr("Failed to fetch task lists.", res.error);
+                    this.handleErr("Failed to fetch task lists.", null, res);
                     return;
                 }
 
@@ -194,7 +198,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.httpService.updateTaskList(req)
             .subscribe((res: Responses.UpdateTaskList) => {
                 if (!res.success) {
-                    this.handleErr("Failed to update task list.", res.error);
+                    this.handleErr("Failed to update task list.", req, res);
                 }
             });
     }
@@ -203,7 +207,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.httpService.deleteTaskList({ listId })
         .subscribe((res: Responses.UpdateTaskList) => {
             if (!res.success) {
-                this.handleErr("Failed to delete task list.", res.error);
+                this.handleErr("Failed to delete task list.", listId, res);
                 return;
             }
 
@@ -333,7 +337,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.httpService.updateTask(req)
             .subscribe((res: Responses.UpdateTask) => {
                 if (!res.success) {
-                    this.handleErr("Failed to update task.", res.error);
+                    this.handleErr("Failed to update task.", req, res);
                 }
             });
     }
@@ -342,7 +346,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.httpService.deleteTask({ listId, taskId })
             .subscribe((res: Responses.DeleteTask) => {
                 if (!res.success) {
-                    this.handleErr("Failed to delete task.", res.error);
+                    this.handleErr("Failed to delete task.", [listId, taskId], res);
                     return;
                 }
 
