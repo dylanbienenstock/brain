@@ -110,7 +110,7 @@ export module TaskListModule {
                 .then((taskList: TaskList) => {
                     if (!taskList) error = "?";
 
-                    task = taskList.tasks[0];
+                    task = taskList.tasks[taskList.tasks.length - 1];
                 }).catch((err) => {
                     error = err;
                 });
