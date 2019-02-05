@@ -3,6 +3,7 @@ import { TaskList, Task } from "../server/src/task-list/task-list.types";
 export module Responses {
     interface GenericResponse {
         success: boolean;
+        error?: any;
     }
 
 

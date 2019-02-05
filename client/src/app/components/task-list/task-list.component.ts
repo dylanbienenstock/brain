@@ -91,6 +91,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.navbarExtensionClickedSub.unsubscribe();
     }
 
+    handleErr(label: string, error: any) {
+        alert(`${label}\n\nError: ${JSON.stringify(error)}`);
+    }
+
 
     findTaskListIndexById(listId: string) {
         return this.taskLists
@@ -159,14 +163,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
     // Task Lists
     createTaskList(name: string) {
         this.httpService.createTaskList({ name })
-        .subscribe((response: Responses.CreateTaskList) => {
-            if (!response.success) {
-                alert(`Failed to create task list.`);
+        .subscribe((res: Responses.CreateTaskList) => {
+            if (!res.success) {
+                this.handleErr(`Failed to create task list.`, res.error);
 
                 return;
             }
 
-            this.taskLists.push(response.taskList);
+            this.taskLists.push(res.taskList);
             // this.onClickTaskList(this.taskLists.length - 1);
         });
     }
@@ -175,7 +179,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.httpService.getTaskLists()
             .subscribe((res: Responses.GetTaskLists) => {
                 if (!res.success) {
-                    alert("Failed to fetch task lists.");
+                    this.handleErr("Failed to fetch task lists.", res.error);
                     return;
                 }
 
@@ -189,7 +193,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
     updateTaskList(req: Requests.UpdateTaskList) {
         this.httpService.updateTaskList(req)
             .subscribe((res: Responses.UpdateTaskList) => {
-                if (!res.success) alert("Failed to update task list.");
+                if (!res.success) {
+                    this.handleErr("Failed to update task list.", res.error);
+                }
             });
     }
 
@@ -197,7 +203,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.httpService.deleteTaskList({ listId })
         .subscribe((res: Responses.UpdateTaskList) => {
             if (!res.success) {
-                alert("Failed to delete task list.");
+                this.handleErr("Failed to delete task list.", res.error);
                 return;
             }
 

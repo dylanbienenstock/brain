@@ -11,16 +11,16 @@ export module TaskListModule {
         Promise<Responses.CreateTaskList> {
             let newTaskList = new TaskListModel(<TaskList> { name: req.name });
             let savedTaskList: TaskList;
-            let error: boolean;
+            let error: any;
 
             await newTaskList.save()
                 .then((taskList: TaskList) => {
                     savedTaskList = taskList;
-                }).catch(() => {
-                    error = true;
+                }).catch((err) => {
+                    error = err;
                 });
 
-            if (!savedTaskList || error) return { success: false };
+            if (!savedTaskList || error) return { success: false, error };
 
             return {
                 success: true,
@@ -31,18 +31,18 @@ export module TaskListModule {
     export async function getTaskLists(req: Requests.GetTaskLists):
         Promise<Responses.GetTaskLists> {
             let taskLists = [];
-            let error = false;
+            let error: any;
 
             await TaskListModel.find()
                 .select("-tasks")
                 .then((_taskLists: TaskList[]) => {
                     taskLists = _taskLists;
                 })
-                .catch(() => {
-                    error = true;
+                .catch((err) => {
+                    error = err;
                 });
 
-            if (error) return { success: false };
+            if (error) return { success: false, error };
             
             return {
                 success: true,
@@ -53,18 +53,18 @@ export module TaskListModule {
     export async function updateTaskList(req: Requests.UpdateTaskList):
         Promise<Responses.UpdateTaskList> {
             let taskList;
-            let error = false;
+            let error: any;
 
             await TaskListModel.findByIdAndUpdate(req.listId, <TaskList> {
                 name: req.name,
                 description: req.description
             }).then((_taskList: TaskList) => {
                 taskList = _taskList;
-            }).catch(() => {
-                error = true;
+            }).catch((err) => {
+                error = err;
             });
 
-            if (error) return { success: false };
+            if (error) return { success: false, error };
 
             return {
                 success: true,
@@ -74,15 +74,17 @@ export module TaskListModule {
 
     export async function deleteTaskList(req: Requests.DeleteTaskList):
         Promise<Responses.DeleteTaskList> {
-            let error = false;
+            let error: any;
 
             await TaskListModel.findOneAndDelete({ _id: req.listId })
                 .then()
-                .catch(() => {
-                    error = true;
+                .catch((err) => {
+                    error = err;
                 });
 
-            return { success: !error };
+            if (error) return { success: false, error };
+
+            return { success: true };
         }
 
 
@@ -91,29 +93,29 @@ export module TaskListModule {
         Promise<Responses.CreateTask> {
             let taskList: TaskList;
             let task: Task;
-            let error: boolean = false;
+            let error: any;
 
             await TaskListModel.findOne({ _id: req.listId })
                 .then((_taskList: TaskList) => {
                     taskList = _taskList;
-                }).catch(() => {
-                    error = true;
+                }).catch((err) => {
+                    error = err;
                 });
 
-            if (!taskList || error) return { success: false };
+            if (!taskList || error) return { success: false, error };
 
             taskList.tasks.unshift(<Task> { name: req.name });
 
             await taskList.save()
                 .then((taskList: TaskList) => {
-                    if (!taskList) error = true;
+                    if (!taskList) error = "?";
 
                     task = taskList.tasks[0];
-                }).catch(() => {
-                    error = true;
+                }).catch((err) => {
+                    error = err;
                 });
 
-            if (!task || error) return { success: false };
+            if (!task || error) return { success: false, error };
 
             return {
                 success: true,
@@ -124,17 +126,17 @@ export module TaskListModule {
     export async function getTasks(req: Requests.GetTasks):
         Promise<Responses.GetTasks> {
             let tasks: Task[];
-            let error: boolean = false;
+            let error: any;
 
             await TaskListModel.findOne({ _id: req.listId })
                 .select("tasks")
                 .then((taskList: TaskList) => {
                     tasks = taskList.tasks;
-                }).catch(() => {
-                    error = true;
+                }).catch((err) => {
+                    error = err;
                 });
 
-            if (error) return { success: false };
+            if (error) return { success: false, error };
 
             return {
                 success: true,
@@ -145,17 +147,17 @@ export module TaskListModule {
     export async function updateTask(req: Requests.UpdateTask):
         Promise<Responses.UpdateTask> {
             let taskList: TaskList;
-            let error: boolean = false;
+            let error: any;
 
             await TaskListModel.findOne({ _id: req.listId })
                 .select("tasks")
                 .then((_taskList: TaskList) => {
                     taskList = _taskList;
-                }).catch(() => {
-                    error = true;
+                }).catch((err) => {
+                    error = err;
                 });
 
-            if (error) return { success: false };
+            if (error) return { success: false, error };
 
             let taskIndex = taskList.tasks
                 .findIndex(t => t._id == req.taskId);
@@ -174,24 +176,26 @@ export module TaskListModule {
 
             await taskList.save()
                 .then()
-                .catch(() => {
-                    error = true;
+                .catch((err) => {
+                    error = err;
                 });
 
-            return { success: !error };
+            if (error) return { success: false, error };            
+
+            return { success: true };
         }
 
     export async function deleteTask(req: Requests.DeleteTask):
         Promise<Responses.DeleteTask> {
             let taskList: TaskList;
-            let error: boolean = false;
+            let error: any;
 
             await TaskListModel.findOne({ _id: req.listId })
                 .select("tasks")
                 .then((_taskList: TaskList) => {
                     taskList = _taskList;
-                }).catch(() => {
-                    error = true;
+                }).catch((err) => {
+                    error = err;
                 });
 
             if (error) return { success: false };
@@ -209,6 +213,8 @@ export module TaskListModule {
                     error = true;
                 });
 
-            return { success: !error };
+            if (error) return { success: false, error };
+
+            return { success: true };
         }
 }
