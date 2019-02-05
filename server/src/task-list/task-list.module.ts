@@ -209,8 +209,8 @@ export module TaskListModule {
 
             await taskList.save()
                 .then()
-                .catch(() => {
-                    error = true;
+                .catch((err) => {
+                    error = err;
                 });
 
             if (error) return { success: false, error };
