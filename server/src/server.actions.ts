@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Requests } from "../../shared/requests";
 import { Responses } from "../../shared/responses";
 import { Routes } from "../../shared/routes";
-import { TaskListModule } from "./task-list/tast-list.module";
+import { TaskListModule } from "./task-list/task-list.module";
 import { Auth } from "./server.auth";
 
 export module Actions {

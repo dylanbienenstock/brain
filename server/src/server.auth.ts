@@ -55,8 +55,6 @@ export module Auth {
         let key = req.header("B-KEY");
         let keyName = req.header("B-KEY-NAME");
 
-        console.log({ passcode, key, keyName })
-
         if (!valid(passcode, key, keyName)) {
             res.redirect("/authenticate"); return;
         }
