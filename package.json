@@ -1,0 +1,20 @@
+{
+    "name": "brain",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "update": "git pull && cd server && npm install && tsc && cd ../client && npm install && ng build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dylanbienenstock/brain.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/dylanbienenstock/brain/issues"
+    },
+    "homepage": "https://github.com/dylanbienenstock/brain#readme"
+}
