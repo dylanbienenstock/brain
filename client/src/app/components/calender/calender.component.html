@@ -84,9 +84,11 @@
         </div>
     </div>
 
-    <div class="day-view-inner">
-        <div class="hour" *ngFor="let hour of viewDayHours; index as index;">
-            <div class="hour-inner" [class.now]="viewingToday && hour.number == curHour">
+    <div class="day-view-inner" #dayContainer>
+        <div class="hour" *ngFor="let hour of viewDayHours; index as index;"
+        #hourContainer [id]="'hour-' + hour.number">
+            <div class="hour-inner"
+            [class.now]="viewingToday && hour.number == curHour">
                 <div class="number">
                     <span class="text">
                         {{ hour.number != 0 ? 

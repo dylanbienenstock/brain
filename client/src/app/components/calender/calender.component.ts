@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, Input, OnDestroy, ViewChild, ViewChildren, ElementRef, QueryList } from '@angular/core';
 import { Day, Hour, ICalenderEntry } from './calender.types';
 import { ScreenService } from '../../services/screen.service';
 import { NavbarService, NavbarExtensionClickEvent } from '../../services/navbar.service';
@@ -28,6 +28,21 @@ export class CalenderComponent implements OnInit, OnDestroy {
     @Output() entryClicked = new EventEmitter<ICalenderEntry>();
     @Output() entryDeleted = new EventEmitter<ICalenderEntry>();
     
+    @ViewChild("dayContainer") dayRef: ElementRef;
+    public get dayContainer(): HTMLElement {
+        return this.dayRef.nativeElement;
+    }
+
+    @ViewChildren("hourContainer") hourRefs: QueryList<ElementRef>;
+    public get curHourContainer(): HTMLElement {
+        let ref = this.hourRefs
+            .find(h => h.nativeElement && h.nativeElement.id == `hour-${this.curHour}`);
+
+        if (!ref) return null;
+
+        return ref.nativeElement;
+    }
+
     public months = [
         "January", "February", "March",
         "April", "May", "June", "July",
@@ -227,13 +242,22 @@ export class CalenderComponent implements OnInit, OnDestroy {
     }
 
     buildDay() {
-        this.viewDayHours = [];
+        let viewDayHours = [];
         this.now = new Date();
         this.curHour = this.now.getHours();
 
         for (let i = 0; i < 24; i++) {
-            this.viewDayHours.push({
+            viewDayHours.push({
                 number: 23 - i
+            });
+        }
+
+        this.viewDayHours = viewDayHours;
+
+        if (this.viewingToday) {
+            setTimeout(() => {
+                let cellSize = this.screenService.mobile ? 56 : 72;
+                this.dayContainer.scrollTop = this.curHourContainer.offsetTop - cellSize;
             });
         }
     }
