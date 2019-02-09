@@ -47,7 +47,7 @@ export module Auth {
 
     export function middleware(req: Request, res: Response, next: () => void) {
         if (req.url == "/authenticate" ||
-            req.url == Routes.authenticate) {
+            req.url == Routes.Authenticate) {
             next(); return;
         }
 

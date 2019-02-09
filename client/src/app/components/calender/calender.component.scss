@@ -1,0 +1,382 @@
+@import "variables";
+@import "mixins";
+
+$weekdays-height: 26px;
+$weekdays-font-size: 14px;
+$line-width: 1px;
+$line-color: lighten(black, 20%);
+$entry-color: lighten(black, 20%);
+
+:host {
+    overflow: hidden;
+    user-select: none;
+}
+
+.now {
+    &.number, .number {
+        color: $highlight-color !important;
+    }
+}
+
+.month-view,
+.day-view {
+    height: 100%;
+    display: grid;
+    grid-template-rows: $cell-size auto;
+
+    @include mobile {
+        grid-template-rows: $cell-size-mobile auto;            
+    }
+}
+
+.dot {
+    display: inline-block;
+    transform: translate(3px, -1px);
+}
+
+@include mobile {
+    .month-view {
+        .dot {
+            transform: translate(1px, -0.5px) !important;
+        }
+    }
+
+    .day-view {
+        .dot {
+            transform: translate(2px, -1px) !important;
+        }
+    }
+}
+
+.month-view {
+    .month-selector {
+        @include tile(false);
+    
+        display: grid;
+        grid-template-columns: $cell-size auto $cell-size;
+    
+        @include mobile {
+            grid-template-columns: $cell-size-mobile auto $cell-size-mobile;
+        }
+    
+        .back, .next {
+            @include tile-hover;
+        }
+    
+        .text {
+            @include tile-text;
+
+            white-space: nowrap;
+            padding: 0 16px;
+        }
+    }
+
+    .month-view-inner {
+        display: grid;
+        grid-template-rows: $weekdays-height repeat(5, 1fr);
+        grid-template-columns: repeat(7, 1fr);
+        grid-gap: $line-width;
+        overflow: hidden;
+
+        &.overflow {
+            grid-template-rows: $weekdays-height repeat(6, 1fr);
+        }
+
+        background-color: $line-color;
+        border: $line-width solid $line-color;
+
+        & > * {
+            background-color: lighten(black, 8.5%);
+        }
+
+        @include mobile {
+            grid-template-rows: ($weekdays-height * $mobile-ratio) repeat(5, 1fr);
+        }
+
+        .weekday {
+            .text {
+                @include tile-text;
+
+                font-size: $weekdays-font-size;
+
+                @include mobile {
+                    font-size: $weekdays-font-size * $mobile-ratio;                    
+                }
+            }
+        }
+
+        .day {
+            cursor: pointer;
+
+            font-size: 16px;
+            box-sizing: border-box;
+            overflow: hidden;
+
+            @include mobile {
+                font-size: 10px;
+                padding: 3px;
+            }
+
+            &.now {
+                border: $line-width solid rgba($highlight-color, 0.25);
+                border-radius: 4px;
+            }
+
+            &.last-month,
+            &.next-month {
+                .number {
+                    opacity: 0.25;
+                }
+            }
+            
+            &.current-month {
+                @include tile(true);
+            }
+            
+            .day-inner {
+                position: relative;
+                height: 100%;
+                overflow: hidden;
+                padding-bottom: 0;
+                box-sizing: border-box;
+
+                
+                @include not-mobile {
+                    padding: 8px;
+
+                    // mask-image: linear-gradient(white 75%, transparent 92.5%);
+                    mask-image: linear-gradient(transparent 0%, white 8%, white 92%, transparent 100%);
+                }
+
+                .number {
+                    z-index: 1;
+
+                    display: block;
+                    transform: translateY(-4px);
+                    transition: opacity 250ms ease;
+    
+                    @include mobile {
+                        transform: translateY(-2px);
+                    }
+                }
+
+                .entry-container {
+                    .entry {
+                        @include ellipsis;
+
+                        width: 100%;
+                        margin-bottom: 4px;
+                        padding: 2px 4px;
+                        box-sizing: border-box;
+    
+                        white-space: nowrap;
+                        
+                        color: darken(white, 20%);
+                        background-color: $entry-color;
+                        border-radius: 4px;
+                        font-size: 12px;
+                        font-weight: normal;
+
+                        @include mobile {
+                            margin-bottom: 2px;
+                            padding: 2px 2px;
+                            border-radius: 2px;
+                            font-size: 6px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.day-view {
+    .day-selector {
+        @include tile(false);
+    
+        display: grid;
+        grid-template-columns: ($cell-size * 2) auto repeat(2, $cell-size);
+    
+        @media (max-width: 1000px) {
+            grid-template-columns: auto repeat(2, $cell-size);
+            .day { grid-column: 1 !important; }
+        }
+        
+        @include mobile {
+            grid-template-columns: auto repeat(2, $cell-size-mobile);
+            .day { grid-column: 1 !important; }
+        }
+    
+        .add {
+            @include tile-accept;
+
+            &.placeholder {
+                pointer-events: none;
+                color: rgba(darken(white, 20%), 0.25) !important;
+            }
+        }
+
+        .delete {
+            &:not(.deleting) {
+                @include tile-reject;
+            }
+
+            &.deleting {
+                @include tile-accept;
+            }
+        }
+
+        .day {
+            grid-column: 2;
+
+            .text {
+                @include ellipsis;
+            }
+        }
+    
+        .text {
+            @include tile-text;
+
+            white-space: nowrap;
+            padding: 0 16px;
+        }
+    }
+    
+    .day-view-inner {
+        overflow-y: auto;
+        border: $line-width solid $line-color;
+
+        .hour {
+            background-color: $line-color;
+
+            &:not(:last-child) {
+                border-bottom: $line-width solid $line-color;
+            }
+
+            .hour-inner {
+                @include tile(false);
+
+                display: flex;
+                flex-flow: column;
+
+                &.now {
+                    border: ($line-width * 2) solid rgba($highlight-color, 0.25);
+                    border-radius: 4px;
+                }
+
+                .number {                
+                    display: inline-block;
+                    height: $cell-size;
+                    font-size: $font-size;
+                    color: darken(white, 20%);
+
+                    @include mobile {
+                        font-size: $font-size-mobile;
+                        height: $cell-size-mobile;
+                    }
+
+                    .text {
+                        @include tile-text-left;
+                    }
+                }
+
+                .entry-container {
+                    padding: 8px;
+                    padding-top: 0 !important;
+
+                    .entry {
+                        cursor: pointer;
+                        overflow: hidden;
+
+                        display: inline-flex;
+                        flex-flow: row nowrap;
+                        background-color: $entry-color;
+                        margin: 8px;
+                        border-radius: 4px;
+
+                        font-size: 0;
+                        font-weight: normal;
+                        color: darken(white, 20%);
+
+                        &.deleting {
+                            pointer-events: none;
+                        }
+
+                        &.focused {
+                            background-color: darken($entry-color, 5%) !important;
+                            pointer-events: none;
+
+                            .entry-inner {
+                                border: ($line-width * 2) solid rgba($highlight-color, 0.25);
+                                box-sizing: border-box;
+                                border-radius: 4px;
+                                padding: 6px - ($line-width * 2);
+                            }
+                        }
+
+                        &:not(.deleting) {
+                            @include not-mobile {
+                                &:hover {
+                                    background-color: darken($entry-color, 3%);
+                                }
+                            }
+
+                            &:active {
+                                background-color: darken($entry-color, 5%);
+                            }
+                        }
+
+                        & > * {
+                            display: inline-block;
+                        }
+
+                        .entry-inner {
+                            padding: 6px;
+
+                            .text {
+                                font-size: $font-size-mobile;
+                            }
+                        }
+
+                        .entry-delete {
+                            @include tile-reject;
+
+                            padding: 0 6px;
+                            pointer-events: all;
+
+                            .text {
+                                @include tile-text;
+
+                                font-weight: bold;
+                                color: hsl(0, 100%, 30%) !important;
+                                transform: translate(-50%, calc(-50% - 1.5px))
+                            }
+                        }
+                    }
+
+                    @include mobile {
+                        padding: 12px;
+
+                        .entry {
+                            margin: 4px;
+
+                            .entry-inner {
+                                padding: 4px;
+
+                                .text {
+                                    font-size: $font-size-mobile - 2px;
+                                }
+                            }
+
+                            &.focused {
+                                .entry-inner {
+                                    padding: 4px - ($line-width * 2);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

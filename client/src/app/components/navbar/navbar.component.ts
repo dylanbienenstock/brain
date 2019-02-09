@@ -27,7 +27,12 @@ export class NavbarComponent {
     onRouteChange(e: NavigationEnd) {
         if (!(e instanceof NavigationEnd)) return;
 
-        this.path = e.url.substr(1).split("/");
+        this.path = e.url
+            .substr(1)
+            .replace("-", " ")
+            .split("/");
+
+        this.navbarService.extensions = [];
 
         if ((this.path.length == 1 && this.path[0] == "") ||
             this.path[0] == "authenticate") {
@@ -41,7 +46,11 @@ export class NavbarComponent {
             return;
         }
 
-        this.router.navigate(this.path.slice(0, index + 1));
+        let to = this.path
+            .slice(0, index + 1)
+            .map(s => s.replace(" ", "-"));
+
+        this.router.navigate(to);
 
         if (index == this.path.length - 1) {
             this.navbarService.triggerClickEvent(-1);

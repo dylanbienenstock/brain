@@ -4,22 +4,7 @@
 $list-width: 350px;
 $task-details-width: 350px;
 
-.placeholder {
-    pointer-events: none;
-    color: rgba(darken(white, 20%), 0.25) !important;
-}
-
-input[type=text] {
-    width: calc(100% - 32px);
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    height: $cell-size;
-
-    @include mobile {
-        height: $cell-size-mobile;
-    }
-}
+@include has-inputs;
 
 .container {
     @include page;
@@ -244,7 +229,6 @@ input[type=text] {
 
                     &::placeholder {
                         color: rgba(darken(white, 20%), 0.25) !important;
-                        opacity: 1;
                     }
                 }
             }
@@ -493,19 +477,6 @@ input[type=text] {
                 margin: 16px;
                 user-select: none;
                 white-space: pre-line;
-            }
-
-            textarea.text {
-                width: 100%;
-                height: 100%;
-                
-                padding: 16px;
-                box-sizing: border-box;
-                
-                background: transparent;
-                
-                border: 0;
-                outline: 0;
             }
         }
     }

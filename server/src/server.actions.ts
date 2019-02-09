@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Request } from "express";
 import { Requests } from "../../shared/requests";
 import { Responses } from "../../shared/responses";
-import { Routes } from "../../shared/routes";
 import { TaskListModule } from "./task-list/task-list.module";
+import { IntakeLogModule } from "./intake-log/intake-log.module";
 import { Auth } from "./server.auth";
 
 export module Actions {
@@ -67,5 +67,31 @@ export module Actions {
         Promise<Responses.DeleteTask> {
             return TaskListModule
                 .deleteTask(req.body as Requests.DeleteTask);
+        }
+
+
+    // Intake Log Entries
+    export async function createLogEntry(req: Request):
+        Promise<Responses.CreateLogEntry> {
+            return IntakeLogModule
+                .createLogEntry(req.body as Requests.CreateLogEntry);
+        }
+
+    export async function getLogEntries(req: Request):
+        Promise<Responses.GetLogEntries> {
+            return IntakeLogModule
+                .getLogEntries(req.body as Requests.GetLogEntries);
+        }
+
+    export async function updateLogEntry(req: Request):
+        Promise<Responses.UpdateLogEntry> {
+            return IntakeLogModule
+                .updateLogEntry(req.body as Requests.UpdateLogEntry);
+        }
+
+    export async function deleteLogEntry(req: Request):
+        Promise<Responses.DeleteLogEntry> {
+            return IntakeLogModule
+                .deleteLogEntry(req.body as Requests.DeleteLogEntry);
         }
 }

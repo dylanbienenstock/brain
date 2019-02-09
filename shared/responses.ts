@@ -1,4 +1,5 @@
 import { TaskList, Task } from "../server/src/task-list/task-list.types";
+import { LogEntry } from "../server/src/intake-log/intake-log.types";
 
 export module Responses {
     interface GenericResponse {
@@ -41,4 +42,20 @@ export module Responses {
     }
 
     export interface DeleteTask extends GenericResponse { }
+
+
+    // Intake Log Entries
+    export interface CreateLogEntry extends GenericResponse {
+        entry?: LogEntry;
+    }
+
+    export interface GetLogEntries extends GenericResponse {
+        entries?: LogEntry[];
+    }
+
+    export interface UpdateLogEntry extends GenericResponse {
+        entry?: LogEntry;
+    }
+
+    export interface DeleteLogEntry extends GenericResponse { }
 }

@@ -1,16 +1,22 @@
 export enum Routes {
     // Authentication
-    authenticate = "/api/authenticate",
+    Authenticate = "/api/authenticate",
 
     // Task Lists
-    createTaskList = "/api/tasklist/create",
-    getTaskLists = "/api/tasklist/getAll",
-    updateTaskList = "/api/tasklist/update",
-    deleteTaskList = "/api/tasklist/delete",
+    CreateTaskList = "/api/tasklist/create",
+    GetTaskLists = "/api/tasklist/getAll",
+    UpdateTaskList = "/api/tasklist/update",
+    DeleteTaskList = "/api/tasklist/delete",
 
     // Tasks
     createTask = "/api/task/create",
-    getTasks = "/api/task/get",
-    updateTask = "/api/task/update",
-    deleteTask = "/api/task/delete",
+    GetTasks = "/api/task/get",
+    UpdateTask = "/api/task/update",
+    DeleteTask = "/api/task/delete",
+
+    // Intake Log Entries
+    CreateLogEntry = "/api/log-entry/create",
+    GetLogEntries = "/api/log-entry/get",
+    UpdateLogEntry = "/api/log-entry/update",
+    DeleteLogEntry = "/api/log-entry/delete",
 }

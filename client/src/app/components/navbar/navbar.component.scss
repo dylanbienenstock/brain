@@ -8,8 +8,8 @@
     z-index: 999;
     box-shadow: 0 0 8px black;
 
-    display: flex;
-    flex-flow: row nowrap;
+    display: grid;
+    grid-template-columns: min-content auto min-content;
 
     box-sizing: border-box;
     padding-left: 16px;
@@ -29,12 +29,15 @@
     }
 
     .path {
-        flex: 1;
         height: min-content;
+        white-space: nowrap;
 
         .dir {            
             &:not(:last-child) { cursor: pointer };
-            &:last-child       { cursor: default; }
+            &:last-child {
+                @include ellipsis;
+                cursor: default;
+            }
             
             text-transform: capitalize;
 
@@ -59,8 +62,7 @@
     .fullscreen {
         @include tile-hover;
 
-        position: absolute;
-        right: 0;
+        grid-column: 3;
         width: $cell-size;
         height: $cell-size;
 

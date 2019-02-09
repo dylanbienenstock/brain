@@ -1,6 +1,9 @@
 $accent-hue: 190;
 
+$highlight-color: hsl(190, 100%, 50%);
+
 $font-size: 18px;
 $font-size-mobile: 14px;
+$mobile-ratio: $font-size-mobile / $font-size;
 $cell-size: 72px;
-$cell-size-mobile: $cell-size * ($font-size-mobile / $font-size);
+$cell-size-mobile: $cell-size * $mobile-ratio;

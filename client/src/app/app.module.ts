@@ -22,6 +22,8 @@ import { NavbarService } from './services/navbar.service';
 import { StringUtilService } from './services/string-util.service';
 import { DayOnlyPipe } from './pipes/day-only.pipe';
 import { LeftPadPipe } from './pipes/left-pad.pipe';
+import { IntakeLogComponent } from './components/intake-log/intake-log.component';
+import { CalenderComponent } from './components/calender/calender.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +34,8 @@ import { LeftPadPipe } from './pipes/left-pad.pipe';
         AuthenticatorComponent,
         DayOnlyPipe,
         LeftPadPipe,
+        IntakeLogComponent,
+        CalenderComponent,
     ],
     imports: [
         BrowserModule,

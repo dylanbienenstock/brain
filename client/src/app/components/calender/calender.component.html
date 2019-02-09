@@ -1,0 +1,132 @@
+<div class="month-view" *ngIf="viewMode == 'month'">
+    <div class="month-selector">
+        <div class="back" (click)="onChangeMonth(-1)">
+            <span class="text">
+                [&lt;]
+            </span>
+        </div>
+    
+        <div class="month">
+            <span class="text">
+                {{ viewDateStr }}
+            </span>
+        </div>
+    
+        <div class="next" (click)="onChangeMonth(1)">
+            <span class="text">
+                [&gt;]
+            </span>
+        </div>
+    </div>
+    
+    <div class="month-view-inner"
+    [class.overflow]="viewMonthOverflow">
+        <div class="weekday"
+        *ngFor="let weekday of weekdays; index as index;"
+        [class.now]="index == curWeekday">
+            <span class="text">
+                {{ !screenService.mobile ? weekday : weekday.substr(0, 3) }}
+            </span>
+        </div>
+    
+        <div class="day" #dayCell
+        *ngFor="let day of viewMonthDays; index as index;"
+        (mouseenter)="onMouseEnterDayCell(index, dayCell, dayNumber, content)"
+        (mouseleave)="onMouseLeaveDayCell(index)"
+        (click)="onClickDayCell(day)"
+        [class.now]="day.isToday"
+        [class.last-month]="day.month == 'last'"
+        [class.current-month]="day.month == 'current'"
+        [class.next-month]="day.month == 'next'">
+            <div class="day-inner">
+                <div class="number" #dayNumber
+                [style.opacity]="day.hovered && day.scrollable ? 0 : 1">{{ day.number }}</div>
+        
+                <div class="entry-container" #content
+                [style.transition]="day.scrollable ? 'transform ' + day.scrollTime + 'ms linear' : ''"
+                [style.transform]="day.hovered && day.scrollable ? 'translateY(-' + day.scrollAmount + 'px)' : ''">
+                    <ng-container
+                    *ngFor="let entryHour of sortedEntries[[viewYear, viewMonth, day.number].join('/')]">
+                        <div class="entry" *ngFor="let entry of entryHour">
+                            <span class="dot" [style.color]="entry?.dotColor">&#9679;</span>
+                            {{ entry.name }}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="day-view" *ngIf="viewMode == 'day'">
+    <div class="day-selector">
+        <div class="day">
+            <span class="text">
+                {{ viewDateStr }}
+            </span>
+        </div>
+
+        <div class="delete"
+        [class.deleting]="deletingEntries"
+        (click)="onToggleDeleteMode()">
+            <span class="text">
+                {{ !deletingEntries ? '[-]' : '[x]' }}
+            </span>
+        </div>
+
+        <div class="add"
+        [class.placeholder]="deletingEntries"
+        (click)="onCreateEntry()">
+            <span class="text"
+            [class.placeholder]="deletingEntries">
+                [+]
+            </span>
+        </div>
+    </div>
+
+    <div class="day-view-inner">
+        <div class="hour" *ngFor="let hour of viewDayHours; index as index;">
+            <div class="hour-inner" [class.now]="viewingToday && hour.number == curHour">
+                <div class="number">
+                    <span class="text">
+                        {{ hour.number != 0 ? 
+                            hour.number > 12 ? 
+                                hour.number - 12
+                            : hour.number
+                        : 12 }}:00 {{ 
+                            hour.number < 12 ? 'AM' : 'PM'
+                        }}
+                    </span>
+                </div>
+
+                <div class="entry-container"
+                *ngIf="sortedEntries[[viewYear, viewMonth, viewDay].join('/')] &&
+                sortedEntries[[viewYear, viewMonth, viewDay].join('/')][hour.number]">
+                    <div class="entry"
+                    *ngFor="let entry of sortedEntries[[viewYear, viewMonth, viewDay].join('/')][hour.number]"
+                    [class.focused]="!deletingEntries && focusId == entry._id"
+                    [class.deleting]="deletingEntries"
+                    (click)="onEntryClicked(entry)">
+                        <div class="entry-inner">
+                            <span class="text dot" [style.color]="entry?.dotColor">&#9679;&nbsp;</span>
+
+                            <span class="text">{{ entry?.name?.trim() || "&lt;Untitled&gt;" }}</span>
+
+                            <ng-container *ngFor="let extraField of extraFields; index as index;">
+                                <ng-container *ngIf="entry[extraField] && entry[extraField].trim()">
+                                    <span class="text">{{ extraFieldDelims[index] }}{{ entry[extraField] }}</span>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+
+                        <div class="entry-delete"
+                        *ngIf="deletingEntries"
+                        (click)="onEntryDeleted(entry); $event.stopPropagation();">
+                            <span class="text">[-]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

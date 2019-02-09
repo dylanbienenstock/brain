@@ -1,0 +1,155 @@
+<div class="container"
+[class.loading]="loading"
+[class.show-new-entry]="calenderMode == 'day'"
+[class.entry-selected]="curEntryId">
+    <app-calender
+    [entries]="logEntries"
+    [focusId]="curEntryId"
+    [extraFields]="['amount']"
+    [extraFieldDelims]="[' × ']"
+    (monthChanged)="onCalenderMonthChanged($event)"
+    (entriesSorted)="onLogEntriesSorted($event)"
+    (entryCreated)="onLogEntryCreated($event)"
+    (entryClicked)="onLogEntryClicked($event)"
+    (entryDeleted)="onLogEntryDeleted($event)"
+    (viewModeChanged)="onCalenderModeChanged($event)"
+    (deleteModeToggled)="onCalenderDeleteModeToggled($event)">
+    </app-calender>
+
+    <div class="entry" *ngIf="calenderMode == 'day'"
+    [class.hide-top-tile]="screenService.mobile && curEntryId && focusedInput == 'desc'">
+        <ng-container *ngIf="!curEntryId">
+            <div class="top-tile">
+                <div class="entry-name placeholder">
+                    <span class="text">&lt;Entry: Name&gt;</span>
+                </div>
+    
+                <div class="entry-amount placeholder">
+                    <span class="text">&lt;Entry: Amount&gt;</span>
+                </div>
+
+                <div class="entry-time placeholder">
+                    <span class="text">&lt;Entry: Time&gt;</span>
+                </div>
+    
+                <div class="entry-type placeholder">
+                    <span class="text">&lt;Entry: Type&gt;</span>
+                </div>
+            
+                <div class="entry-notable placeholder">
+                    <span class="text">&lt;Entry: Ntbl&gt;</span>
+                </div>
+            </div>
+    
+            <div class="entry-desc placeholder">
+                <span class="text placeholder">&lt;Entry: Description&gt;</span>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="curEntryId">
+            <div class="top-tile"
+            *ngIf="!(screenService.mobile && focusedInput == 'desc')">
+                <div class="entry-name"
+                [class.active]="focusedInput == 'name'"
+                (click)="focusInput('name', nameInput)">
+                    <span class="text"
+                    *ngIf="focusedInput != 'name'"
+                    [class.placeholder]="!curEntry?.name?.trim()">
+                        {{ curEntry?.name?.trim() || '&lt;Entry: Name&gt;' }}
+                    </span>
+    
+                    <input type="text" #nameInput
+                    placeholder="<Entry: Name>"
+                    (blur)="onInputBlur()"
+                    [hidden]="focusedInput != 'name'"
+                    [(ngModel)]="curEntry.name"
+                    (ngModelChange)="onEntryModified()">
+                </div>
+    
+                <div class="entry-amount"
+                [class.active]="focusedInput == 'amount'"
+                (click)="focusInput('amount', amountInput)">
+                    <span class="text"
+                    *ngIf="focusedInput != 'amount'"
+                    [class.placeholder]="!curEntry?.amount?.trim()">
+                        {{ curEntry?.amount?.trim() || '&lt;Entry: Amount&gt;' }}
+                    </span>
+
+                    <input type="text" #amountInput
+                    placeholder="<Entry: Amount>"
+                    (blur)="onInputBlur()"
+                    [hidden]="focusedInput != 'amount'"
+                    [(ngModel)]="curEntry.amount"
+                    (ngModelChange)="onEntryModified()">
+                </div>
+
+                <div class="entry-time"
+                [class.active]="focusedInput == 'time'"
+                [class.invalid]="!timeValid(curEntry?.timeStr)"
+                (click)="focusInput('time', timeInput)">
+                    <span class="text"
+                    *ngIf="focusedInput != 'time'"
+                    [class.placeholder]="!curEntry?.timeStr?.trim()">
+                        {{ curEntry?.timeStr?.trim() || '&lt;Entry: Time&gt;' }}
+                    </span>
+
+                    <input type="text" #timeInput
+                    placeholder="<Entry: Time>"
+                    (blur)="onInputBlur()"
+                    [hidden]="focusedInput != 'time'"
+                    [(ngModel)]="curEntry.timeStr"
+                    (ngModelChange)="onEntryModified(true)">
+                </div>
+    
+                <div class="entry-type"
+                (click)="onToggleEntryProp('isFood')">
+                    <span class="text placeholder"
+                    *ngIf="!curEntryId">
+                        &lt;Entry: Type&gt;
+                    </span>
+
+                    <span class="text"
+                    *ngIf="curEntryId"
+                    [class.on]="curEntry?.isFood"
+                    [class.off]="!curEntry?.isFood">
+                        {{ curEntry?.isFood ? 'FOOD' : 'NOT FOOD' }}
+                    </span>
+                </div>
+
+                <div class="entry-notable"
+                (click)="onToggleEntryProp('notable')">
+                    <span class="text placeholder"
+                    *ngIf="!curEntryId">
+                        &lt;Entry: Ntbl&gt;
+                    </span>
+
+                    <span class="text"
+                    *ngIf="curEntryId"
+                    [class.on]="curEntry?.notable"
+                    [class.off]="!curEntry?.notable">
+                        {{ curEntry?.notable ? 'NOTABLE' : 'NOT NOTABLE' }}
+                    </span>
+                </div>
+            </div>
+    
+            <div class="entry-desc"
+            [class.active]="focusedInput == 'desc'"
+            (click)="focusInput('desc', descInput)">
+                <span class="text"
+                *ngIf="focusedInput != 'desc'"
+                [class.placeholder]="!curEntry?.description?.trim()">
+                    {{ curEntry?.description?.trim() || '&lt;Entry: Description&gt;' }}
+                </span>
+
+                <textarea class="text"
+                placeholder="<Entry: Description>"
+                [(ngModel)]="curEntry.description"
+                (ngModelChange)="onEntryModified()"
+                (blur)="onInputBlur()"
+                [style.display]="focusedInput != 'desc' ? 'none' : ''"
+                #descInput>
+                </textarea>
+            </div>
+        </ng-container>
+    </div>
+</div>

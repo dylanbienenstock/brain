@@ -1,4 +1,5 @@
 import { ITaskList, ITask } from "../server/src/task-list/task-list.types";
+import { ILogEntry } from "../server/src/intake-log/intake-log.types";
 
 export module Requests {
     // Authentication
@@ -42,5 +43,25 @@ export module Requests {
     export interface DeleteTask {
         listId: string;
         taskId: string;
+    }
+
+
+    // Intake Log Entries
+    export interface CreateLogEntry {
+        name: string;
+        date: Date;
+    }
+
+    export interface GetLogEntries {
+        year: number;
+        month: number;
+    }
+
+    export interface UpdateLogEntry extends ILogEntry {
+        entryId: string;
+    }
+
+    export interface DeleteLogEntry {
+        entryId: string;
     }
 }

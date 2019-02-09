@@ -41,8 +41,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
     private navbarExtensionClickedSub: Subscription;
     private navbarExtensionOwner = "task-list";
 
-    private listUpdateTimeouts = [];
-    private taskUpdateTimeouts = [];
+    private listUpdateTimeouts: { [listId: string]: any } = { };
+    private taskUpdateTimeouts: { [taskId: string]: any } = { };
     private parsedDates: { [dateStr: string]: Date } = { };
 
     // Convenience
@@ -135,16 +135,22 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
     // Navbar
     setNavbarExtensions() {
-        let list = this.curTaskList;
-        let listName = list && list.name;
+        // let list = this.curTaskList;
+        // let listName = list && list.name;
 
-        let task = this.curTask;
-        let taskName = task && task.name
+        // let task = this.curTask;
+        // let taskName = task && task.name
+
+        // this.navbarService
+        //     .setExtensions(this.navbarExtensionOwner, [
+        //         this.listSelected && `${this.listSymbol} ${listName || "<Untitled>"}`,
+        //         this.taskSelected && (taskName || "<Untitled>")
+        //     ]);
 
         this.navbarService
             .setExtensions(this.navbarExtensionOwner, [
-                this.listSelected && (listName || "<Untitled>"),
-                this.taskSelected && (taskName || "<Untitled>")
+                this.listSelected && "Task List",
+                this.taskSelected && "Edit Task"
             ]);
     }
 
@@ -206,24 +212,24 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
     deleteTaskList(listId: string) {
         this.httpService.deleteTaskList({ listId })
-        .subscribe((res: Responses.UpdateTaskList) => {
-            if (!res.success) {
-                this.handleErr("Failed to delete task list.", listId, res);
-                return;
-            }
+            .subscribe((res: Responses.UpdateTaskList) => {
+                if (!res.success) {
+                    this.handleErr("Failed to delete task list.", listId, res);
+                    return;
+                }
 
-            this.curListIndex = null;
-            this.listSelected = false;
+                this.curListIndex = null;
+                this.listSelected = false;
 
-            let listIndex = this.findTaskListIndexById(listId);
+                let listIndex = this.findTaskListIndexById(listId);
 
-            this.taskLists.splice(listIndex, 1);
-            this.setNavbarExtensions();
+                this.taskLists.splice(listIndex, 1);
+                this.setNavbarExtensions();
 
-            if (this.taskLists.length == 0) {
-                this.deletingLists = false;
-            }
-        });
+                if (this.taskLists.length == 0) {
+                    this.deletingLists = false;
+                }
+            });
     }
 
     onCreateTaskList() {
@@ -470,6 +476,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
     dateEmpty(dateStr: string) {
         return !dateStr || !dateStr.trim();
+
     }
 
     dateValid(dateStr: string, acceptEmpty: boolean = false) {
@@ -562,6 +569,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
                     ];
 
                     if (tw && !pm) return n(hI) - 12;
+                    if (!tw && pm) return n(hI) + 12;
 
                     return n(hI);
                 }
