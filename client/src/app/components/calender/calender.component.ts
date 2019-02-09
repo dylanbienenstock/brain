@@ -257,7 +257,7 @@ export class CalenderComponent implements OnInit, OnDestroy {
         if (this.viewingToday) {
             setTimeout(() => {
                 let cellSize = this.screenService.mobile ? 56 : 72;
-                this.dayContainer.scrollTop = this.curHourContainer.offsetTop - cellSize;
+                this.dayContainer.scrollTop = this.curHourContainer.offsetTop - cellSize - 1;
             });
         }
     }
