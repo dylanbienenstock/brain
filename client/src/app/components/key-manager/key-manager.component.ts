@@ -155,7 +155,7 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
         },
     ]
 
-    private awaitingSensitive: boolean = false;
+    public awaitingSensitive: boolean = false;
     private sensitiveResolve: (str: string) => void;
 
     ngAfterViewInit() {

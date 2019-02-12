@@ -23,6 +23,7 @@ const app: express.Application = express();
     Router.initialize(app);
 
     app.get("*", (req, res) => {
+        res.header("Service-Worker-Allowed", "/");
         res.sendFile(join(__dirname, "../../client/dist/client/index.html"));
     });
 
