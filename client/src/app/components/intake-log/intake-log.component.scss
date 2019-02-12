@@ -47,7 +47,7 @@
             @include tile(false);
 
             display: grid;
-            grid-template-rows: repeat(4, $cell-size) auto;
+            grid-template-rows: repeat(4, $cell-size);
             grid-template-columns: repeat(2, 1fr);
             grid-template-areas:
                 "name name"
@@ -56,11 +56,11 @@
                 "food ntbl"
             ;
 
-            .entry-name    { grid-area: name; }
-            .entry-amount  { grid-area: amou; }
-            .entry-time    { grid-area: time; }
-            .entry-type    { grid-area: food; }
-            .entry-notable { grid-area: ntbl; }
+            .entry-name         { grid-area: name; }
+            .entry-amount       { grid-area: amou; }
+            .entry-time         { grid-area: time; }
+            .entry-type         { grid-area: food; }
+            .entry-notable      { grid-area: ntbl; }
 
             & > * {
                 @include tile-hover;
@@ -88,6 +88,21 @@
                 &.invalid {
                     .text, input[type=text] {
                         color: hsl(50, 100%, 45%) !important;
+                    }
+                }
+
+                @include mobile {
+                    display: grid;
+                    grid-template-columns: auto $cell-size-mobile;
+
+                    .text {
+                        height: min-content;
+                    }
+
+                    .slide {
+                        .slide-text {
+                            @include tile-text;
+                        }
                     }
                 }
             }

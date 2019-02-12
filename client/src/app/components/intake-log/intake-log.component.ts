@@ -57,6 +57,11 @@ export class IntakeLogComponent implements OnInit, OnDestroy {
     private entryModifiedTimeouts: { [entryId: string]: any } = { };
     private extensionClickedSub: Subscription;
     
+    private timeInputTouching: boolean = false;
+    private timeInputTouchStartY: number;
+    private timeInputOverrideStr: string;
+    private timeInputOverrideDate: Date;
+    
     ngOnInit() {
         let now = new Date();
         let year = now.getFullYear();
@@ -327,5 +332,76 @@ export class IntakeLogComponent implements OnInit, OnDestroy {
         })();
 
         return { hr: hour, m: n(1) };
+    }
+
+    onTimeInputTouchStart(e: TouchEvent) {
+        let touch = e.targetTouches.item(0);
+
+        if (!touch) return;
+
+        this.timeInputTouching = true;
+        this.timeInputTouchStartY = touch.screenY;
+    }
+
+    onTimeInputTouchMove(e: TouchEvent) {
+        if (this.timeInputTouchStartY == null) return;
+
+        let touch = e.targetTouches.item(0);
+
+        if (!touch) return;
+
+        let year = this.curEntry.date.getFullYear();
+        let month = this.curEntry.date.getMonth();
+        let day = this.curEntry.date.getDate()
+        let time = this.curEntry.date.getTime();
+
+        let minTime = new Date(year, month, day, 0, 0, 0, 0).getTime();
+        let maxTime = new Date(year, month, day + 1, 0, -1).getTime();
+
+        let diff = this.timeInputTouchStartY - touch.screenY;
+        let diffNorm = diff / this.screenService.height;
+
+        let maxChange = 1000 * 60 * 30; // If touch moves entire height of screen
+        let change = Math.floor(diffNorm * maxChange);
+        
+        let newTime = Math.min(Math.max(minTime, time + change), maxTime);
+        let newDate = new Date(newTime);
+        
+        let newHour = newDate.getHours();
+        let newMinutes = newDate.getMinutes();
+
+        let newMinutesStr = (newMinutes < 10 ? "0" : "") + newMinutes;
+        let newPeriod = "AM";
+
+        if (newHour > 11) {
+            newHour -= 12;
+            newPeriod = "PM";
+        }
+
+        if (newHour == 0) {
+            newHour = 12;
+        }
+        
+        let newTimeStr = `${newHour}:${newMinutesStr} ${newPeriod}`;
+
+        this.timeInputOverrideStr = newTimeStr;
+        this.timeInputOverrideDate = newDate;
+    }
+
+    resetTimeInputTouchState() {
+        this.timeInputTouching = false;
+        this.timeInputTouchStartY = null;
+        this.timeInputOverrideStr = null;
+        this.timeInputOverrideDate = null;
+    }
+    
+    onTimeInputTouchEnd(e: TouchEvent) {
+        if (!this.timeInputTouching || e.targetTouches.length > 0) return;
+        
+        this.curEntry.timeStr = this.timeInputOverrideStr;
+        this.curEntry.date = this.timeInputOverrideDate;
+
+        this.resetTimeInputTouchState();
+        this.onEntryModified(true);
     }
 }

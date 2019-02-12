@@ -88,17 +88,26 @@
                 [class.invalid]="!timeValid(curEntry?.timeStr)"
                 (click)="focusInput('time', timeInput)">
                     <span class="text"
-                    *ngIf="focusedInput != 'time'"
+                    *ngIf="timeInputTouching || focusedInput != 'time'"
                     [class.placeholder]="!curEntry?.timeStr?.trim()">
-                        {{ curEntry?.timeStr?.trim() || '&lt;Entry: Time&gt;' }}
+                        {{ timeInputOverrideStr || curEntry?.timeStr?.trim() || '&lt;Entry: Time&gt;' }}
                     </span>
 
                     <input type="text" #timeInput
                     placeholder="<Entry: Time>"
                     (blur)="onInputBlur()"
-                    [hidden]="focusedInput != 'time'"
+                    [hidden]="timeInputTouching || focusedInput != 'time'"
                     [(ngModel)]="curEntry.timeStr"
                     (ngModelChange)="onEntryModified(true)">
+
+                    <div class="slide"
+                    (click)="$event.stopPropagation()"
+                    (touchstart)="onTimeInputTouchStart($event)"
+                    (touchmove)="onTimeInputTouchMove($event)"
+                    (touchend)="onTimeInputTouchEnd($event)"
+                    *ngIf="screenService.mobile">
+                        <span class="slide-text">&#8855;</span>
+                    </div>
                 </div>
     
                 <div class="entry-type"
@@ -151,5 +160,19 @@
                 </textarea>
             </div>
         </ng-container>
+
+        <!-- <div class="entry-prescription"
+        *ngIf="!(screenService.mobile && focusedInput == 'desc')">
+            <div class="weekday-container">
+                <div class="weekday"
+                *ngFor="let weekday of ['S', 'M', 'T', 'W', 'T', 'F', 'S']; index as index;">
+                    <div class="text">{{ weekday }}</div>
+                </div>
+            </div>
+
+            <div class="entry-prescription-toggle">
+                <div class="text">[Rx]</div>
+            </div>
+        </div> -->
     </div>
 </div>
