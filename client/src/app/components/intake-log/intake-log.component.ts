@@ -394,12 +394,16 @@ export class IntakeLogComponent implements OnInit, OnDestroy {
     }
     
     onTimeInputTouchEnd(e: TouchEvent) {
-        if (!this.timeInputTouching || e.targetTouches.length > 0) return;
-        
-        this.curEntry.timeStr = this.timeInputOverrideStr;
-        this.curEntry.date = this.timeInputOverrideDate;
+        if (!this.timeInputTouching) return;
+        if (e.targetTouches.length > 0) return;
 
+        if (this.timeInputOverrideStr) {            
+            this.curEntry.timeStr = this.timeInputOverrideStr;
+            this.curEntry.date = this.timeInputOverrideDate;
+
+            this.onEntryModified(true);
+        }
+        
         this.resetTimeInputTouchState();
-        this.onEntryModified(true);
     }
 }
