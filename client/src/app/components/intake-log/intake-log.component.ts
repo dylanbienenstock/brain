@@ -251,8 +251,6 @@ export class IntakeLogComponent implements OnInit, OnDestroy {
     }
 
     onEntryModified(timeModified: boolean = false) {
-        console.log("asdasd", this.curEntry)
-
         let entryId = this.curEntryId;
         let entry = this.curEntry;
         let shouldRefreshCalender = false;
