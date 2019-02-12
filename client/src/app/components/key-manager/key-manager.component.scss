@@ -2,7 +2,12 @@
 @import "mixins";
 
 :host {
-    @include page;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
 
     display: grid;
     grid-template-rows: auto $cell-size;
@@ -26,7 +31,7 @@
             white-space: pre-line;
 
             @include mobile {
-                font-size: 16px * $mobile-ratio;                
+                font-size: 12px;                
             }
         }
     }
@@ -60,6 +65,10 @@
 
             border: 0;
             outline: 0;
+
+            &.sensitive {
+                font-family: "password-mask", monospace !important;
+            }
         }
 
         .send {

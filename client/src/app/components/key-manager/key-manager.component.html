@@ -7,9 +7,15 @@
         <span class="text">$</span>
     </div>
 
-    <input autofocus #input
-    [attr.type]="awaitingSensitive ? 'password' : 'text'"
+    <input #input
+    type="text"
     class="input"
+    autocorrect="off"
+    autocapitalize="off"
+    spellcheck="false"
+    autocomplete="new-password"
+    [class.sensitive]="awaitingSensitive"
+    (focus)="autoScroll()"
     (blur)="input.focus()"
     [(ngModel)]="inputText"
     (keydown.Enter)="onCommandExecuted()">

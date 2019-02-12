@@ -11,7 +11,7 @@ export module Actions {
         Promise<Responses.Authenticate> {
             let passcode = req.header("B-PASSCODE");
             let keyName = req.header("B-KEY-NAME");
-            let key = req.header("B-KEY").trim();
+            let key = req.header("B-KEY");
 
             let authResult = Auth.authenticate(passcode, key, keyName);
             let success = authResult == AuthResult.VALID;
@@ -22,9 +22,6 @@ export module Actions {
     export async function uploadKey(req: Request):
         Promise<Responses.UploadKey> {
             let passcode = req.header("B-PASSCODE");
-            let keyName = req.header("B-KEY-NAME");
-            let key = req.header("B-KEY").trim();
-
             let authResult = Auth.authenticate(passcode);
 
             if (authResult != AuthResult.MANAGE_KEYS)
@@ -32,7 +29,7 @@ export module Actions {
 
             let body = req.body as Requests.UploadKey;
 
-            return Auth.saveKey(body.password, key, keyName);
+            return Auth.saveKey(body.password, body.key, body.keyName);
         }
 
 

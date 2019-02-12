@@ -44,7 +44,7 @@ export module KeyUtil {
         }
     
         localStorage.setItem("use-key", prefix(name));
-        log(`Set key "${name}" as default key. Refresh the page.`);
+        log(`Set key "${name}" as default key.`);
     }
 
     export function getDefaultKeyName(): string {

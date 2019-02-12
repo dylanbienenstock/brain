@@ -7,6 +7,7 @@
         "start": "ts-node ./src/server.ts",
         "genkey": "mkdir -p ssl && cd ssl && openssl req -nodes -new -x509 -keyout server.key -out server.cert",
         "set-key-upload-password": "node ./scripts/set-key-upload-password.js",
+        "clear-keys": "node ./scripts/clear-keys.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],

@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { KeyUtil } from './key-util';
 import { HttpService } from '../../services/http.service';
 import { Responses } from '../../../../../shared/responses';
+import { ScreenService } from '../../services/screen.service';
 
 interface Flag {
     flag: string;
@@ -30,7 +31,8 @@ interface Command {
 })
 export class KeyManagerComponent implements AfterViewInit, OnDestroy {
 
-    constructor(private httpService: HttpService) { }
+    constructor(private httpService: HttpService,
+                private screenService: ScreenService) { }
 
     @ViewChild("output") outputRef: ElementRef;
     public get output(): HTMLDivElement {
@@ -59,17 +61,22 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
             ]
         },
         {
+            cmd: "exit",
+            desc: "Exits the key manager.",
+            fn: this.cmdExit.bind(this)
+        },
+        {
             cmd: "clear",
             desc: "Clears the output buffer.",
             fn: this.cmdClear.bind(this)
         },
         {
-            cmd: "list-keys",
+            cmd: "list",
             desc: "Lists all stored keys.",
             fn: this.cmdListKeys.bind(this)
         },
         {
-            cmd: "gen-key",
+            cmd: "gen",
             desc: "Generates a new key.",
             fn: this.cmdGenKey.bind(this),
             args: [
@@ -80,17 +87,25 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
             ],
             flags: [
                 {
+                    flag: "full",
+                    desc: "Equivalent to --use --upload --exit."
+                },
+                {
                     flag: "use",
                     desc: "Sets the new key as the default key."
                 },
                 {
                     flag: "upload",
                     desc: "Uploads the key to the server."
-                }
+                },
+                {
+                    flag: "exit",
+                    desc: "Exits the key manager."
+                },
             ]
         },
         {
-            cmd: "use-key",
+            cmd: "use",
             desc: "Sets the default key.",
             fn: this.cmdUseKey.bind(this),
             args: [
@@ -101,28 +116,34 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
             ],
             flags: [
                 {
-                    flag: "refresh",
-                    desc: "Refreshes the page."
-                },
-                {
                     flag: "upload",
                     desc: "Uploads the key to the server."
+                },
+                {
+                    flag: "exit",
+                    desc: "Exits the key manager."
                 }
             ]
         },
         {
-            cmd: "upload-key",
+            cmd: "upload",
             desc: "Uploads a key to the server.",
             fn: this.cmdUploadKey.bind(this),
             args: [
                 {
                     arg: "name",
                     desc: "The name of the key to upload to the server."
+                },
+            ],
+            flags: [
+                {
+                    flag: "exit",
+                    desc: "Exits the key manager."
                 }
             ]
         },
         {
-            cmd: "rm-key",
+            cmd: "rm",
             desc: "Permanently deletes a key.",
             fn: this.cmdRmKey.bind(this),
             args: [
@@ -154,13 +175,21 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
         this.keyUtilOutput.unsubscribe();
     }
 
-    log(str?: string) {
-        this.outputText.push(str || "");
-
+    autoScroll() {
         setTimeout(() => {
-            this.output.scrollTop = 
-                this.output.scrollHeight - this.output.clientHeight;
+            this.output.scrollTop = this.output.scrollHeight;
         });
+    }
+
+    log(str?: string) {
+        if (this.screenService.mobile) {
+            if (this.outputText[this.outputText.length - 1]) {
+                this.outputText.push("");
+            }
+        }
+
+        this.outputText.push(str || "");
+        this.autoScroll();
     }
 
     sensitive() {
@@ -298,6 +327,14 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
         }
     }
 
+    async cmdExit() {
+        this.log("Exiting in 3 seconds...");
+
+        setTimeout(() => {
+            location.href = "/";
+        }, 3000);
+    }
+
     async cmdClear() {
         this.outputText = ["$ clear"];
     }
@@ -326,28 +363,35 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
     async cmdGenKey(flags: string[], keyName: string) {
         KeyUtil.genKey(keyName);
 
+        if (flags.includes("full")) {
+            flags = ["use", "upload", "exit"];
+        }
+
         if (flags.includes("use")) {
-            this.cmdUseKey([], keyName);
+            this.cmdUseKey(flags, keyName);
+            return;
         }
 
         if (flags.includes("upload")) {
-            this.cmdUploadKey([], keyName);
+            this.cmdUploadKey(flags, keyName);
+            return;
+        }
+
+        if (flags.includes("exit")) {
+            this.cmdExit();
         }
     }
 
     async cmdUseKey(flags: string[], keyName: string) {
         KeyUtil.useKey(keyName);
 
-        if (flags.includes("refresh")) {
-            this.log("Refreshing in 3 seconds...");
-
-            setTimeout(() => {
-                location.reload();
-            }, 3000);
-        }
-
         if (flags.includes("upload")) {
-            this.cmdUseKey([], keyName);
+            this.cmdUploadKey(flags, keyName);
+            return;
+        }
+        
+        if (flags.includes("exit")) {
+            this.cmdExit();
         }
     }
 
@@ -366,14 +410,16 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
 
         this.httpService.uploadKey({ key, keyName, password })
             .subscribe((res: Responses.UploadKey) => {
-                console.log(res);
-
                 if (!res.success) {
                     this.log(`Key upload failed! ${ res.error }`);
                     return;
                 }
 
                 this.log("Key successfully uploaded.");
+
+                if (flags.includes("exit")) {
+                    this.cmdExit();
+                }
             });
     }
 

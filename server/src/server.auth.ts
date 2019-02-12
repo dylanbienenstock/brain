@@ -19,10 +19,10 @@ enum KeyvStore {
     KEY_UPLOAD_PASSWORD = "key-upload-password"
 }
 
-export module Auth {
-    let authKeys: { [name: string]: string } = { };
-    let keyv: Keyv;
+let authKeys: { [name: string]: string } = { };
+let keyv: Keyv;
 
+export module Auth {
     export async function loadKeys() {
         upash.install("argon2", argon2);
 
@@ -30,7 +30,16 @@ export module Auth {
 
         keyv.on("error", err => console.log("[KEYV]", err));
 
-        authKeys = await keyv.get(KeyvStore.AUTH_KEYS) || { };
+        authKeys = await keyv.get(KeyvStore.AUTH_KEYS);
+
+        if (!authKeys) {
+            authKeys = { };
+            keyv.set(KeyvStore.AUTH_KEYS, { });
+        }
+
+        for (let keyName in authKeys) {
+            console.log("[AUTH] Loaded key: " + keyName);
+        }
     }
 
     export async function saveKey(password: string, key: string, keyName: string): Promise<Responses.UploadKey> {
