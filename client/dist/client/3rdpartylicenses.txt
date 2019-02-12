@@ -95,6 +95,10 @@ MIT
 MIT
 MIT
 
+@angular/service-worker@6.1.10
+MIT
+MIT
+
 moment@2.24.0
 MIT
 Copyright (c) JS Foundation and other contributors

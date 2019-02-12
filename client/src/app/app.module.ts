@@ -24,6 +24,8 @@ import { DayOnlyPipe } from './pipes/day-only.pipe';
 import { LeftPadPipe } from './pipes/left-pad.pipe';
 import { IntakeLogComponent } from './components/intake-log/intake-log.component';
 import { CalenderComponent } from './components/calender/calender.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
     declarations: [
@@ -42,7 +44,8 @@ import { CalenderComponent } from './components/calender/calender.component';
         HttpClientModule,
         RouterModule.forRoot(AppRoutes),
         FormsModule,
-        MomentModule
+        MomentModule,
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],
     providers: [
         HttpService,
