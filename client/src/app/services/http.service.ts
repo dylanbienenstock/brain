@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { take, map } from 'rxjs/operators';
 
 import { Routes } from "../../../../shared/routes";
 import { Requests } from "../../../../shared/requests";
 import { Responses } from "../../../../shared/responses";
-import { Observable, OperatorFunction } from 'rxjs';
+import { Observable } from 'rxjs';
+
+import { ConnectionService } from 'ng-connection-service';
 
 const dateify = (res: any) => {
     for (let k in res) {
@@ -27,7 +29,8 @@ const dateify = (res: any) => {
 })
 export class HttpService {
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient,
+                private connectionService: ConnectionService) { }
 
     // Authentication
     authenticate(): 

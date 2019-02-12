@@ -15,7 +15,7 @@ import { TaskListComponent } from './components/task-list/task-list.component';
 import { AuthenticatorComponent } from './components/authenticator/authenticator.component';
 import { HttpService } from './services/http.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { PasscodeInterceptor } from './services/http.interceptor';
+import { MainInterceptor } from './services/http.interceptor';
 import { Globals } from './app.globals';
 import { ScreenService } from './services/screen.service';
 import { NavbarService } from './services/navbar.service';
@@ -28,6 +28,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { KeyManagerComponent } from './components/key-manager/key-manager.component';
 import { PwaService } from "./services/pwa.service";
+import { ConnectionService } from "ng-connection-service";
+import { ResponseCacheService } from "./services/response-cache.service";
 
 @NgModule({
     declarations: [
@@ -52,12 +54,23 @@ import { PwaService } from "./services/pwa.service";
     ],
     providers: [
         HttpService,
-        { provide: HTTP_INTERCEPTORS, useClass: PasscodeInterceptor, multi: true },
+        { 
+            provide: HTTP_INTERCEPTORS,
+            useClass: MainInterceptor,
+            multi: true,
+            deps: [
+                Globals,
+                ConnectionService,
+                ResponseCacheService
+            ]
+        },
         Globals,
         ScreenService,
         NavbarService,
         StringUtilService,
-        PwaService
+        PwaService,
+        ConnectionService,
+        ResponseCacheService
     ],
     bootstrap: [AppComponent]
 })

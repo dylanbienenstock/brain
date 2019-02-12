@@ -1,21 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { SwUpdate } from '@angular/service-worker';
+import { Subscription } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
-export class PwaService {
+export class PwaService implements OnDestroy {
 
-    constructor() {
-        window.addEventListener("beforeinstallprompt", (e) => {
-            this.promptEvent = e;
+    constructor(private swUpdate: SwUpdate) { }
 
-            console.log("PWA install prompt captured:", e);
-        });
+    public updateSub: Subscription;
 
-        (window as any).installPWA = () => {
-            this.promptEvent.prompt();
-        }
+    ngOnDestroy() {
+        this.updateSub.unsubscribe();
     }
 
-    private promptEvent;
+    subscribeToUpdates() {
+        if (this.swUpdate.isEnabled) {
+            this.swUpdate.available.subscribe(() => {
+                if (confirm("New version available. Install?")) {
+                    location.reload();
+                }
+            });
+        }
+    }
 }
