@@ -103,7 +103,7 @@
                         .slide-text {
                             @include tile-text;
                             
-                            font-size: 24px;
+                            font-size: 24px !important;
                             top: calc(50% - 3px);
                         }
                     }
