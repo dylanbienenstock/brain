@@ -26,6 +26,7 @@ import { IntakeLogComponent } from './components/intake-log/intake-log.component
 import { CalenderComponent } from './components/calender/calender.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { KeyManagerComponent } from './components/key-manager/key-manager.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { environment } from '../environments/environment';
         LeftPadPipe,
         IntakeLogComponent,
         CalenderComponent,
+        KeyManagerComponent,
     ],
     imports: [
         BrowserModule,

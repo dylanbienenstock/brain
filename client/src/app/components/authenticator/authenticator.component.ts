@@ -1,7 +1,8 @@
 import { Component, HostListener, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from '../../services/http.service';
-import { Responses } from '../../../../../shared/responses';
+import { Responses, AuthResult } from '../../../../../shared/responses';
 import { Globals } from '../../app.globals';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-authenticator',
@@ -11,7 +12,8 @@ import { Globals } from '../../app.globals';
 export class AuthenticatorComponent {
 
     constructor(private httpService: HttpService,
-                private globals: Globals) { }
+                private globals: Globals,
+                private router: Router) { }
 
     @Input() key: string;
     @Input() keyName: string;
@@ -20,7 +22,8 @@ export class AuthenticatorComponent {
     private clearKey: string = "C";
     private enterKey: string = "✓";
 
-    public codeDots = new Array(4).fill(null);
+    public codeLength = 4;
+    public codeDots = new Array(this.codeLength).fill(null);
     public keys: string[] = [
         "1", "2", "3", 
         "4", "5", "6", 
@@ -49,10 +52,10 @@ export class AuthenticatorComponent {
         if (key == this.clearKey || key == "c") {
             this.curCode = "";
         } else if (key == this.enterKey || key == "Enter") {
-            if (this.curCode.length == 4) {
+            if (this.curCode.length == this.codeLength) {
                 this.onPasscodeEntered(this.curCode);
             }
-        } else if (this.curCode.length < 4) {
+        } else if (this.curCode.length < this.codeLength) {
             this.curCode += key;
         }
     }
@@ -77,10 +80,15 @@ export class AuthenticatorComponent {
                     this.waiting = false;
                     this.curCode = "";
     
-                    if (res.success) {
-                        this.onCorrectPasscode();
-                    } else {
-                        this.onIncorrectPasscode();
+                    switch (res.authResult) {
+                        case AuthResult.MANAGE_KEYS:
+                            this.onNavigateToKeyManager();
+                        case AuthResult.VALID:
+                            this.onCorrectPasscode();
+                                break;
+                        case AuthResult.INVALID:
+                            this.onIncorrectPasscode();
+                                break;
                     }
                 });
         }, 1250);
@@ -94,6 +102,10 @@ export class AuthenticatorComponent {
     onIncorrectPasscode() {
         this.passwordCorrect = false;
         this.passwordIncorrect = true;
+    }
+
+    onNavigateToKeyManager() {
+        this.router.navigate(["keys"]);
     }
 
     onDoneAnimating() {
@@ -123,7 +135,7 @@ export class AuthenticatorComponent {
     
                 let allColored = true;
     
-                for (let i = 0; i < 4; i++) {
+                for (let i = 0; i < this.codeLength; i++) {
                     allColored = allColored && this.dotColored[i] === true;
                 }
                 
@@ -138,7 +150,7 @@ export class AuthenticatorComponent {
             }
         }
         
-        this.litDot = ++this.litDot % this.codeDots.length;
+        this.litDot = ++this.litDot % this.codeLength;
 
         setTimeout(() => {
             this.animate();

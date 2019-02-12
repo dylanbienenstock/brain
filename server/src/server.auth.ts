@@ -1,8 +1,14 @@
 import { Request, Response } from "express";
 
 import { Routes } from "../../shared/routes";
+import { AuthResult } from "../../shared/responses";
 import { join } from "path";
 import { readFile, readdir } from "fs";
+
+enum Passcode {
+    DEFAULT = "6267",
+    MANAGE_KEYS = "8081"
+}
 
 export module Auth {
     let keys: { [name: string]: string } = {};
@@ -34,31 +40,54 @@ export module Auth {
         readFiles(keyDir, (filename, content) => {
             keys[filename] = content;
             keyCount++;
-
-            console.log(`Loaded key: ${filename}, length: ${content.length}.`);
         }, (err) => {
             throw err;
         });
     }
 
-    export function valid(passcode: string, key: string, keyName: string) {
-        return passcode == "1111" && keys[keyName] == key;
+    export function authenticate(passcode: string, key?: string, keyName?: string): AuthResult {
+        let keyValid = () => {
+            return key && 
+                   keyName && 
+                   keys[keyName] && 
+                   keys[keyName] == key;
+        }
+
+        switch (passcode) {
+            case Passcode.DEFAULT:
+                if (!keyValid()) return AuthResult.INVALID;
+
+                return AuthResult.VALID;
+            case Passcode.MANAGE_KEYS:
+                return AuthResult.MANAGE_KEYS;
+            default:
+                return AuthResult.INVALID;
+        }
     }
 
     export function middleware(req: Request, res: Response, next: () => void) {
-        if (req.url == "/authenticate" ||
-            req.url == Routes.Authenticate) {
-            next(); return;
+        switch (req.url) {
+            case "/authenticate":
+            case "/keys":
+            case Routes.Authenticate:
+                next();
+                    return;
         }
 
         let passcode = req.header("B-PASSCODE");
         let key = req.header("B-KEY");
         let keyName = req.header("B-KEY-NAME");
 
-        if (!valid(passcode, key, keyName)) {
-            res.redirect("/authenticate"); return;
-        }
+        let authResult = authenticate(passcode, key, keyName);
 
-        next();
+        switch (authResult) {
+            case AuthResult.MANAGE_KEYS:
+            case AuthResult.INVALID:
+                res.redirect("/authenticate");
+                    return;
+            case AuthResult.VALID:
+                next();
+                    break;
+        }
     }
 }

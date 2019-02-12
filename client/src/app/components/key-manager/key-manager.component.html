@@ -1,0 +1,19 @@
+<div class="output-container">
+    <div class="output" *ngFor="let line of output">{{ line || '&nbsp;' }}</div>
+</div>
+
+<div class="input-container">
+    <div class="decoration">
+        <span class="text">$</span>
+    </div>
+
+    <input type="text" class="input" autofocus
+    [(ngModel)]="input"
+    (keydown.Enter)="onCommandExecuted()">
+
+    <div class="send" (click)="onCommandExecuted()">
+        <span class="text">
+            [&gt;]
+        </span>
+    </div>
+</div>

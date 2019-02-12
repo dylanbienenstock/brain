@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { Requests } from "../../shared/requests";
-import { Responses } from "../../shared/responses";
+import { Responses, AuthResult } from "../../shared/responses";
 import { TaskListModule } from "./task-list/task-list.module";
 import { IntakeLogModule } from "./intake-log/intake-log.module";
 import { Auth } from "./server.auth";
@@ -12,9 +12,11 @@ export module Actions {
             let passcode = req.header("B-PASSCODE");
             let keyName = req.header("B-KEY-NAME");
             let key = req.header("B-KEY").trim();
-            let success = Auth.valid(passcode, key, keyName);
 
-            return <Responses.Authenticate> { success };
+            let authResult = Auth.authenticate(passcode, key, keyName);
+            let success = authResult == AuthResult.VALID;
+
+            return <Responses.Authenticate> { success, authResult };
         }
 
 

@@ -1,3 +1,5 @@
+import { EventEmitter } from "@angular/core";
+
 let _window = window as any;
 
 const copyToClipboard = (str) => {
@@ -13,39 +15,43 @@ const prefix = (name: string) => {
     return "key-" + name;
 }
 
+const log = (str: string) => {
+    console.log(str);
+}
+
 _window.deleteKey = (name: string) => {
     if (!localStorage.getItem(prefix(name))) {
-        console.log("Key does not exist.");
+        log("Key does not exist.");
         return;
     }
 
     localStorage.removeItem(prefix(name));
-    console.log(`Key "${name}" deleted from localStorage`);
+    log(`Key "${name}" deleted from localStorage`);
 }
 
 _window.clearAllKeys = () => {
     localStorage.clear();
-    console.log("Cleared all keys.");
+    log("Cleared all keys.");
 }
 
 _window.useKey = (name: string) => {
     if (!localStorage.getItem(prefix(name))) {
-        console.log("Key does not exist.");
+        log("Key does not exist.");
         return;
     }
 
     localStorage.setItem("use-key", prefix(name));
-    console.log(`Using key ${name}. Refresh the page.`);
+    log(`Using key ${name}. Refresh the page.`);
 }
 
 _window.genKey = (name: string) => {
     if (localStorage.getItem(prefix(name))) {
-        console.log("That key already exists.");
+        log("That key already exists.");
         return;
     }
 
     if (!name || name.length <= 8) {
-        console.log("You must specify a key name >= 8 characters.");
+        log("You must specify a key name >= 8 characters.");
         return;
     }
 
@@ -62,5 +68,5 @@ _window.genKey = (name: string) => {
     localStorage.setItem(prefix(name), key);
     copyToClipboard(key);
 
-    console.log(`Key "${name}" saved to localStorage and clipboard.`);
+    log(`Key "${name}" saved to localStorage and clipboard.`);
 }

@@ -1,7 +1,13 @@
 import { TaskList, Task } from "../server/src/task-list/task-list.types";
 import { LogEntry } from "../server/src/intake-log/intake-log.types";
 
-export module Responses {
+export enum AuthResult {
+    VALID = 0,
+    INVALID = 1,
+    MANAGE_KEYS = 2
+}
+
+export module Responses {    
     interface GenericResponse {
         success: boolean;
         error?: any;
@@ -9,7 +15,9 @@ export module Responses {
 
 
     // Authentication
-    export interface Authenticate extends GenericResponse { }
+    export interface Authenticate extends GenericResponse {
+        authResult: AuthResult;
+    }
 
 
     // Task Lists

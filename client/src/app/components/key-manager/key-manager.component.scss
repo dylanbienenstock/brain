@@ -1,0 +1,68 @@
+@import "variables";
+@import "mixins";
+
+:host {
+    @include page;
+
+    display: grid;
+    grid-template-rows: auto $cell-size;
+
+    @include mobile {
+        grid-template-rows: auto $cell-size-mobile;        
+    }
+
+    font-family: "Source Code Pro", monospace;
+
+    .output-container {
+        @include tile(false);
+
+        padding: 16px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        .output {
+            font-size: 16px;
+            white-space: pre-line;
+
+            @include mobile {
+                font-size: 16px * $mobile-ratio;                
+            }
+        }
+    }
+
+    .input-container {
+        @include tile(false);
+
+        display: grid;
+        grid-template-columns: min-content auto $cell-size;
+        
+        grid-gap: 16px;
+        padding-left: 16px;
+        box-sizing: border-box;
+
+        @include mobile {
+            grid-template-columns: min-content auto $cell-size-mobile;
+        }
+
+        .input {
+            height: 100%;
+            width: 100%;
+            
+            font-family: "Source Code Pro", monospace;
+            color: darken(white, 20%);
+            background: transparent;
+
+            border: 0;
+            outline: 0;
+        }
+
+        .send {
+            @include tile-hover;
+        }
+
+        .text {
+            @include tile-text;
+        }
+    }
+}
