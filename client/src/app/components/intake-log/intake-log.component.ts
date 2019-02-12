@@ -251,8 +251,6 @@ export class IntakeLogComponent implements OnInit, OnDestroy {
     }
 
     onEntryModified(timeModified: boolean = false) {
-        console.log("asdasd", this.curEntry)
-
         let entryId = this.curEntryId;
         let entry = this.curEntry;
         let shouldRefreshCalender = false;
@@ -399,14 +397,13 @@ export class IntakeLogComponent implements OnInit, OnDestroy {
         if (!this.timeInputTouching) return;
         if (e.targetTouches.length > 0) return;
 
-        this.resetTimeInputTouchState();
+        if (this.timeInputOverrideStr) {            
+            this.curEntry.timeStr = this.timeInputOverrideStr;
+            this.curEntry.date = this.timeInputOverrideDate;
 
-        if (!this.timeInputOverrideStr) return;
+            this.onEntryModified(true);
+        }
         
-        this.curEntry.timeStr = this.timeInputOverrideStr;
-        this.curEntry.date = this.timeInputOverrideDate;
-
         this.resetTimeInputTouchState();
-        this.onEntryModified(true);
     }
 }
