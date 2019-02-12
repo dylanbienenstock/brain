@@ -8,19 +8,10 @@ git pull
 
 echo ""
 echo "#########################"
-echo "### Rebuilding client ###"
-echo "#########################"
-
-cd client
-npm install
-npm run build
-
-echo ""
-echo "#########################"
 echo "### Rebuilding server ###"
 echo "#########################"
 
-cd ../server
+cd server
 npm install
 tsc
 
@@ -30,5 +21,14 @@ echo "### Restarting node service ###"
 echo "###############################"
 
 service node restart
+
+echo ""
+echo "#########################"
+echo "### Rebuilding client ###"
+echo "#########################"
+
+cd ../client
+npm install
+npm run build -- --prod
 
 echo "Done!"
