@@ -40,10 +40,12 @@
         [class.next-month]="day.month == 'next'">
             <div class="day-inner">
                 <div class="number" #dayNumber
-                [style.opacity]="day.hovered && day.scrollable ? 0 : 1">{{ day.number }}</div>
+                [style.transition-delay]="day.hovered && '500ms'"
+                [style.opacity]="day.hovered && day.scrollable ? 0 : ''">{{ day.number }}</div>
         
                 <div class="entry-container" #content
                 [style.transition]="day.scrollable ? 'transform ' + day.scrollTime + 'ms linear' : ''"
+                [style.transition-delay]="day.hovered && '500ms'"
                 [style.transform]="day.hovered && day.scrollable ? 'translateY(-' + day.scrollAmount + 'px)' : ''">
                     <ng-container
                     *ngFor="let entryHour of sortedEntries[[viewYear, viewMonth, day.number].join('/')]">
@@ -91,10 +93,10 @@
             [class.now]="viewingToday && hour.number == curHour">
                 <div class="number">
                     <span class="text">
-                        {{ hour.number != 0 ? 
-                            hour.number > 12 ? 
-                                hour.number - 12
-                            : hour.number
+                        {{ hour.number != 0 
+                           ? hour.number > 12
+                                ? hour.number - 12
+                                : hour.number
                         : 12 }}:00 {{ 
                             hour.number < 12 ? 'AM' : 'PM'
                         }}
