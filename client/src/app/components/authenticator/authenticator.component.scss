@@ -50,6 +50,10 @@
 
             grid-column: span 3;
 
+            @include mobile {
+                background: $mobile-topbar-background;
+            }
+
             .dot {
                 $size: 24px;
 

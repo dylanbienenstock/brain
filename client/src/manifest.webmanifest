@@ -2,7 +2,7 @@
   "name": "Brain",
   "short_name": "Brain",
   "theme_color": "#333",
-  "background_color": "#222",
+  "background_color": "#111",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

@@ -19,6 +19,7 @@
 
     @include mobile {
         font-size: $font-size-mobile;
+        background: $mobile-topbar-background;
     }
 
     > * {
