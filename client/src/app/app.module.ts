@@ -27,6 +27,7 @@ import { CalenderComponent } from './components/calender/calender.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { KeyManagerComponent } from './components/key-manager/key-manager.component';
+import { PwaService } from "./services/pwa.service";
 
 @NgModule({
     declarations: [
@@ -55,7 +56,8 @@ import { KeyManagerComponent } from './components/key-manager/key-manager.compon
         Globals,
         ScreenService,
         NavbarService,
-        StringUtilService
+        StringUtilService,
+        PwaService
     ],
     bootstrap: [AppComponent]
 })
