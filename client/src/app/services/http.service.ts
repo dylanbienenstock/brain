@@ -30,11 +30,18 @@ export class HttpService {
     constructor(private httpClient: HttpClient) { }
 
     // Authentication
-    authenticate(code: string): 
+    authenticate(): 
         Observable<Responses.Authenticate> {
             return this.httpClient
-                .post(Routes.Authenticate, <Requests.Authenticate> { code })
+                .post(Routes.Authenticate, null)
                 .pipe(take(1)) as Observable<Responses.Authenticate>;
+        }
+
+    uploadKey(req: Requests.UploadKey): 
+        Observable<Responses.UploadKey> {
+            return this.httpClient
+                .post(Routes.UploadKey, req)
+                .pipe(take(1)) as Observable<Responses.UploadKey>;
         }
 
 

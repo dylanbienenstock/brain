@@ -20,14 +20,16 @@ export module KeyUtil {
         return "key-" + name;
     }
     
-    export function deleteKey(name: string) {
+    export function removeKey(name: string) {
         if (!localStorage.getItem(prefix(name))) {
-            log("Key does not exist.");
+            log(`Key "${name}" does not exist.`);
             return;
         }
     
         localStorage.removeItem(prefix(name));
-        log(`Key "${name}" deleted from localStorage`);
+        localStorage.setItem("all-keys", JSON.stringify(getAllKeys().filter(k => k.name != name)));
+
+        log(`Key "${name}" has been deleted.`);
     }
     
     export function clearAllKeys() {
@@ -37,16 +39,20 @@ export module KeyUtil {
     
     export function useKey(name: string) {
         if (!localStorage.getItem(prefix(name))) {
-            log("Key does not exist.");
+            log(`Key "${name}" does not exist.`);
             return;
         }
     
         localStorage.setItem("use-key", prefix(name));
-        log(`Using key ${name}. Refresh the page.`);
+        log(`Set key "${name}" as default key. Refresh the page.`);
     }
 
     export function getDefaultKeyName(): string {
         return localStorage.getItem("use-key");
+    }
+
+    export function getKey(name: string) {
+        return localStorage.getItem(prefix(name));
     }
 
     interface KeyRecord {
@@ -72,12 +78,12 @@ export module KeyUtil {
     
     export function genKey(name: string) {
         if (localStorage.getItem(prefix(name))) {
-            log("That key already exists.");
+            log(`Key "${name}" already exists.`);
             return;
         }
     
         if (!name || name.length <= 8) {
-            log("You must specify a key name >= 8 characters.");
+            log("Key name must be >= 8 characters");
             return;
         }
 
@@ -93,8 +99,8 @@ export module KeyUtil {
     
         localStorage.setItem("all-keys", JSON.stringify([...getAllKeys(), { name, date: new Date() }]));
         localStorage.setItem(prefix(name), key);
-        copyToClipboard(key);
+        // copyToClipboard(key);
     
-        log(`Key "${name}" saved to localStorage and clipboard.`);
+        log(`Key "${name}" generated and saved.`);
     }
 }

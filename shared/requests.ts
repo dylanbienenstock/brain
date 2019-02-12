@@ -3,11 +3,11 @@ import { ILogEntry } from "../server/src/intake-log/intake-log.types";
 
 export module Requests {
     // Authentication
-    export interface Authenticate {
-        code: string;
+    export interface UploadKey {
+        password: string;
         key: string;
+        keyName: string;
     }
-
 
     // Task Lists
     export interface CreateTaskList {

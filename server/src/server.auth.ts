@@ -1,56 +1,70 @@
 import { Request, Response } from "express";
-
-import { Routes } from "../../shared/routes";
-import { AuthResult } from "../../shared/responses";
 import { join } from "path";
 import { readFile, readdir } from "fs";
+
+import * as upash from "upash";
+import * as argon2 from "@phc/argon2";
+import * as Keyv from "keyv";
+
+import { Routes } from "../../shared/routes";
+import { AuthResult, Responses } from "../../shared/responses";
 
 enum Passcode {
     DEFAULT = "6267",
     MANAGE_KEYS = "8081"
 }
 
+enum KeyvStore {
+    AUTH_KEYS = "keys",
+    KEY_UPLOAD_PASSWORD = "key-upload-password"
+}
+
 export module Auth {
-    let keys: { [name: string]: string } = {};
+    let authKeys: { [name: string]: string } = { };
+    let keyv: Keyv;
 
-    export function loadKeys() {
-        let keyDir = join(__dirname, "../keys/");
-        let keyCount = 0;
+    export async function loadKeys() {
+        upash.install("argon2", argon2);
 
-        function readFiles(dirname, onFileContent, onError) {
-            readdir(dirname, (err, filenames) => {
-                if (err) {
-                    onError(err);
-                    return;
-                }
+        keyv = new Keyv("mongodb://localhost:27017/dylans-brain-keyv");
 
-                filenames.forEach((filename) => {
-                    readFile(join(dirname, filename), "utf-8", (err, content) => {
-                        if (err) {
-                            onError(err);
-                            return;
-                        }
+        keyv.on("error", err => console.log("[KEYV]", err));
 
-                        onFileContent(filename, content.trim());
-                    });
-                });
-            });
+        authKeys = await keyv.get(KeyvStore.AUTH_KEYS) || { };
+    }
+
+    export async function saveKey(password: string, key: string, keyName: string): Promise<Responses.UploadKey> {
+        let passwordHash = await keyv.get(KeyvStore.KEY_UPLOAD_PASSWORD);
+        let passwordValid = await upash.verify(passwordHash, password);
+
+        if (!passwordHash || !passwordValid) {
+            return {
+                success: false,
+                error: "Incorrect key upload password."
+            };
+        }
+        
+        if (authKeys[keyName]) {
+            return {
+                success: false,
+                error: "Key already exists."
+            };
         }
 
-        readFiles(keyDir, (filename, content) => {
-            keys[filename] = content;
-            keyCount++;
-        }, (err) => {
-            throw err;
-        });
+        authKeys[keyName] = key;
+        await keyv.set(KeyvStore.AUTH_KEYS, authKeys);
+
+        console.log(`[AUTH] Saved key: ${ keyName }`);
+
+        return { success: true };
     }
 
     export function authenticate(passcode: string, key?: string, keyName?: string): AuthResult {
         let keyValid = () => {
             return key && 
                    keyName && 
-                   keys[keyName] && 
-                   keys[keyName] == key;
+                   authKeys[keyName] && 
+                   authKeys[keyName] == key;
         }
 
         switch (passcode) {
@@ -70,6 +84,7 @@ export module Auth {
             case "/authenticate":
             case "/keys":
             case Routes.Authenticate:
+            case Routes.UploadKey:
                 next();
                     return;
         }

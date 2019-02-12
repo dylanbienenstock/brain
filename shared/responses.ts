@@ -19,6 +19,8 @@ export module Responses {
         authResult: AuthResult;
     }
 
+    export interface UploadKey extends GenericResponse { }
+
 
     // Task Lists
     export interface CreateTaskList extends GenericResponse {

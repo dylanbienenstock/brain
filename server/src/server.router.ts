@@ -15,6 +15,13 @@ export module Router {
                 });
         });
 
+        app.post(Routes.UploadKey, (req: Request, res: Response) => {
+            Actions.uploadKey(req)
+                .then((response: Responses.Authenticate) => {
+                    res.send(response);
+                });
+        });
+
         
         // Task Lists
         app.post(Routes.CreateTaskList, (req: Request, res: Response) => {

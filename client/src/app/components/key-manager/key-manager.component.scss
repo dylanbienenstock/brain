@@ -46,7 +46,12 @@
         }
 
         .input {
-            height: 100%;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+
+            height: 50px;
+            max-height: 50px;
             width: 100%;
             
             font-family: "Source Code Pro", monospace;

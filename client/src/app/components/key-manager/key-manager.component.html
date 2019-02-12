@@ -1,5 +1,5 @@
-<div class="output-container">
-    <div class="output" *ngFor="let line of output">{{ line || '&nbsp;' }}</div>
+<div class="output-container" #output>
+    <div class="output" *ngFor="let line of outputText">{{ line || '&nbsp;' }}</div>
 </div>
 
 <div class="input-container">
@@ -7,8 +7,11 @@
         <span class="text">$</span>
     </div>
 
-    <input type="text" class="input" autofocus
-    [(ngModel)]="input"
+    <input autofocus #input
+    [attr.type]="awaitingSensitive ? 'password' : 'text'"
+    class="input"
+    (blur)="input.focus()"
+    [(ngModel)]="inputText"
     (keydown.Enter)="onCommandExecuted()">
 
     <div class="send" (click)="onCommandExecuted()">

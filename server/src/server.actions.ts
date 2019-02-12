@@ -16,7 +16,23 @@ export module Actions {
             let authResult = Auth.authenticate(passcode, key, keyName);
             let success = authResult == AuthResult.VALID;
 
-            return <Responses.Authenticate> { success, authResult };
+            return { success, authResult };
+        }
+
+    export async function uploadKey(req: Request):
+        Promise<Responses.UploadKey> {
+            let passcode = req.header("B-PASSCODE");
+            let keyName = req.header("B-KEY-NAME");
+            let key = req.header("B-KEY").trim();
+
+            let authResult = Auth.authenticate(passcode);
+
+            if (authResult != AuthResult.MANAGE_KEYS)
+                return { success: false };
+
+            let body = req.body as Requests.UploadKey;
+
+            return Auth.saveKey(body.password, key, keyName);
         }
 
 

@@ -1,6 +1,8 @@
-import { Component, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { KeyUtil } from './key-util';
+import { HttpService } from '../../services/http.service';
+import { Responses } from '../../../../../shared/responses';
 
 interface Flag {
     flag: string;
@@ -28,10 +30,20 @@ interface Command {
 })
 export class KeyManagerComponent implements AfterViewInit, OnDestroy {
 
-    constructor() { }
+    constructor(private httpService: HttpService) { }
 
-    public output: string[] = [];
-    public input: string = "";
+    @ViewChild("output") outputRef: ElementRef;
+    public get output(): HTMLDivElement {
+        return this.outputRef.nativeElement;
+    }
+
+    @ViewChild("input") inputRef: ElementRef;
+    public get input(): HTMLInputElement {
+        return this.inputRef.nativeElement;
+    }
+
+    public outputText: string[] = [];
+    public inputText: string = "";
 
     private keyUtilOutput: Subscription;
     private commands: Command[] = [
@@ -80,7 +92,7 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
         {
             cmd: "use-key",
             desc: "Sets the default key.",
-            fn: this.cmdHelp.bind(this),
+            fn: this.cmdUseKey.bind(this),
             args: [
                 {
                     arg: "name",
@@ -89,12 +101,41 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
             ],
             flags: [
                 {
+                    flag: "refresh",
+                    desc: "Refreshes the page."
+                },
+                {
                     flag: "upload",
                     desc: "Uploads the key to the server."
                 }
             ]
-        }
+        },
+        {
+            cmd: "upload-key",
+            desc: "Uploads a key to the server.",
+            fn: this.cmdUploadKey.bind(this),
+            args: [
+                {
+                    arg: "name",
+                    desc: "The name of the key to upload to the server."
+                }
+            ]
+        },
+        {
+            cmd: "rm-key",
+            desc: "Permanently deletes a key.",
+            fn: this.cmdRmKey.bind(this),
+            args: [
+                {
+                    arg: "name",
+                    desc: "The name of the key to be permanently deleted."
+                }
+            ]
+        },
     ]
+
+    private awaitingSensitive: boolean = false;
+    private sensitiveResolve: (str: string) => void;
 
     ngAfterViewInit() {
         this.keyUtilOutput =
@@ -114,7 +155,23 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
     }
 
     log(str?: string) {
-        this.output.push(str || "");
+        this.outputText.push(str || "");
+
+        setTimeout(() => {
+            this.output.scrollTop = 
+                this.output.scrollHeight - this.output.clientHeight;
+        });
+    }
+
+    sensitive() {
+        return new Promise<string>((resolve) => {
+            this.awaitingSensitive = true;
+            this.sensitiveResolve = resolve;
+
+            setTimeout(() => {
+                this.input.focus();
+            });
+        });
     }
 
     processCommand(str: string): { cmd: string, args: string[], flags: string[] } {
@@ -132,13 +189,23 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
         return { cmd, args, flags };
     }
 
-    onCommandExecuted() {
-        let { cmd, args, flags } = this.processCommand(this.input);
+    async onCommandExecuted() {
+        if (this.awaitingSensitive) {
+            let sensitiveText = this.inputText;
+            this.inputText = "";
+
+            this.awaitingSensitive = false;
+            this.sensitiveResolve(sensitiveText);
+
+            return;
+        }
+
+        let { cmd, args, flags } = this.processCommand(this.inputText);
 
         this.log();
-        this.log("$ " + this.input.trim());
+        this.log("$ " + this.inputText.trim());
         this.log();
-        this.input = "";
+        this.inputText = "";
 
         let command = this.commands.find(c => c.cmd == cmd);
         
@@ -163,10 +230,10 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
             }
         }
 
-        command.fn(flags, ...args);
+        await command.fn(flags, ...args);
     }
 
-    cmdHelp(flags?: string[], cmd?: string) {
+    async cmdHelp(flags?: string[], cmd?: string) {
         if (cmd) {
             let command = this.commands.find(c => c.cmd == cmd);
 
@@ -231,11 +298,11 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    cmdClear() {
-        this.output = ["$ clear"];
+    async cmdClear() {
+        this.outputText = ["$ clear"];
     }
 
-    cmdListKeys() {
+    async cmdListKeys() {
         let allKeys = KeyUtil.getAllKeys();
         let defaultKey = KeyUtil.getDefaultKeyName();
 
@@ -250,11 +317,67 @@ export class KeyManagerComponent implements AfterViewInit, OnDestroy {
 
         for (let key of allKeys) {
             let dateDiff = Math.floor((now.getTime() - key.date.getTime()) / (1000 * 60 * 60 * 24));
-            this.log(`${ key.name == defaultKey ? '* ' : '' }${ key.name } | ${ dateDiff } days ago`);
+            let isDefault = `key-${key.name}` == defaultKey ? '* ' : '';
+
+            this.log(`${ isDefault }${ key.name } | ${ dateDiff } days ago`);
         }
     }
 
-    cmdGenKey(flags: string[], name: string) {
-        KeyUtil.genKey(name);
+    async cmdGenKey(flags: string[], keyName: string) {
+        KeyUtil.genKey(keyName);
+
+        if (flags.includes("use")) {
+            this.cmdUseKey([], keyName);
+        }
+
+        if (flags.includes("upload")) {
+            this.cmdUploadKey([], keyName);
+        }
+    }
+
+    async cmdUseKey(flags: string[], keyName: string) {
+        KeyUtil.useKey(keyName);
+
+        if (flags.includes("refresh")) {
+            this.log("Refreshing in 3 seconds...");
+
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        }
+
+        if (flags.includes("upload")) {
+            this.cmdUseKey([], keyName);
+        }
+    }
+
+    async cmdUploadKey(flags: string[], keyName: string) {
+        let key = KeyUtil.getKey(keyName);
+
+        if (!key) {
+            this.log(`Key "${name}" does not exist.`);
+            return;
+        }
+
+        this.log("Please enter the key upload password.");
+        let password = await this.sensitive();
+
+        this.log("Uploading key...");
+
+        this.httpService.uploadKey({ key, keyName, password })
+            .subscribe((res: Responses.UploadKey) => {
+                console.log(res);
+
+                if (!res.success) {
+                    this.log(`Key upload failed! ${ res.error }`);
+                    return;
+                }
+
+                this.log("Key successfully uploaded.");
+            });
+    }
+
+    async cmdRmKey(flags: string[], keyName: string) {
+        KeyUtil.removeKey(keyName);
     }
 }
