@@ -6,6 +6,8 @@ import { ConnectionService } from 'ng-connection-service';
 
 import { Globals } from '../app.globals';
 import { ResponseCacheService } from './response-cache.service';
+import { RequestCacheService } from './request-cache.service';
+import { getCacheRules, CacheReq, CacheRes } from './http.cache-rules';
 
 
 @Injectable()
@@ -13,7 +15,8 @@ export class MainInterceptor implements HttpInterceptor, OnDestroy {
 
     constructor(private globals: Globals,
                 private connectionService: ConnectionService,
-                private requestCacheService: ResponseCacheService) {
+                private responseCacheService: ResponseCacheService,
+                private requestCacheService: RequestCacheService) {
                     this.connectionStatusSub = 
                         this.connectionService.monitor()
                             .subscribe((connected) => {
@@ -23,6 +26,10 @@ export class MainInterceptor implements HttpInterceptor, OnDestroy {
 
     private connectionStatusSub: Subscription;
     private connected: boolean = true;
+
+    ngOnDestroy() {
+        this.connectionStatusSub.unsubscribe();
+    }
 
     intercept(_req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let headers = {
@@ -34,30 +41,46 @@ export class MainInterceptor implements HttpInterceptor, OnDestroy {
         let req = _req.clone({ setHeaders: headers });
 
         if (!this.connected) {
-            let cachedRes = this.requestCacheService.get(req);
-            if (cachedRes) return new Observable((s) => s.next(cachedRes));
+            if (this.shouldCacheRequest(req)) {
+                this.requestCacheService.put(req);
+            }
+
+            if (this.shouldCacheResponse(req)) {
+                let cachedRes = this.responseCacheService.get(req);
+                if (cachedRes) return new Observable((s) => s.next(cachedRes));
+            }
         }
 
         return this.sendRequest(req, next);
-    }
-
-    ngOnDestroy() {
-        this.connectionStatusSub.unsubscribe();
-    }
-
-    onConnectionStatusChanged(connected: boolean) {
-        this.connected = connected;
-
-        console.log("Connection status changed: " + connected);
     }
 
     sendRequest(req: HttpRequest<any>, next: HttpHandler) {
         return next.handle(req).pipe(
             tap((res) => {
                 if (res instanceof HttpResponse) {
-                    this.requestCacheService.put(req, res);
+                    if (this.shouldCacheResponse(req)) {
+                        this.responseCacheService.put(req, res);
+                    }
                 }
             })
         );
+    }
+    
+    shouldCacheRequest(req: HttpRequest<any>) {
+        let rules = getCacheRules(req.url);
+
+        return rules.req != CacheReq.NEVER;
+    }
+
+    shouldCacheResponse(req: HttpRequest<any>) {
+        let rules = getCacheRules(req.url);
+
+        return rules.res != CacheRes.NEVER;
+    }
+
+    onConnectionStatusChanged(connected: boolean) {
+        this.connected = connected;
+
+        console.log("Connection status changed: " + connected);
     }
 }

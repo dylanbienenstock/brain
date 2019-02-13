@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, OnDestroy } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { take, map } from 'rxjs/operators';
 
 import { Routes } from "../../../../shared/routes";
 import { Requests } from "../../../../shared/requests";
 import { Responses } from "../../../../shared/responses";
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { ConnectionService } from 'ng-connection-service';
+import { RequestCacheService } from './request-cache.service';
 
 const dateify = (res: any) => {
     for (let k in res) {
@@ -27,10 +28,43 @@ const dateify = (res: any) => {
 @Injectable({
     providedIn: 'root'
 })
-export class HttpService {
+export class HttpService implements OnDestroy {
 
     constructor(private httpClient: HttpClient,
-                private connectionService: ConnectionService) { }
+                private connectionService: ConnectionService,
+                private requestCacheService: RequestCacheService) {
+                    this.connectionStatusSub = 
+                        this.connectionService.monitor()
+                            .subscribe((connected) => {
+                                this.onConnectionStatusChanged(connected);
+                            });
+                }
+
+    private connectionStatusSub: Subscription;
+
+    ngOnDestroy() {
+        this.connectionStatusSub.unsubscribe();
+    }
+
+    private onConnectionStatusChanged(connected: boolean) {
+        if (connected) {
+            for (let req of this.requestCacheService.getAll()) {
+                let subscription = 
+                    this.httpClient.request(req)
+                        .subscribe((event) => {
+                            if (event instanceof HttpResponse) {
+                                let res = event.body as Responses.Generic;
+
+                                if (!res.success) {
+                                    console.log(`[REQ-CACHE | "${req.urlWithParams}"] Error: ${res.error}`);
+                                }
+
+                                subscription.unsubscribe();
+                            }
+                        });
+            }
+        }
+    }
 
     // Authentication
     authenticate(): 

@@ -1,0 +1,186 @@
+import { Injectable } from '@angular/core';
+import { HttpRequest } from '@angular/common/http';
+import { getCacheRules, CacheReq } from './http.cache-rules';
+
+interface RequestValue {
+    req: HttpRequest<any>;
+    date: number;
+}
+
+interface RequestCacheAdapter {
+    getAll(): RequestValue[];
+    clear(): void;
+    put(rules: CacheReq, key: string, val: RequestValue): void;
+}
+
+function prefixKey(url: string): string {
+    return `req-cache-${url}`;
+}
+
+function createRequestKey(req: HttpRequest<any>): string {
+    let key = `${ req.urlWithParams }-${ JSON.stringify(req.body) }`;
+
+    return prefixKey(key);
+}
+
+function createRequestValue(req: HttpRequest<any>): RequestValue {
+    let date = Date.now();
+
+    return { date, req };
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class RequestCacheService {
+
+    constructor() { }
+
+    private adapters: RequestCacheAdapter[] = [
+        new RequestMemCacheAdapter(),
+        new RequestLocalStorageAdapter()
+    ];
+
+    getAll(): HttpRequest<any>[] {
+        console.log("BACK ONLINE, SENDING CACHED REQUESTS")
+
+        let allVals: RequestValue[] = [];
+
+        function compare(a: RequestValue, b: RequestValue): boolean {
+            return a.date == b.date &&
+                   a.req.urlWithParams == b.req.urlWithParams;
+        }
+
+        for (let adapter of this.adapters) {
+            for (let val of adapter.getAll()) {
+                let index = allVals.findIndex(v => compare(v, val));
+
+                if (index != -1) return;
+
+                allVals.push(val);
+            }
+
+            adapter.clear();
+        }
+
+        return allVals.map(v => v.req);
+    }
+
+    put(req: HttpRequest<any>) {
+        let key = createRequestKey(req);
+        let val = createRequestValue(req);
+        let rule = getCacheRules(req.url).req;
+
+        for (let adapter of this.adapters) {
+            adapter.put(rule, key, val);
+        }
+
+        console.log("[REQ-CACHE] PUT:", req);
+    }
+}
+
+class RequestMemCacheAdapter implements RequestCacheAdapter {
+    private cache = new Map<string, RequestValue[]>();
+    
+    public getAll(): RequestValue[] {
+        let allVals: RequestValue[] = [];
+
+        this.cache.forEach(vals => allVals.push(...vals));
+
+        return allVals;
+    }
+
+    public clear() {
+        this.cache.clear();
+    }
+
+    public put(rule: CacheReq, key: string, val: RequestValue) {
+        switch (rule) {
+            case CacheReq.ALWAYS:
+                let vals = this.cache.get(key) || [];
+                this.cache.set(key, [ ...vals, val ]);
+                    break;
+            case CacheReq.ONE:
+                this.cache.set(key, [val]);
+                    break;
+        }
+    }
+}
+
+class RequestLocalStorageAdapter implements RequestCacheAdapter {
+    private keyListKey: string = prefixKey("-key-list");
+
+    private getKeyList(): string[] {
+        let keyListRaw = localStorage.getItem(this.keyListKey);
+
+        if (!keyListRaw) return [];
+
+        let keyList: string[] = JSON.parse(keyListRaw);
+
+        return keyList;
+    }
+
+    private get(key: string): RequestValue[] {
+        let valsRaw = localStorage.getItem(key);
+
+        if (!valsRaw) return [];
+
+        let vals: RequestValue[] = JSON.parse(valsRaw);
+
+        return vals;
+    }
+
+    public getAll(): RequestValue[] {
+        let keyList = this.getKeyList();
+        let allVals: RequestValue[] = [];
+
+        for (let key of keyList) {
+            let vals = this.get(key);
+
+            allVals.push(...vals);
+        }
+
+        console.log(allVals);
+
+        return allVals;
+    }
+    
+    public clear(): void {
+        let keyList = this.getKeyList();
+
+        for (let key of keyList) {
+            localStorage.removeItem(key);
+        }
+
+        localStorage.removeItem(this.keyListKey);
+    }
+
+    public put(rule: CacheReq, key: string, val: RequestValue): void {
+        let valsRaw: string;
+
+        console.log("RULES", rule);
+        console.log("KEYLIST", this.getKeyList())
+        console.log("KEY", key)
+
+        switch (rule) {
+            case CacheReq.NEVER:
+                return;
+            case CacheReq.ALWAYS:
+                let vals = this.get(key);
+                valsRaw = JSON.stringify([...vals, val]);
+                    break;
+            case CacheReq.ONE:
+                valsRaw = JSON.stringify([val]);
+                    break;
+        }
+        
+        let keyList = this.getKeyList();
+
+        if (!keyList.includes(key)) {
+            let keyListRaw = JSON.stringify([ ...keyList, key ]);
+            localStorage.setItem(this.keyListKey, keyListRaw);
+        }
+
+        localStorage.setItem(key, valsRaw);
+    }
+}

@@ -30,6 +30,7 @@ import { KeyManagerComponent } from './components/key-manager/key-manager.compon
 import { PwaService } from "./services/pwa.service";
 import { ConnectionService } from "ng-connection-service";
 import { ResponseCacheService } from "./services/response-cache.service";
+import { RequestCacheService } from "./services/request-cache.service";
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { ResponseCacheService } from "./services/response-cache.service";
             deps: [
                 Globals,
                 ConnectionService,
-                ResponseCacheService
+                ResponseCacheService,
+                RequestCacheService
             ]
         },
         Globals,
@@ -70,7 +72,9 @@ import { ResponseCacheService } from "./services/response-cache.service";
         StringUtilService,
         PwaService,
         ConnectionService,
-        ResponseCacheService
+        ResponseCacheService,
+        RequestCacheService
+
     ],
     bootstrap: [AppComponent]
 })
