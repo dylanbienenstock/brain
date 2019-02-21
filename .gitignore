@@ -1,4 +1,6 @@
 /server/keys
+/server/**/*.js
+/shared/**/*.js
 
 # compiled output
 */dist
