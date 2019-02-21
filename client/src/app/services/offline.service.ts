@@ -14,7 +14,7 @@ export class OfflineService {
     
     constructor(private responseCacheService: ResponseCacheService) {
         this.actions = { };
-        this.actions[Routes.Authenticate]   = this.authenticate.bind(this);
+        // this.actions[Routes.Authenticate]   = this.authenticate.bind(this);
         this.actions[Routes.CreateTaskList] = this.createTaskList.bind(this);
         this.actions[Routes.CreateTask]     = this.createTask.bind(this);
         this.actions[Routes.CreateLogEntry] = this.createLogEntry.bind(this);

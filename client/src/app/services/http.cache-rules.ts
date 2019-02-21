@@ -21,7 +21,7 @@ let cacheRules: { [key: string]: CacheRule } = {};
 
 let defaultCacheRules: CacheRule  = { req: CacheReq.NEVER,  res: CacheRes.NEVER  };
 
-cacheRules[Routes.Authenticate]   = { req: CacheReq.NEVER,  res: CacheRes.CACHE_FIRST };
+cacheRules[Routes.Authenticate]   = { req: CacheReq.NEVER,  res: CacheRes.NEVER };
 cacheRules[Routes.UploadKey]      = { req: CacheReq.NEVER,  res: CacheRes.NEVER  };
 
 cacheRules[Routes.CreateTaskList] = { req: CacheReq.ALWAYS, res: CacheRes.NEVER  };
