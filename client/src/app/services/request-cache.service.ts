@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest } from '@angular/common/http';
+import { HttpRequest, HttpParams, HttpHeaders } from '@angular/common/http';
 import { getCacheRules, CacheReq } from './http.cache-rules';
+import { HttpParamsOptions } from '@angular/common/http/src/params';
 
 interface RequestValue {
     req: HttpRequest<any>;
@@ -18,7 +19,7 @@ function prefixKey(url: string): string {
 }
 
 function createRequestKey(req: HttpRequest<any>): string {
-    let key = `${ req.urlWithParams }-${ JSON.stringify(req.body) }`;
+    let key = `${req.url}-${JSON.stringify(req.body)}`;
 
     return prefixKey(key);
 }
@@ -41,21 +42,20 @@ export class RequestCacheService {
         new RequestLocalStorageAdapter()
     ];
 
-    getAll(): HttpRequest<any>[] {
-        console.log("BACK ONLINE, SENDING CACHED REQUESTS")
-
+    public getAll(): HttpRequest<any>[] {
         let allVals: RequestValue[] = [];
 
         function compare(a: RequestValue, b: RequestValue): boolean {
-            return a.date == b.date &&
-                   a.req.urlWithParams == b.req.urlWithParams;
+            return a.date == b.date && 
+                a.req.url == b.req.url &&
+                JSON.stringify(a.req.body) == JSON.stringify(b.req.body);
         }
 
         for (let adapter of this.adapters) {
             for (let val of adapter.getAll()) {
                 let index = allVals.findIndex(v => compare(v, val));
 
-                if (index != -1) return;
+                if (index != -1) continue;
 
                 allVals.push(val);
             }
@@ -66,16 +66,16 @@ export class RequestCacheService {
         return allVals.map(v => v.req);
     }
 
-    put(req: HttpRequest<any>) {
+    public put(req: HttpRequest<any>) {
         let key = createRequestKey(req);
         let val = createRequestValue(req);
         let rule = getCacheRules(req.url).req;
 
+        console.log("[REQ-CACHE] PUT:", key, "=", val);
+
         for (let adapter of this.adapters) {
             adapter.put(rule, key, val);
         }
-
-        console.log("[REQ-CACHE] PUT:", req);
     }
 }
 
@@ -140,7 +140,30 @@ class RequestLocalStorageAdapter implements RequestCacheAdapter {
             allVals.push(...vals);
         }
 
-        console.log(allVals);
+        allVals = allVals.map((v) => {
+            let method = v.req.method as "DELETE" | "GET" | "HEAD" | "JSONP" | "OPTIONS";
+            let url = v.req.url;
+            let body = v.req.body;
+            let init = {
+                headers: new HttpHeaders({ 
+                    ...v.req.headers, 
+                    "B-OFFLINE-CACHED": "1"
+                }),
+                params: new HttpParams({
+                    fromObject: v.req.params as any
+                }),
+                reportProgress: v.req.reportProgress,
+                responseType: v.req.responseType,
+                withCredentials: v.req.withCredentials
+            };
+
+            return {
+                date: v.date,
+                req: new HttpRequest(method, url, body, init)
+            };
+        });
+
+        console.log("BIG FUCK", allVals);
 
         return allVals;
     }
@@ -153,14 +176,13 @@ class RequestLocalStorageAdapter implements RequestCacheAdapter {
         }
 
         localStorage.removeItem(this.keyListKey);
+
+        console.log("SHIGGY", this.getKeyList());
+
     }
 
     public put(rule: CacheReq, key: string, val: RequestValue): void {
         let valsRaw: string;
-
-        console.log("RULES", rule);
-        console.log("KEYLIST", this.getKeyList())
-        console.log("KEY", key)
 
         switch (rule) {
             case CacheReq.NEVER:

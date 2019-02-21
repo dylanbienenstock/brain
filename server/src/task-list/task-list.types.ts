@@ -1,6 +1,5 @@
 import { Document } from "mongoose";
-import { Subdocument, Timestamps } from "../server.types";
-
+import { Subdocument, Timestamps, HasDocumentArray, OfflineDocument } from "../server.types";
 
 export interface ITask {
     name: string;
@@ -10,7 +9,7 @@ export interface ITask {
     urgent: boolean;
 }
 
-export interface Task extends ITask, Subdocument, Timestamps { }
+export interface Task extends ITask, Subdocument, OfflineDocument, Timestamps { }
 
 
 export interface ITaskList {
@@ -19,4 +18,4 @@ export interface ITaskList {
     tasks?: Task[];
 }
 
-export interface TaskList extends ITaskList, Document, Timestamps { }
+export interface TaskList extends ITaskList, Document, OfflineDocument, HasDocumentArray, Timestamps { }

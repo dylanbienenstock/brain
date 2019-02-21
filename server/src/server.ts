@@ -1,23 +1,24 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
-import * as https from "https";
-import { readFileSync } from "fs";
 
 import { join } from "path";
 
 import { Router } from "./server.router";
-import { Actions } from "./server.actions";
 import { Auth } from "./server.auth";
+import { OfflineMiddleware } from "./server.offline";
+import { TaskListModel } from "./task-list/task-list.schemas";
 
 const app: express.Application = express();
 
-(function initialize() {
-    mongoose.connect("mongodb://localhost/dylans-brain", { useNewUrlParser: true });
+(async function initialize() {
+    await mongoose.connect("mongodb://localhost/dylans-brain", { useNewUrlParser: true });
+    mongoose.set("useFindAndModify", false);
 
     app.use(bodyParser.json({ limit: "50mb" }));
     app.use(express.static(join(__dirname, "../../client/dist/client")));
     app.use(Auth.middleware);
+    app.use(OfflineMiddleware.express);
 
     Auth.loadKeys();
     Router.initialize(app);

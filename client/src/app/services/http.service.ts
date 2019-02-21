@@ -41,28 +41,43 @@ export class HttpService implements OnDestroy {
                 }
 
     private connectionStatusSub: Subscription;
+    private syncTimeout;
 
     ngOnDestroy() {
         this.connectionStatusSub.unsubscribe();
     }
 
     private onConnectionStatusChanged(connected: boolean) {
+        clearTimeout(this.syncTimeout);
+
         if (connected) {
-            for (let req of this.requestCacheService.getAll()) {
-                let subscription = 
-                    this.httpClient.request(req)
-                        .subscribe((event) => {
-                            if (event instanceof HttpResponse) {
-                                let res = event.body as Responses.Generic;
+            let allCachedRequests = this.requestCacheService.getAll();
+            console.log("ALL CACHED REQUESTS:", allCachedRequests);
 
-                                if (!res.success) {
-                                    console.log(`[REQ-CACHE | "${req.urlWithParams}"] Error: ${res.error}`);
-                                }
+            this.syncTimeout = 
+                setTimeout(async () => {        
+                    if (!allCachedRequests || allCachedRequests.length == 0) return;
+        
+                    for (let req of allCachedRequests) {
+                        await new Promise((resolve) => {
+                            this.httpClient.request(req)
+                                .pipe(take(2))
+                                .subscribe((event) => {
+                                    if (event instanceof HttpResponse) {
+                                        console.log("[REQ-CACHE] Sync response:", event, "(", req, ")");
+                                        
+                                        let res = event.body as Responses.Generic;
 
-                                subscription.unsubscribe();
-                            }
+                                        if (!res.success) {
+                                            console.log(`[REQ-CACHE | "${req.urlWithParams}"] Error: ${res.error}`);
+                                        }
+
+                                        resolve();
+                                    }
+                                });
                         });
-            }
+                    }
+                }, 1000);
         }
     }
 
@@ -116,7 +131,7 @@ export class HttpService implements OnDestroy {
     createTask(req: Requests.CreateTask):
         Observable<Responses.CreateTask> {
             return this.httpClient
-                .post(Routes.createTask, req)
+                .post(Routes.CreateTask, req)
                 .pipe(take(1)) as Observable<Responses.CreateTask>;
         }
 

@@ -31,6 +31,8 @@ import { PwaService } from "./services/pwa.service";
 import { ConnectionService } from "ng-connection-service";
 import { ResponseCacheService } from "./services/response-cache.service";
 import { RequestCacheService } from "./services/request-cache.service";
+import { OfflineService } from "./services/offline.service";
+import { DataService } from "./services/data.service";
 
 @NgModule({
     declarations: [
@@ -58,13 +60,7 @@ import { RequestCacheService } from "./services/request-cache.service";
         { 
             provide: HTTP_INTERCEPTORS,
             useClass: MainInterceptor,
-            multi: true,
-            deps: [
-                Globals,
-                ConnectionService,
-                ResponseCacheService,
-                RequestCacheService
-            ]
+            multi: true
         },
         Globals,
         ScreenService,
@@ -73,8 +69,9 @@ import { RequestCacheService } from "./services/request-cache.service";
         PwaService,
         ConnectionService,
         ResponseCacheService,
-        RequestCacheService
-
+        RequestCacheService,
+        OfflineService,
+        DataService
     ],
     bootstrap: [AppComponent]
 })

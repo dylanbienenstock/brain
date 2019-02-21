@@ -20,8 +20,10 @@ export class NavbarComponent {
     }
 
     public path: string[] = [];
+    public rootDir: string = "dlb.fyi";
     public backSymbol: string = "...";
     public delimSymbol: string = ">";
+
     private fullscreen: boolean = false;
 
     onRouteChange(e: NavigationEnd) {

@@ -23,7 +23,7 @@ function prefixKey(key: string) {
 }
 
 function createRequestKey(req: HttpRequest<any>): string {
-    let key = `${ req.urlWithParams }-${ JSON.stringify(req.body) }`;
+    let key = `${req.url}-${JSON.stringify(req.body)}`;
 
     return prefixKey(key);
 }

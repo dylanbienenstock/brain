@@ -1,5 +1,6 @@
 import { TaskList, Task } from "../server/src/task-list/task-list.types";
 import { LogEntry } from "../server/src/intake-log/intake-log.types";
+import { OfflineDocument } from "../server/src/server.types";
 
 export enum AuthResult {
     VALID = 0,
@@ -13,6 +14,10 @@ export module Responses {
         error?: any;
     }
 
+    export interface Create {
+        offlineId?: string;
+    }
+
 
     // Authentication
     export interface Authenticate extends Generic {
@@ -23,7 +28,7 @@ export module Responses {
 
 
     // Task Lists
-    export interface CreateTaskList extends Generic {
+    export interface CreateTaskList extends Generic, Create {
         taskList?: TaskList;
     }
 
@@ -39,7 +44,7 @@ export module Responses {
 
 
     // Tasks
-    export interface CreateTask extends Generic {
+    export interface CreateTask extends Generic, Create {
         task?: Task;
     }
 
@@ -55,7 +60,7 @@ export module Responses {
 
 
     // Intake Log Entries
-    export interface CreateLogEntry extends Generic {
+    export interface CreateLogEntry extends Generic, Create {
         entry?: LogEntry;
     }
 

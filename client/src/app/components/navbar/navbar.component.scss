@@ -40,7 +40,9 @@
                 cursor: default;
             }
             
-            text-transform: capitalize;
+            &:not(.root) {
+                text-transform: capitalize;
+            }
 
             @include not-mobile {
                 &:hover:not(:last-child) {

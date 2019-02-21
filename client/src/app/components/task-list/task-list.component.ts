@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TaskList, Task } from '../../../../../server/src/task-list/task-list.types';
 import { HttpService } from '../../services/http.service';
 import { Responses } from '../../../../../shared/responses';
@@ -7,6 +7,7 @@ import { ScreenService } from '../../services/screen.service';
 import { NavbarService, NavbarExtensionClickEvent } from '../../services/navbar.service';
 import { Subscription } from 'rxjs';
 import { StringUtilService } from '../../services/string-util.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
     selector: 'app-task-list',
@@ -17,10 +18,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
     constructor(private httpService: HttpService,
                 private stringUtilService: StringUtilService,
+                private dataService: DataService,
                 public screenService: ScreenService,
-                public navbarService: NavbarService) { }
+                public navbarService: NavbarService,) { }
     
-    public taskLists: TaskList[] = [];
     public curListIndex: number;
     public curTaskIndex: number;
 
@@ -46,6 +47,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
     private parsedDates: { [dateStr: string]: Date } = { };
 
     // Convenience
+    public get taskLists(): TaskList[] {
+        return this.dataService.taskLists;
+    }
+
+    public set taskLists(val: TaskList[]) {
+        this.dataService.taskLists = val;
+    }
+
     public get curTaskList(): TaskList | null {
         return this.taskLists[this.curListIndex];
     }
@@ -135,18 +144,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
     // Navbar
     setNavbarExtensions() {
-        // let list = this.curTaskList;
-        // let listName = list && list.name;
-
-        // let task = this.curTask;
-        // let taskName = task && task.name
-
-        // this.navbarService
-        //     .setExtensions(this.navbarExtensionOwner, [
-        //         this.listSelected && `${this.listSymbol} ${listName || "<Untitled>"}`,
-        //         this.taskSelected && (taskName || "<Untitled>")
-        //     ]);
-
         this.navbarService
             .setExtensions(this.navbarExtensionOwner, [
                 this.listSelected && "Task List",
@@ -174,16 +171,16 @@ export class TaskListComponent implements OnInit, OnDestroy {
     // Task Lists
     createTaskList(name: string) {
         this.httpService.createTaskList({ name })
-        .subscribe((res: Responses.CreateTaskList) => {
-            if (!res.success) {
-                this.handleErr(`Failed to create task list.`, name, res);
+            .subscribe((res: Responses.CreateTaskList) => {
+                if (!res.success) {
+                    this.handleErr(`Failed to create task list.`, name, res);
 
-                return;
-            }
+                    return;
+                }
 
-            this.taskLists.push(res.taskList);
-            // this.onClickTaskList(this.taskLists.length - 1);
-        });
+                this.taskLists.push(res.taskList);
+                // this.onClickTaskList(this.taskLists.length - 1);
+            });
     }
 
     getTaskLists() {
@@ -194,10 +191,26 @@ export class TaskListComponent implements OnInit, OnDestroy {
                     return;
                 }
 
-                this.taskLists = res.taskLists
-                    .map((tl): TaskList => {
-                        return { ...tl, tasks: [] } as TaskList;
+                let taskLists = [ ...this.taskLists ];
+
+                res.taskLists.forEach((tlR) => {
+                    let i = taskLists.findIndex((tlD) => {
+                        return tlR._id == tlD._id ||
+                               tlR.offlineId == tlD._id;
                     });
+
+                    if (i == -1) {
+                        taskLists.push(tlR);
+                    } else {
+                        taskLists[i] = tlR;
+                    }
+                });
+
+                taskLists = taskLists.map((tl) => {
+                    return { ...tl, tasks: tl.tasks || [] } as TaskList;
+                });
+
+                this.taskLists = taskLists;
             });
     }
 
@@ -329,22 +342,38 @@ export class TaskListComponent implements OnInit, OnDestroy {
     getTasks(listId: string) {
         this.httpService.getTasks({ listId })
             .subscribe((res: Responses.GetTasks) => {
-                if (!res.success) {
-                    alert("Failed to get tasks.");
-                    return;
-                }
+                    if (!res.success) {
+                        alert("Failed to get tasks.");
+                        return;
+                    }
 
-                let taskList = this.taskLists.find(tl => tl._id == listId);
+                    let tlDI = this.taskLists.findIndex(tlD => tlD._id == listId);
+                    let taskList = { ...this.taskLists[tlDI] } as TaskList;
 
-                taskList.tasks = res.tasks.sort((_a, _b) => {
-                    let [a, b] = [this.parseDate(_a.date), this.parseDate(_b.date)];
+                    res.tasks.forEach((tR) => {
+                        let tDI = taskList.tasks.findIndex((tD) => {
+                            return tR._id == tD._id ||
+                                   tR.offlineId == tD._id
+                        });
 
-                    if (a < b) return -1;
-                    if (a > b) return 1;
+                        if (tDI == -1) {
+                            taskList.tasks.push(tR);
+                        } else {
+                            taskList.tasks[tDI] = tR;
+                        }
+                    });
+                
+                    taskList.tasks = taskList.tasks.sort((_a, _b) => {
+                        let [a, b] = [this.parseDate(_a.date), this.parseDate(_b.date)];
 
-                    return 0;
+                        if (a < b) return -1;
+                        if (a > b) return 1;
+
+                        return 0;
+                    });
+
+                    this.taskLists[tlDI] = taskList;
                 });
-            });
     }
 
     updateTask(req: Requests.UpdateTask) {
@@ -383,7 +412,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
     onCreateTask() {
         let listId = this.curTaskListId;
 
-        if (!listId) return;
+        if (!listId || !this.curTaskList.tasks) return;
 
         let name = this.defaultTaskName;
         let otherNames = this.curTaskList.tasks.map(t => t.name);
