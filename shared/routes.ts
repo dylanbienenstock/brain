@@ -10,7 +10,7 @@ export enum Routes {
     DeleteTaskList = "/api/tasklist/delete",
 
     // Tasks
-    createTask = "/api/task/create",
+    CreateTask = "/api/task/create",
     GetTasks = "/api/task/get",
     UpdateTask = "/api/task/update",
     DeleteTask = "/api/task/delete",

@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, OnDestroy } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { take, map } from 'rxjs/operators';
 
 import { Routes } from "../../../../shared/routes";
 import { Requests } from "../../../../shared/requests";
 import { Responses } from "../../../../shared/responses";
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { ConnectionService } from 'ng-connection-service';
+import { RequestCacheService } from './request-cache.service';
 
 const dateify = (res: any) => {
     for (let k in res) {
@@ -27,10 +28,58 @@ const dateify = (res: any) => {
 @Injectable({
     providedIn: 'root'
 })
-export class HttpService {
+export class HttpService implements OnDestroy {
 
     constructor(private httpClient: HttpClient,
-                private connectionService: ConnectionService) { }
+                private connectionService: ConnectionService,
+                private requestCacheService: RequestCacheService) {
+                    this.connectionStatusSub = 
+                        this.connectionService.monitor()
+                            .subscribe((connected) => {
+                                this.onConnectionStatusChanged(connected);
+                            });
+                }
+
+    private connectionStatusSub: Subscription;
+    private syncTimeout;
+
+    ngOnDestroy() {
+        this.connectionStatusSub.unsubscribe();
+    }
+
+    private onConnectionStatusChanged(connected: boolean) {
+        clearTimeout(this.syncTimeout);
+
+        if (connected) {
+            let allCachedRequests = this.requestCacheService.getAll();
+            console.log("ALL CACHED REQUESTS:", allCachedRequests);
+
+            this.syncTimeout = 
+                setTimeout(async () => {        
+                    if (!allCachedRequests || allCachedRequests.length == 0) return;
+        
+                    for (let req of allCachedRequests) {
+                        await new Promise((resolve) => {
+                            this.httpClient.request(req)
+                                .pipe(take(2))
+                                .subscribe((event) => {
+                                    if (event instanceof HttpResponse) {
+                                        console.log("[REQ-CACHE] Sync response:", event, "(", req, ")");
+                                        
+                                        let res = event.body as Responses.Generic;
+
+                                        if (!res.success) {
+                                            console.log(`[REQ-CACHE | "${req.urlWithParams}"] Error: ${res.error}`);
+                                        }
+
+                                        resolve();
+                                    }
+                                });
+                        });
+                    }
+                }, 1000);
+        }
+    }
 
     // Authentication
     authenticate(): 
@@ -82,7 +131,7 @@ export class HttpService {
     createTask(req: Requests.CreateTask):
         Observable<Responses.CreateTask> {
             return this.httpClient
-                .post(Routes.createTask, req)
+                .post(Routes.CreateTask, req)
                 .pipe(take(1)) as Observable<Responses.CreateTask>;
         }
 

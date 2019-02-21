@@ -54,7 +54,7 @@ export module Router {
 
 
         // Tasks
-        app.post(Routes.createTask, (req: Request, res: Response) => {
+        app.post(Routes.CreateTask, (req: Request, res: Response) => {
             Actions.createTask(req)
                 .then((response: Responses.CreateTask) => {
                     res.send(response);

@@ -1,6 +1,6 @@
 <div class="path">
     <ng-container *ngIf="!screenService.mobile">
-        <span class="dir" (click)="onDirClicked(-1)">Tools</span>
+        <span class="dir root" (click)="onDirClicked(-1)">{{ rootDir }}</span>
         <span class="delim">{{ delimSymbol }}</span>
 
         <ng-container *ngIf="path.length == 0">
@@ -27,7 +27,7 @@
     <ng-container *ngIf="screenService.mobile">
         <ng-container *ngIf="navbarService.extensions.length == 0">
             <ng-container *ngIf="path.length == 0">
-                <span class="dir">Tools</span>
+                <span class="dir root">{{ rootDir }}</span>
             </ng-container>
 
             <ng-container *ngIf="path.length > 0">

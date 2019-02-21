@@ -55,7 +55,7 @@ export module TaskListModule {
             let taskList;
             let error: any;
 
-            await TaskListModel.findByIdAndUpdate(req.listId, <TaskList> {
+            await TaskListModel.findOneAndUpdate({ _id: req.listId }, <TaskList> {
                 name: req.name,
                 description: req.description
             }).then((_taskList: TaskList) => {
@@ -91,6 +91,7 @@ export module TaskListModule {
     // Tasks
     export async function createTask(req: Requests.CreateTask):
         Promise<Responses.CreateTask> {
+
             let taskList: TaskList;
             let task: Task;
             let error: any;
@@ -159,19 +160,16 @@ export module TaskListModule {
 
             if (error) return { success: false, error };
 
-            let taskIndex = taskList.tasks
-                .findIndex(t => t._id == req.taskId);
-
-            if (taskIndex == -1) return { success: false };
-
-            let task = taskList.tasks[taskIndex] as Task & Types.Subdocument;
-
-            task.set(<ITask> {
+            await taskList.updateSubdocument("tasks", req.taskId, <ITask> {
                 name: req.name,
                 description: req.description,
                 date: req.date,
                 completed: req.completed,
                 urgent: req.urgent
+            })
+            .then()
+            .catch((err) => {
+                error = err;
             });
 
             await taskList.save()

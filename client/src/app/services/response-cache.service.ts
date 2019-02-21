@@ -6,7 +6,7 @@ interface ResponseValue {
     date: number;
 }
 
-interface CacheAdapter {
+interface ResponseCacheAdapter {
     maxAge: number;
 
     getKeys(): string[];
@@ -19,11 +19,11 @@ interface CacheAdapter {
 }
 
 function prefixKey(key: string) {
-    return `req-cache-${ key }`;
+    return `res-cache-${ key }`;
 }
 
 function createRequestKey(req: HttpRequest<any>): string {
-    let key = `${ req.urlWithParams }-${ JSON.stringify(req.body) }`;
+    let key = `${req.url}-${JSON.stringify(req.body)}`;
 
     return prefixKey(key);
 }
@@ -41,9 +41,9 @@ export class ResponseCacheService {
 
     constructor() { }
 
-    private adapters: CacheAdapter[] = [
-        new MemCacheAdapter(),
-        new LocalStorageAdapter()
+    private adapters: ResponseCacheAdapter[] = [
+        new ResponseMemCacheAdapter(),
+        new ResponseLocalStorageAdapter()
     ];
 
 
@@ -82,7 +82,7 @@ export class ResponseCacheService {
         let key = createRequestKey(req);
         let val = createResponseValue(res);
 
-        console.log("[REQ-CACHE] PUT:", key, "=", val);
+        console.log("[RES-CACHE] PUT:", key, "=", val);
 
         this._put(key, val);
     }
@@ -91,7 +91,7 @@ export class ResponseCacheService {
         let key = createRequestKey(req);
         let val = this._get(key);
 
-        console.log("[REQ-CACHE] GET:", key, "=", val);
+        console.log("[RES-CACHE] GET:", key, "=", val);
 
         if (!val || !val.res) return null;
 
@@ -99,11 +99,12 @@ export class ResponseCacheService {
     }
 }
 
-class MemCacheAdapter implements CacheAdapter {
+class ResponseMemCacheAdapter implements ResponseCacheAdapter {
     public maxAge = 1000 * 60 * 60;
 
     private keyList: string[] = [];
     private cache = new Map<string, ResponseValue>();
+
 
     public getKeys(): string[] {
         let keyList = this.keyList;
@@ -147,10 +148,11 @@ class MemCacheAdapter implements CacheAdapter {
     }
 }
 
-class LocalStorageAdapter implements CacheAdapter {
+class ResponseLocalStorageAdapter implements ResponseCacheAdapter {
     public maxAge = 1000 * 60 * 60 * 24;
 
     private keyListKey = prefixKey("-key-list");
+
 
     public getKeys(): string[] {
         let keyListRaw = localStorage.getItem(this.keyListKey);

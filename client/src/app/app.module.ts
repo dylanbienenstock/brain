@@ -30,6 +30,9 @@ import { KeyManagerComponent } from './components/key-manager/key-manager.compon
 import { PwaService } from "./services/pwa.service";
 import { ConnectionService } from "ng-connection-service";
 import { ResponseCacheService } from "./services/response-cache.service";
+import { RequestCacheService } from "./services/request-cache.service";
+import { OfflineService } from "./services/offline.service";
+import { DataService } from "./services/data.service";
 
 @NgModule({
     declarations: [
@@ -57,12 +60,7 @@ import { ResponseCacheService } from "./services/response-cache.service";
         { 
             provide: HTTP_INTERCEPTORS,
             useClass: MainInterceptor,
-            multi: true,
-            deps: [
-                Globals,
-                ConnectionService,
-                ResponseCacheService
-            ]
+            multi: true
         },
         Globals,
         ScreenService,
@@ -70,7 +68,10 @@ import { ResponseCacheService } from "./services/response-cache.service";
         StringUtilService,
         PwaService,
         ConnectionService,
-        ResponseCacheService
+        ResponseCacheService,
+        RequestCacheService,
+        OfflineService,
+        DataService
     ],
     bootstrap: [AppComponent]
 })

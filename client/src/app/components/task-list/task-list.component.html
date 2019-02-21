@@ -11,7 +11,7 @@
             <div class="list-delete-toggle"
             (click)="onToggleDeletingTaskLists()"
             [class.deleting]="deletingLists"
-            [class.placeholder]="taskLists.length == 0 || deletingTasks">
+            [class.placeholder]="taskLists?.length == 0 || deletingTasks">
                 <span class="text">
                     {{ deletingLists ? '[x]' : '[-]' }}
                 </span>      
