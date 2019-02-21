@@ -163,8 +163,6 @@ class RequestLocalStorageAdapter implements RequestCacheAdapter {
             };
         });
 
-        console.log("BIG FUCK", allVals);
-
         return allVals;
     }
     
@@ -176,9 +174,6 @@ class RequestLocalStorageAdapter implements RequestCacheAdapter {
         }
 
         localStorage.removeItem(this.keyListKey);
-
-        console.log("SHIGGY", this.getKeyList());
-
     }
 
     public put(rule: CacheReq, key: string, val: RequestValue): void {
